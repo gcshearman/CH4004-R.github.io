@@ -9,14 +9,25 @@ website:
         text: Home
       - about.qmd
       - intro.qmd
+      
+filters:
+  - live
+
+webr:
+  packages:
+    - base
+    - gradethis
+    - tidyverse
 
 format:
-  html:
+  live-html:
     theme:
       - cosmo
       - brand
     css: styles.css
     toc: true
+
+engine: knitr
 
 editor: visual
 
