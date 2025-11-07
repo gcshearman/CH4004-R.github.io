@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "Intro",
+    "section": "",
+    "text": "#| edit: false\n#| output: false\nwebr::install(\"gradethis\", quiet = TRUE)\nlibrary(gradethis)\noptions(webr.exercise.checker = function(\n  label, user_code, solution_code, check_code, envir_result, evaluate_result,\n  envir_prep, last_value, engine, stage, ...\n) {\n  if (is.null(check_code)) {\n    # No grading code, so just skip grading\n    invisible(NULL)\n  } else if (is.null(label)) {\n    list(\n      correct = FALSE,\n      type = \"warning\",\n      message = \"All exercises must have a label.\"\n    )\n  } else if (is.null(solution_code)) {\n    list(\n      correct = FALSE,\n      type = \"warning\",\n      message = htmltools::tags$div(\n        htmltools::tags$p(\"A problem occurred grading this exercise.\"),\n        htmltools::tags$p(\n          \"No solution code was found. Note that grading exercises using the \",\n          htmltools::tags$code(\"gradethis\"),\n          \"package requires a model solution to be included in the document.\"\n        )\n      )\n    )\n  } else {\n    gradethis::gradethis_exercise_checker(\n      label = label, solution_code = solution_code, user_code = user_code,\n      check_code = check_code, envir_result = envir_result,\n      evaluate_result = evaluate_result, envir_prep = envir_prep,\n      last_value = last_value, stage = stage, engine = engine)\n  }\n})\n#| runbutton: true\nmean(c(1, 2, 3))"
+  },
+  {
+    "objectID": "intro.html#quarto",
+    "href": "intro.html#quarto",
+    "title": "Intro",
+    "section": "Quarto",
+    "text": "Quarto\nQuarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org."
+  },
+  {
+    "objectID": "intro.html#running-code",
+    "href": "intro.html#running-code",
+    "title": "Intro",
+    "section": "Running Code",
+    "text": "Running Code\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\n[1] 2\n\n\nYou can add options to executable code like this\n\n\n[1] 4\n\n\nThe echo: false option disables the printing of code (only output is displayed)."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "CH4004-R.github.io",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+  }
+]
