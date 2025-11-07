@@ -1,0 +1,650 @@
+---
+title: "Workshop 2"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}} 
+{{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
+
+## Welcome to Workshop 2: Cleaning and Wrangling Your Chemistry Data
+
+In this workshop, you will learn how to:
+
+-   Load a chemistry dataset into R
+-   Inspect the data to identify common issues
+-   Prepare for cleaning and wrangling tasks
+
+We will be working with two datasets:
+
+(1) The **ESOL dataset**, which contains aqueous solubility data for chemical compounds. This dataset has some intentional data issues for you to spot and fix.
+
+(2) The **Lipophilicity** dataset, which contains experimental logD values for small molecules, where the term *lipophilicity* represents a measure of how well a substance dissolves in fats, oils and lipids vs water!
+
+### How to use Code Chunks in this Worksheet?
+
+In this tutorial, you'll see two types of code chunks:
+
+-   **Run Code chunks**: These are for trying things out — there's no "Submit Answer" button. Just write code and click *Run Code* to see what happens!
+
+-   **Submit Answer chunks**: These ask you to complete a task. Once you're happy with your answer (you can test it using *Run Code*), click *Submit Answer* to check your work... you'll get feedback right away.
+
+Some exercises also come with **Hint** buttons to help you if you get stuck. Give it a try, there's no penalty for exploring or making mistakes!
+
+### Example 1: "Run Code" type 1 Chunk
+
+This is a **Run Code** chunk: there's nothing to submit, you're just playing with code!
+
+Try running the code below to make R say hello:
+
+```{webr}
+# Make R say hello!
+print("Hello from R!")
+```
+
+------------------------------------------------------------------------
+
+### Example 2: "Run Code" Chunk type 2 (for graded feedback)
+
+This is also a **Run Code** chunk. But... this time, after you've typed your answer and clicked **Run Code**, you'll get graded feedback that will tell you if you're correct and may even give you a hint about how to improve your answer!
+
+Talking of hints... you'll see that, in this example, that there is also a button called `Show Hint`. Try clicking it and see what happens! 
+
+In this example, we'll use `nchar()` to count the number of letters in the word `"banana"` and assign it to a variable called `banana_length`. Simply fill in the blank!
+
+```{webr}
+#| caption: Fill in the blank
+#| exercise: banana-example
+ banana_length <- nchar("____")
+
+```
+
+::: {.hint exercise="banana-example"}
+::: {.callout-note collapse="false"}
+## Hint 1
+
+Remember to keep the name of the word to be counted in inverted commas " ".
+:::
+:::
+
+::: {.solution exercise="banana-example"}
+
+## Fully worked solution
+
+```{webr}
+#| exercise: banana-example
+#| solution: true
+banana_length <- nchar("banana")
+```
+
+:::
+
+```{webr}
+#| exercise: banana-example
+#| check: true
+gradethis::grade_this_code()
+```
+
+### Data Source Acknowledgement
+
+The ESOL and Lipophilicity datasets used in this workshop are from [MoleculeNet](https://moleculenet.org/),\
+a benchmarking platform for molecular machine learning datasets.\
+Please refer to Wu et al., *MoleculeNet: a benchmark for molecular machine learning*, Chemical Science, 2018, 9, 513-530 for details.
+
+We thank the authors and contributors for making these datasets publicly available.
+
+## Understanding R packages
+
+If you remember from last week, packages in R are like plug-ins or apps for R. They add extra tools and features that don't come built-in, so you can do more things easily, such as reading data files or cleaning your data.
+
+In this case, as we'll be importing and manipulating datasets today, we'll use the `readr` package to import .csv files and `dplyr` for data manipulation.
+
+### How package installation works
+
+When working on your own computer and R, you would install packages using the `install.packages()` command. For example:
+
+``` r
+install.packages("readr")
+install.packages("dplyr")
+```
+
+However, for the sakes of this tutorial, these have already been installed automatically for you. In R Studio, you can find out which packages have been installed by looking at the 'Packages' tab in the bottom right pane to spot them!
+
+**Important notes about installing packages:**\
+Package names must be in quotation marks: `install.packages("dplyr")`. Without quotes, as shown in the example here, you'll get an error: `install.packages(dplyr)`\
+You only need to install a package once on your computer (assuming that this is not using the KU environment, which wipes this!). The setup script already checked for you and only installed packages you didn't already have.
+
+### Exercise: Loading packages
+
+After packages are installed, you need to **load** them to use their functions. This is done with the `library()` function. Slightly differently from `install.packages`, you don't have to have inverted commas around the name though (it doesn't matter whether you have them or not). For example, if you wanted to load the 'beepr' package (having installed it first!), you'd type:
+
+``` r
+library(bleepr)
+```
+
+In case, by the way, you're wondering what the `bleepr` package is, it's as the name suggests... a package that enables you to get an audible alert whenever your code finishes. 
+
+Anyway, back to the task at hand! Think of the difference between using `install.packages` and `library` like downloading an app from an app Store vs opening an app. You only need to download an app once on your device (or in your R environment). However, even if the app is installed, you can’t use it until you open it. And... every time you restart your computer or your phone (or R session), you'll need to open the app again.
+
+Try loading both `readr` and `dplyr` in the box below:
+
+```{webr}
+#| exercise: load-packages-exercise
+
+
+
+```
+
+::: {.hint exercise="load-packages-exercise"}
+::: {.callout-note collapse="false"}
+## Hint 1
+
+Use the `library()` function to load packages!
+Package names do NOT need quotes in library. For the package `readr` this would look like:
+
+```r
+library(readr)
+```
+Now you do the same for dplyr!
+
+:::
+:::
+
+::: {.hint exercise="load-packages-exercise"}
+::: {.callout-note collapse="false"}
+## Hint 2
+
+Use the library() function to load packages. Remember, package names do NOT need quotes in library().
+
+```r
+library(readr)
+library(dplyr)
+```
+
+:::
+:::
+
+::: {.solution exercise="load-packages-exercise"}
+
+## Fully worked solution
+
+```{webr}
+#| exercise: load-packages-exercise
+#| solution: true
+library(readr)
+library(dplyr)
+```
+:::
+
+```{webr}
+#| exercise: load-packages-exercise
+#| check: true
+gradethis::grade_this_code()
+```
+
+```{webr}
+#| include: false
+library(readr)
+library(dplyr)
+```
+
+**Note:** Again, just to reiterate, unlike installation (i.e. using `install.packages`), you need to load packages with `library()` *every* time you start a new R session!
+
+## Why Cleaning Your Data Matters in Chemistry
+
+In pharmaceutical and chemical research, your data is only as good as its **quality**.
+
+Whether you're working with:
+
+-   *Experimental data* (e.g. solubility measurements from the lab), or\
+-   *Literature-mined data* (e.g. scraped or compiled from journal articles or public databases),
+
+…there are often **errors, inconsistencies, or missing values** that need fixing before any meaningful analysis.
+
+### Common data problems in chemistry:
+
+-   **Missing or incomplete values** (e.g. no logS reported for some compounds)\
+-   **Units or scales that don’t match** (e.g. logP vs. logD, or µg/mL vs. mol/L)\
+-   **Inconsistent naming** of chemical compounds\
+-   **Duplicate entries** in literature-mined datasets\
+-   **Implausible values** (e.g. negative molecular weights!)
+
+> **Why it matters:**\
+> If we skip the cleaning step, we risk drawing wrong conclusions — or feeding errors into models or visualisations. It’s like trying to bake a cake with the wrong ingredients.
+
+------------------------------------------------------------------------
+
+## Importing the ESOL Dataset
+
+Now let's load a sample dataset: **ESOL**, a solubility dataset containing chemical compounds with their predicted aqueous solubility (`logS`), molecular weight (`MolWt`), and other properties.
+
+> We’ve introduced a few intentional issues to simulate what real chemical datasets often look like!
+
+You can access the file `esol_messy.csv` from the data folder associated with this tutorial.
+
+------------------------------------------------------------------------
+
+### Exercise: Import the ESOL dataset
+
+You’re going to import the file `esol_messy.csv` into R using `read_csv()` from the `readr` package.
+
+> **Important reminder:**\
+> When you use `read_csv()`, it **reads the data** — but it doesn't automatically store it anywhere.\
+> You need to **assign** the result to a data frame (just like we did last week) using the `<-` operator.
+
+For this exercise, please assign your data to an object called `esol_data `. The file itself is called `esol_messy.csv` and it's in a folder called `data`. You will therefore have to group these two together as: `data/esol_messy.csv`.
+
+Okay... your go! Please have a go at importing your data using `read_csv()`:
+
+```{webr}
+#| exercise: import-esol-exercise
+#| min-lines: 2
+
+
+
+```
+
+Hopefully that's worked!! Don't worry if your code didn't quite work though... I've made sure the dataset is available behind the scenes so you can still follow along with the next steps. But... just in case you had any issues, and if you want to keep on, feel free to go back and try again!
+
+*Tip*: You can use the `print()` command with the name of your variable (here: esol_data) e.g. `print(VARIABLE)` to display the entire dataset (or as much of it as fits in your window). This can help you get a quick overview of the data contents. Why don't you try that in the box below:
+
+```{webr}
+#| setup: true
+#| exercise:
+#|  - print-esol-data
+#|  - explore-esol-data
+#|  - clean-esol-guided
+
+esol_data <- read_csv("data/esol_messy.csv", show_col_types = FALSE)
+```
+
+```{webr}
+#| exercise: print-esol-data
+
+
+```
+
+::: {.hint exercise="print-esol-data"}
+::: {.callout-note collapse="false"}
+## Hint 1
+
+Use the print() function with the name of the function (here: esol_data)
+
+```r
+print(esol_data)
+```
+:::
+:::
+
+
+
+
+::: {.solution exercise="print-esol-data"}
+
+## Fully worked solution
+
+```{webr}
+#| exercise: print-esol-data
+#| solution: true
+print(esol_data)
+```
+:::
+
+
+```{webr}
+#| exercise: print-esol-data
+#| check: true
+gradethis::grade_this_code()
+```
+
+Take particular note of the names of the columns (you'll need this later).
+
+FYI, you can add a couple of options to the print command: `n =` and `width =` e.g. `print(VARIABLE, n = 25, width = Inf)` to change the number of columns and rows shown
+
+## Exploring the ESOL Dataset
+
+Now that you've imported the **ESOL dataset**, let’s take a look at what we’re dealing with.
+
+This data was collected from a combination of experimental and literature-mined sources. While useful, it’s also a bit... messy.
+
+Let’s inspect it to see what needs cleaning!
+
+Three useful functions to help you explore any data frame are:
+
+-   `head(data)` – shows you the **first few rows** of your data. Great for a quick peek!
+-   `str(data)` – shows you the **structure** of the dataset: column names, data types, and examples.
+-   `summary(data)` – gives you **summary statistics** for each column: min, max, median, and so on.
+
+#### Try this in the code box below:
+
+Use the following functions to explore your dataset. The \# symbol can be useful for you here... in code, it means 'comment' and tells R not to read either itself or anything after it on the same time. When coding, it's important to comment throughout so that both you and anyone else can understand your code.
+
+So... try using the `#` symbol to block out any two of the functions at any one time, then select 'run code' to see what the other function does - and then repeat the loop for the other two functions.
+
+```{webr}
+#| exercise: explore-esol-data
+
+head(esol_data)     # Shows the first few rows
+str(esol_data)      # Shows structure and data types
+summary(esol_data)  # Gives quick summaries for each column
+
+```
+
+### What should you be looking for?
+
+As you explore the data, keep an eye out for:
+
+-   **Missing values** — are there any `NA`s?
+-   **Weird formatting** — for example, compound names in ALL CAPS or with trailing spaces
+-   **Outliers** — very large or small values that don’t seem realistic
+-   **Duplicates** — are there repeated compounds?
+
+These are all common issues in real-world datasets, and spotting them is the first step toward fixing them!
+
+## Cleaning the ESOL Dataset
+
+Now that you've had a chance to explore the dataset, let's start cleaning it!
+
+We'll do this step by step using `dplyr` functions (you should have loaded this into the memory earlier using `library(dplyr)`). Your job is to fill in the blanks.
+
+::: callout-note
+*Tip*: Use `filter()` to remove rows, `mutate()` to create or modify columns, and `distinct()` to remove duplicates.
+:::
+
+Try the code below. Fill in the blanks with the appropriate column heading name (you'll need to remove the "\_\_\_\_" bits first (just remember *this is important* that if your heading has spaces in, you'll need to put the whole heading name between `backticks` i.e. \`. The`backtick` \` button is often found just above the 'tab' button)!
+
+
+```{webr}
+#| exercise: clean-esol-guided
+
+# Start with the original esol_data
+clean_esol <- esol_data %>%
+  # 1. Remove rows where logS is missing
+  filter(!is.na("____")) %>%
+  # 2. Standardise the compound names
+  mutate(compound = tolower(trimws("____"))) %>%
+  # 3. Remove duplicate rows
+  distinct()
+
+
+```
+
+::: {.hint exercise="clean-esol-guided"}
+::: {.callout-note collapse="false"}
+## Hint 1
+
+Remember, the names of the headings are: 
+The compound names: Compound ID
+The logS values: ESOL predicted log solubility in mols per litre
+
+:::
+:::
+
+::: {.solution exercise="clean-esol-guided"}
+
+## Fully worked solution
+
+```{webr}
+#| exercise: clean-esol-guided
+#| solution: true
+
+# Start with the original esol_data
+clean_esol <- esol_data %>%
+  # 1. Remove rows where logS is missing
+  filter(!is.na(`ESOL predicted log solubility in mols per litre`)) %>%
+  # 2. Standardise the compound names
+  mutate(compound = tolower(trimws(`Compound ID`))) %>%
+  # 3. Remove duplicate rows
+  distinct()
+```
+  
+:::
+
+```{webr}
+#| exercise: clean-esol-guided
+#| check: true
+gradethis::grade_this_code()
+```
+
+### Understanding Each Cleaning Step
+
+Let’s take a moment to understand exactly what each line of the cleaning pipeline is doing...
+
+``` r
+clean_esol <- esol_data %>%
+```
+
+We’re building a data cleaning pipeline using the pipe operator (%\>%). This means each line takes the result from the previous step and passes it forward to the next one.
+
+Let’s break it down step-by-step:
+
+##### (a) `filter(!is.na("  "))`
+
+``` r
+filter(!is.na(`ESOL predicted log solubility in mols per litre`))
+```
+
+-   `filter()` is used to keep only certain rows of the data.
+-   `is.na(`ESOL predicted log solubility in mols per litre`)` checks for missing values (NAs) in the "ESOL predicted log solubility in mols per litre" column.
+-   `!is.na(`ESOL predicted log solubility in mols per litre`)` means “not missing”, so this line keeps only rows where there is a value for logS.
+
+##### (b) `mutate(compound = tolower(trimws("   ")))`
+
+``` r
+mutate(compound = tolower(trimws(`Compound ID`)))
+```
+
+-   `mutate()` is used to modify or create a new column.
+-   Inside it, we’re creating a new compound column.
+-   `trimws()` removes leading and trailing whitespace from the compound names.
+-   `tolower()` converts all characters to lowercase.
+
+Together, this helps standardise the formatting of compound names (e.g. fixing " ACETAMINOPHEN " to "acetaminophen").
+
+##### (c) `distinct()`
+
+``` r
+distinct()
+```
+
+-   The command `distinct()` removes duplicate rows from the data frame.
+-   Sometimes in real datasets, the same compound appears more than once — this helps clean that up.
+-   If you want to remove duplicates only based on certain columns, you can do: `distinct(compound, .keep_all = TRUE)`.
+
+### Final result
+
+The cleaned dataset is now stored in a new object called clean_esol. This is what you’ll use going forward in your analysis — it's more reliable and ready for real work!
+
+## Comparing the Messy and Clean ESOL Data
+
+Now that you’ve cleaned your dataset and created `esol_clean`, let’s compare it to the original messy version (`esol_messy`) to see what’s changed.
+
+```{webr}
+#| setup: true
+#| exercise:
+#|  - compare_dimensions
+#|  - compare-dimensions-summary
+#|  - compare-unique-compounds
+#|  - spot-format-fixes
+#|  - combine-lipo-esol
+#|  - explore-comb-data
+
+esol_data <- readr::read_csv("data/esol_messy.csv", show_col_types = FALSE)
+clean_esol <- esol_data %>%
+  # 1. Remove rows where logS is missing
+  filter(!is.na(`ESOL predicted log solubility in mols per litre`)) %>%
+  # 2. Standardise the compound names
+  mutate(compound = tolower(trimws(`Compound ID`))) %>%
+  # 3. Remove duplicate rows
+  distinct()
+
+lipo_data <- read_csv("data/Lipophilicity.csv", show_col_types = FALSE)
+clean_lipo <- lipo_data %>%
+  # 1. Remove rows where logP is missing
+  filter(!is.na(exp)) %>%
+  # 2. Remove duplicate rows
+  distinct()
+combined_data <- left_join(clean_esol, clean_lipo, by = "smiles")
+```
+
+### 1. Compare Dimensions
+
+Use `nrow()` and `ncol()` to check how many rows and columns each version (i.e. `esol_data` and `clean_esol`) has. Run the code below to see what happens...
+
+```{webr}
+#| exercise: compare_dimensions
+nrow(esol_data)
+nrow(clean_esol)
+
+ncol(esol_data)
+ncol(clean_esol)
+```
+
+### 2. Compare Summaries
+
+Use `summary()` to compare key columns (like logS (i.e. "ESOL predicted log solubility in mols per litre") or MolWt i.e. "Molecular Weight"). Try running the code below and then the column for another.
+
+```{webr}
+#| exercise: compare-dimensions-summary
+
+summary(esol_data$`ESOL predicted log solubility in mols per litre`)
+summary(clean_esol$`ESOL predicted log solubility in mols per litre`)
+```
+
+### 3. Compare Unique Compounds
+
+Let’s see how many unique compounds are in each dataset. Remember, earlier you created a new column called 'compound' when you cleaned the 'Compound ID' column.
+
+```{webr}
+#| exercise: compare-unique-compounds
+
+length(unique(esol_data$`Compound ID`))
+length(unique(clean_esol$compound))
+```
+
+### Spot Formatting Fixes
+
+Try printing a few rows to visually inspect any fixes to formatting.
+
+```{webr}
+#| exercise: spot-format-fixes 
+
+head(esol_data$`Compound ID`, 5)
+head(clean_esol$compound, 5)
+```
+
+You should see that names in the cleaned data are now lowercase and free of trailing spaces.
+
+### What Should You Notice?
+
+-   Fewer rows? Good! You cleaned out invalid entries or duplicates.
+-   Improved summaries? Excellent — weird or missing values are likely gone.
+-   Tidier names? Formatting is more consistent for analysis or merging.
+
+You're now ready to move on to combine this cleaned data with another!
+
+## Combining Datasets Using a Shared Column
+
+Now that you've had practice cleaning the **ESOL** dataset, it's time to bring in a second dataset **Lipophilicity** and learn how to **combine datasets** in R!
+
+In real-world data science, it's often helpful to combine different datasets to create a richer picture of your information. Here, we’ll match compounds between datasets using a common column: the **SMILES** string, which uniquely encodes the structure of each molecule.
+
+### What is SMILES?
+
+SMILES stands for **Simplified Molecular Input Line Entry System**. It's a compact way to represent a chemical structure using a string of text (e.g., `"CCO"` for ethanol).
+
+Both the ESOL and Lipophilicity datasets contain a `SMILES` column (actually written in lowercase in the datasets), so even if the compounds are named differently elsewhere, we can match them using this column.
+
+The Lipophilicity dataset has already been imported and cleaned, just to save you the trouble! This cleaned dataset is in a dataframe called: **clean_lipo**. Remember, your cleaned ESOL dataset is also in a dataframe called: **clean_esol**.
+
+------------------------------------------------------------------------
+
+### Joining Two Datasets in R
+
+In R, we use the `dplyr::left_join()` function to combine two data frames.
+
+Here’s what the syntax looks like:
+
+``` r
+combined_data <- left_join(clean_esol, clean_lipo, by = "smiles")
+```
+
+This line says:
+
+-   “Take the clean ESOL data (`clean_esol`)...”
+-   “...and add matching rows from the clean Lipophilicity data (`clean_lipo`)...”
+-   “...based on the values in the `SMILES` column.”
+
+The result is a new data frame (`combined_data`) that contains:
+
+-   All rows from `clean_esol`
+-   Any matching columns from `clean_lipo`, added alongside
+
+### Why might some rows not match?
+
+Remember, not every molecule in the ESOL dataset will be found in the Lipophilicity dataset, and that’s okay! The `left_join()` function keeps all of the data from the left table (`clean_esol`), and only fills in values from `clean_lipo` where it finds matching `SMILES` codes.
+
+This means we might see NAs in the Lipophilicity columns for compounds that don’t have a match... that's completely normal!
+
+Try running it yourself in the blank box below:
+
+```{webr}
+#| exercise: combine-lipo-esol
+
+```
+
+
+::: {.hint exercise="combine-lipo-esol"}
+::: {.callout-note collapse="false"}
+## Hint 1
+
+Look above!
+:::
+:::
+
+::: {.solution exercise="combine-lipo-esol"}
+
+```{webr}
+#| exercise: combine-lipo-esol
+#| solution: true
+combined_data <- left_join(clean_esol, clean_lipo, by = "smiles")
+```
+
+:::
+
+```{webr}
+#| exercise: combine-lipo-esol
+#| check: true
+gradethis::grade_this_code()
+```
+
+### Exploring Your Joined Data: `combined_data`
+
+Now that you’ve created a new data frame called `combined_data`, let’s take a moment to explore it and see what you’re working with. Use the `head()`, `str()` and `summary()` commands that we covered earlier to do this in the box below:
+
+```{webr}
+#| exercise: explore-comb-data
+
+
+```
+
+### Well Done – You’ve Completed Workshop 2!
+
+You’ve just worked through a full data cleaning and wrangling workflow using **real chemistry datasets** — that’s no small feat! Here’s a quick recap of what you accomplished:
+
+✅ You successfully **imported messy chemical data** using `readr::read_csv()`\
+✅ You used `dplyr` and `tidyr` to **clean and wrangle your data**\
+✅ You learned how to spot **missing values, weird formatting, and duplicates**\
+✅ You created new variables and standardised your data\
+✅ You **joined two datasets** using a common key (`SMILES`) to create a richer dataset\
+✅ You explored your cleaned, combined dataset like a pro!
+
+------------------------------------------------------------------------
+
+### What should you take away from this tutorial?
+
+-   Cleaning data is a vital step in any data science project — messy data leads to misleading results.
+-   Tools like `filter()`, `mutate()`, and `select()` give you full control over how your data is structured.
+-   Combining datasets can open the door to deeper analysis, comparisons, and insight — especially in fields like **chemoinformatics**.
+
+<br><br><br>
+
+> **License:** This tutorial is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).

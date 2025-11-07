@@ -9,9 +9,13 @@ website:
         text: Home
       - about.qmd
       - intro.qmd
+      - Workshop2.qmd
       
 filters:
   - live
+
+resources:
+  - data
 
 webr:
   packages:
