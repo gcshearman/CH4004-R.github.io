@@ -374,12 +374,6 @@ install.packages("ggplot2")
 
 Now load the package:
 
-```{webr}
-#| context: setup
-webr::install("ggplot2")
-library(ggplot2)
-```
-
 <br>
 
 ### Step 2: Create a simple data frame
@@ -404,9 +398,12 @@ print(data)
 
 We'll now create a scatter plot showing Concentration vs. Time, and then connect the points with a line to show the trend.
 
-```{r}
-# Create a scatter plot with a line
+```{webr}
 
+webr::install("ggplot2")
+library(ggplot2)
+
+# Create a scatter plot with a line
 ggplot(data, aes(x = Time, y = Concentration)) + 
   geom_point() +             # add the points 
   geom_line() +              # connect the points with a line 
@@ -443,7 +440,13 @@ You should see a plot that shows the drug concentration decreasing over time, a 
 
 -   Add a new patient or condition and compare their profiles side-by-side (optional -- challenge task).
 
-```{r}
+```{webr}
+
+```{webr}
+
+webr::install("ggplot2")
+library(ggplot2)
+
 # Your turn: modify the dataset or try new values
 
 my_data <- data.frame( 
