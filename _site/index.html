@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>CH4004-R.github.io</title>
+<title>Home – CH4004 R programming</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,41 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -122,7 +87,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
     </a>
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">CH4004-R.github.io</span>
+    <span class="navbar-title">CH4004 R programming</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -136,16 +101,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
-<span class="menu-text">About</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./intro.html"> 
-<span class="menu-text">Introduction</span></a>
+    <a class="nav-link" href="./Workshop1.html"> 
+<span class="menu-text">Workshop 1</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./Workshop2.html"> 
-<span class="menu-text">Workshop 2: Data in a Lab Coat: Cleaning and Wrangling your Chemistry Data</span></a>
+<span class="menu-text">Workshop 2</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -158,15 +119,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#welcome-to-the-r-programming-workshops-for-pharmaceutical-science-and-chemistry" id="toc-welcome-to-the-r-programming-workshops-for-pharmaceutical-science-and-chemistry" class="nav-link active" data-scroll-target="#welcome-to-the-r-programming-workshops-for-pharmaceutical-science-and-chemistry">Welcome to the R programming workshops for Pharmaceutical Science and Chemistry</a></li>
+  <li><a href="#workshops" id="toc-workshops" class="nav-link" data-scroll-target="#workshops">Workshops</a></li>
+  <li><a href="#examples-where-r-is-used-in-chemistry-pharmaceutical-science" id="toc-examples-where-r-is-used-in-chemistry-pharmaceutical-science" class="nav-link" data-scroll-target="#examples-where-r-is-used-in-chemistry-pharmaceutical-science">Examples where R is used in Chemistry &amp; Pharmaceutical Science</a>
+  <ul class="collapse">
+  <li><a href="#analytical-chemistry" id="toc-analytical-chemistry" class="nav-link" data-scroll-target="#analytical-chemistry">Analytical Chemistry</a></li>
+  <li><a href="#medicinal-chemistry" id="toc-medicinal-chemistry" class="nav-link" data-scroll-target="#medicinal-chemistry">Medicinal Chemistry</a></li>
+  <li><a href="#pharmacokinetics" id="toc-pharmacokinetics" class="nav-link" data-scroll-target="#pharmacokinetics">Pharmacokinetics</a></li>
+  <li><a href="#formulations" id="toc-formulations" class="nav-link" data-scroll-target="#formulations">Formulations</a></li>
+  </ul></li>
+  <li><a href="#useful-r-packages" id="toc-useful-r-packages" class="nav-link" data-scroll-target="#useful-r-packages">Useful R packages</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">CH4004-R.github.io</h1>
+<h1 class="title">Home</h1>
 </div>
 
 
@@ -183,14 +159,145 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This is a Quarto website.</p>
-<p>To learn more about Quarto websites visit <a href="https://quarto.org/docs/websites" class="uri">https://quarto.org/docs/websites</a>.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
-</div>
-</div>
+<section id="welcome-to-the-r-programming-workshops-for-pharmaceutical-science-and-chemistry" class="level2">
+<h2 class="anchored" data-anchor-id="welcome-to-the-r-programming-workshops-for-pharmaceutical-science-and-chemistry">Welcome to the R programming workshops for Pharmaceutical Science and Chemistry</h2>
+<p>This set of workshops will guide you from the basics of R to data analysis relevant to your field. These will support you throughout your time at Kingston University and will also provide you with an invaluable <em>future skill</em>.</p>
+</section>
+<section id="workshops" class="level2">
+<h2 class="anchored" data-anchor-id="workshops">Workshops</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 40%">
+<col style="width: 49%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Workshop</th>
+<th>Title</th>
+<th>Skills Learned</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>R You Ready? Getting Started with Chemistry Data!</td>
+<td>Introduction to R Basic syntax Simple plotting</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Data in a Lab Coat: Cleaning and Wrangling Your Chemistry Data</td>
+<td>Importing data using <code>readr</code><br>
+Data cleaning and manipulation using <code>dplyr</code></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Plotting Power! Visualizing Your Data Like a Pro</td>
+<td>Complex visualizations for scientific data Advanced <code>ggplot2</code> visualizations</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Make It Match! The Magic of Correlation and Regression</td>
+<td>Performing correlation and linear regression analysis</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Tox Talk: Exploring Toxicity Data with Statistics</td>
+<td>Introduction to using R for statistical tests for comparing groups (e.g., t-tests, ANOVA)</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Statistics Are Sexy: Hypothesis Testing and p values</td>
+<td>Introduction to the use of R for hypothesis testing and interpreting p-values</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>It’s All About the Data: Big Data in Chemistry</td>
+<td>Introduction to big data analysis using R</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Chemical Reactions and Functions: R-ing the Curve!</td>
+<td>Applying functions and curve fitting to real-world chemical data</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>The Plot Thickens: Beautiful Data Visualization</td>
+<td>Advanced <code>ggplot2</code> techniques for data visualization</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>Statistical Sherlock: Investigating Toxicity with Statistics</td>
+<td>Conducting statistical hypothesis testing to compare experimental groups</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="examples-where-r-is-used-in-chemistry-pharmaceutical-science" class="level2">
+<h2 class="anchored" data-anchor-id="examples-where-r-is-used-in-chemistry-pharmaceutical-science">Examples where R is used in Chemistry &amp; Pharmaceutical Science</h2>
+<p>The following is a collection of journal articles (links to!) where R has been critical in pushing forwards the boundaries of science in the following contexts (this list will be extended as we go on!):</p>
+<section id="analytical-chemistry" class="level3">
+<h3 class="anchored" data-anchor-id="analytical-chemistry">Analytical Chemistry</h3>
+<ul>
+<li><p>Exploratory multivariate analysis using R Language for method development in liquid chromatography | Analytical and Bioanalytical Chemistry (<a href="https://link.springer.com/article/10.1007/s00216-024-05705-y?" class="uri">https://link.springer.com/article/10.1007/s00216-024-05705-y?</a>)</p></li>
+<li><p>Utilizing High-Resolution Mass Spectrometry Data Mining Strategy in R Programming Language for Rapid Annotation of Absorbed Prototypes and Metabolites of Gypenosides | Molecules (<a href="https://www.mdpi.com/1420-3049/30/4/779" class="uri">https://www.mdpi.com/1420-3049/30/4/779</a>)</p></li>
+</ul>
+</section>
+<section id="medicinal-chemistry" class="level3">
+<h3 class="anchored" data-anchor-id="medicinal-chemistry">Medicinal Chemistry</h3>
+<ul>
+<li>The Use of the R Language for Medicinal Chemistry Applications | Bentham Science (<a href="https://www.eurekaselect.com/article/48427" class="uri">https://www.eurekaselect.com/article/48427</a>)</li>
+</ul>
+</section>
+<section id="pharmacokinetics" class="level3">
+<h3 class="anchored" data-anchor-id="pharmacokinetics">Pharmacokinetics</h3>
+<ul>
+<li><p>Design Evaluation and Optimization of Population Pharmacokinetics Model Using an R Package PopED (<a href="https://www.mdpi.com/2227-7390/11/21/4407" class="uri">https://www.mdpi.com/2227-7390/11/21/4407</a>)</p></li>
+<li><p>Enabling transparent toxicokinetic modeling for public health risk assessment | PLOS One (<a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0321321" class="uri">https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0321321</a>)</p></li>
+</ul>
+</section>
+<section id="formulations" class="level3">
+<h3 class="anchored" data-anchor-id="formulations">Formulations</h3>
+<ul>
+<li>AI-Driven Pharmaceutical Data Analysis Tool for Drug Formulation Development | Journal of Pharmaceutical Innovation (<a href="https://link.springer.com/article/10.1007/s12247-025-10203-4" class="uri">https://link.springer.com/article/10.1007/s12247-025-10203-4</a>)</li>
+</ul>
+</section>
+</section>
+<section id="useful-r-packages" class="level2">
+<h2 class="anchored" data-anchor-id="useful-r-packages">Useful R packages</h2>
+<ul>
+<li><strong>tidyverse</strong><br>
+<em>Purpose:</em> Data manipulation, cleaning, and visualization (includes dplyr, tidyr, ggplot2).</li>
+</ul>
+<!-- -->
+<ul>
+<li><strong>ggplot2</strong><br>
+<em>Purpose:</em> Grammar of graphics for high-quality plots of chemical and pharmaceutical data.</li>
+</ul>
+<!-- -->
+<ul>
+<li><strong>plotly</strong><br>
+<em>Purpose:</em> Interactive visualization for complex datasets.</li>
+</ul>
+<!-- -->
+<ul>
+<li><strong>shiny</strong><br>
+<em>Purpose:</em> Building interactive web apps for chemical data dashboards.</li>
+</ul>
+<!-- -->
+<ul>
+<li><strong>readr</strong><br>
+<em>Purpose:</em> Fast and friendly functions for reading rectangular data (CSV, TSV)</li>
+</ul>
+<!-- -->
+<ul>
+<li><p><strong>readxl</strong><br>
+<em>Purpose:</em> Import Excel files without external dependencies.</p></li>
+<li><p><strong>tidyr</strong><br>
+<em>Purpose:</em> Reshape messy data into tidy format (long vs wide).</p></li>
+<li><p><strong>dplyr</strong><br>
+<em>Purpose:</em> Grammar of data manipulation (filter, select, mutate, summarise).</p></li>
+</ul>
 
 
 <script type="ojs-module-contents">
@@ -221,6 +328,7 @@ eyJjb250ZW50cyI6W119
 <script type="vfs-file">
 WyJkYXRhL0xpcG9waGlsaWNpdHkuY3N2IiwiZGF0YS9lc29sX21lc3N5LmNzdiJd
 </script>
+</section>
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">

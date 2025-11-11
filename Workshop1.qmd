@@ -1,0 +1,491 @@
+---
+title: "Workshop 1"
+webr:
+  packages:
+    - ggplot2
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}} 
+{{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
+
+## Welcome to Workshop 1: R You Ready? Getting Started with Chemistry Data!
+
+## Objectives
+
+By the end of this workshop, you be able to:
+
+1.  Use basic R commands to handle data
+2.  Perform simple calculations
+3.  Create basic plots (using ggplot2)
+
+<br>
+
+## Why is R important for you??
+
+**Chemical Data Analysis & Predictive Modeling:** Chemists often work with large datasets from spectroscopy, chromatography, and molecular simulations. R helps analyze trends, optimize reactions, and predict properties with machine learning.
+
+**Advanced statistical analysis:** R is one of the most important software packages available for statistical analyses, including hypothesis testing, regression, multivariate analysis and thus is ideal for pharmaceutical science and chemical data processing (e.g. stability testing, reaction rate analysis etc.).
+
+**Molecular & Drug Design Applications:** R aids in computational chemistry by supporting quantum chemistry calculations, molecular docking, and cheminformatics.
+
+**Pharmaceutical Formulation & Development:** Pharmaceutical scientists use R to model drug solubility, stability, and formulation optimization.
+
+**Data visualisation and graphing:** R is the gold standard for drawing customisable and eye-catching graphs.. This is likely to be useful for you throughout your career, irrelevant of the field you move into!
+
+<br>
+
+## Format of workshops
+
+You will need to type any text in the grey boxes into the 'Console' region of R Studio.
+
+Try executing the text below by typing it in the Console area where you see a \> and then pressing *Enter*.
+
+```{r}
+boxplot(len ~ dose, data = ToothGrowth, main = "Effect of Vitamin C Dose on Tooth Growth", col = "lightblue")
+
+```
+
+The plot that you've generated (well done) shows the effect of vitamin C on the tooth growth in guinea pigs. You can read more (if you're interested!) at: <https://doi.org/10.1093/jn/33.5.491>.
+
+As we go through each week, you will learn how to use a wide range of valuable tools including tools that support: (i) Data cleaning and manipulation (ii) Data plotting incl. complex visualisations for scientific data (iii) Statistical tests & correlation and regression analysis (iv) Big data analysis. These will all be put into relevant (if occasionally slightly implausible!) pharmaceutical and chemical scenarios.
+
+<br>
+
+## Your first R command
+
+In the Console region, enter the following: `2 + 2` and then run it (remember, you may / will need either to click the *Run* button or press *Ctrl+Shift+Enter...* but sometimes just pressing *Enter* works just as well!).
+
+The output should be produced directly below your entry!
+
+<br>
+
+## Key Concepts in R
+
+Welcome to your first real steps in R. In this section, you'll learn some of the most important ideas for working with data in R. We'll use examples relevant to pharmaceutical science and chemistry --- so everything here connects to the kind of work you'll be doing in labs, coursework, or research later in your degree.
+
+If you're following along in RStudio (which you should be), try typing each code example into the Console (or a script file) and observe the output. You're encouraged to experiment... try changing values or adding new examples.
+
+We'll cover:
+
+-   Variables
+
+-   Data types
+
+-   Vectors
+
+<br>
+
+## Data frames
+
+### 1. Variables
+
+A variable is like a labelled container that stores a piece of information --- a number, a name, a result --- so that you can use it later.
+
+In R, we assign values to variables using the assignment arrow `<-`. You read this as "gets" or "is assigned".
+
+Try this:
+
+```{r}
+dose <- 50
+```
+
+This creates a variable called dose and gives it the value 50 (maybe it's 50 mg of a drug).
+
+Now type:
+
+```{r}
+dose
+```
+
+R will show you what's stored in that variable.
+
+Try it yourself: Create a variable called temperature and assign it a value of 37. Then print it.
+
+```{r}
+temperature <- 37
+temperature
+```
+
+You can name variables almost anything you like, but it's good practice to use names that make sense for your data.
+
+<br>
+
+### 2. Data Types
+
+Not all variables are the same. Some store numbers, some store words, and some just keep track of whether something is true or false.
+
+Here are the most common types of data in R:
+
+-   **Numeric:** numbers (e.g., concentrations, pH, temperature)
+
+-   **Character**: text or words (e.g., compound names, sample labels)
+
+-   **Logical:** TRUE or FALSE values (e.g., was the drug effective?)
+
+Try these examples:
+
+```{r}
+# Numeric
+concentration <- 25.5
+
+# Character (text)
+compound <- "Aspirin"
+
+# Logical (TRUE/FALSE)
+effective <- TRUE
+```
+
+You can check the type of data using the `class()` function:
+
+```{r}
+class(concentration)
+class(compound)
+class(effective)
+```
+
+Try changing the values and rerun `class()` to see how R handles different inputs.
+
+<br>
+
+### 3. Vectors
+
+A vector is a list of values, all of the same type, stored together in one object. If a variable is a single value, a vector is a series of them. This is really useful when you're collecting data from repeated measurements.
+
+Let's say you measure drug concentration over time. You could store those concentrations in a vector like this:
+
+```{r}
+concentrations <- c(10, 20, 30, 40, 50)
+```
+
+The `c()` function means "combine" --- it tells R to combine these values into a single vector.
+
+Now print it:
+
+```{r}
+concentrations
+```
+
+You can get individual values from a vector using square brackets:
+
+```{r}
+concentrations[1]   # first value
+concentrations[3]   # third value
+```
+
+Try it yourself: Create a vector of pH measurements: 6.5, 6.7, 6.8, 6.9, 7.0
+
+```{r}
+pH_values <- c(6.5, 6.7, 6.8, 6.9, 7.0)
+pH_values
+```
+
+<br>
+
+### 4. Data Frames
+
+A data frame is like a spreadsheet in R --- it's a table where each column is a variable (stored as a vector), and each row is an observation. This is the format you'll often use to store real experimental data.
+
+Let's say you're studying how the concentration of a drug changes over time. You collect measurements at five time points. Here's how you could store that data:
+
+```{r}
+data <- data.frame(
+  Time = c(0, 1, 2, 3, 4),
+  Concentration = c(50, 40, 30, 20, 10)
+)
+```
+
+To see the full table, type:
+
+```{r}
+print(data)
+```
+
+You should see a tidy table with two columns: `Time` and `Concentration`.
+
+To access a single column of the data frame, use the `$` operator:
+
+```{r}
+data$Concentration
+```
+
+To get a specific value (e.g., row 2, column 2):
+
+```{r}
+data[2, 2]
+```
+
+Try it yourself: What is the concentration at time = 3 hours? (Hint: Look at row 4.)
+
+<br>
+
+### Practice Task
+
+Let's try making a new data frame. Here's a small dataset from a made-up drug trial:
+
+| Compound  | Dose (mg) | Effective? |
+|:---------:|:---------:|:----------:|
+|  Aspirin  |    100    |    TRUE    |
+| Ibuprofen |    200    |   FALSE    |
+
+Create this in R:
+
+```{r}
+compounds <- data.frame(
+  Compound = c("Aspirin", "Ibuprofen"),
+  Dose = c(100, 200),
+  Effective = c(TRUE, FALSE)
+)
+```
+
+```{r}
+print(compounds)
+```
+
+Now try:
+
+-   Printing just the Dose column
+
+-   Checking the class of the Effective column
+
+-   Changing one of the doses to a different value and printing the result again
+
+<br>
+
+### Summary
+
+In this section, you've learned the basics of:
+
+-   Variables -- how to assign and use them
+
+-   Data types -- numeric, character, and logical values
+
+-   Vectors -- how to store multiple values in a single object
+
+-   Data frames -- how to organise structured data in a table
+
+These concepts will be used throughout the rest of this workshop, including in plotting and data analysis. Getting comfortable with them now will make everything else much easier later.
+
+If you've followed along and typed the code yourself, well done... that's the best way to learn!
+
+<br>
+
+## Simple Calculations with R
+
+In this section, we'll look at how to perform some basic but essential calculations in R. These are the kinds of operations you'll use frequently when analysing pharmaceutical or chemical data --- such as calculating averages, variability, and comparing conditions.
+
+<br>
+
+### Average Drug Concentration
+
+Let's start with a simple scenario: you've measured the concentration of a drug in the bloodstream at five different time points.
+
+We want to calculate the **average concentration**.
+
+```{r}
+# Concentration measurements over time (in mg/L)
+concentration <- c(50, 40, 30, 20, 10)
+```
+
+Now calculate the mean using the `mean()` function:
+
+```{r}
+avg_conc <- mean(concentration) 
+cat("Average concentration:", avg_conc, "mg/L")
+```
+
+The `mean()` function calculates the arithmetic average of the values in the vector. In case you're wondering about the `cat()` function, in R it's used to print text and values together in a readable format, all on one line, without the extra formatting that other functions (like `print()` or just typing a variable name) might include. In essence, `cat()` stands for concatenate and print!
+
+<br>
+
+### Discussion
+
+Why might it be useful to calculate the average concentration of a drug over time?
+
+Think about how this information might be used in:
+
+-   Determining dosing intervals
+
+-   Assessing therapeutic effectiveness
+
+-   Comparing different formulations or delivery methods
+
+Discuss these points with another student.
+
+<br>
+
+### Variability: Standard Deviation
+
+We can also assess how much the concentration varies across these measurements. This is where standard deviation is useful since it gives us a measure of spread or variability.
+
+```{r}
+sd_conc <- sd(concentration) 
+cat("Standard deviation of concentration:", sd_conc)
+```
+
+A higher standard deviation = more variability in measurements. A lower standard deviation = more consistency.
+
+<br>
+
+### Try It Yourself
+
+Now try entering your own concentration data and calculate the average and standard deviation.
+
+Change a value or two and observe how the results change.
+
+```{r}
+# Enter your own values here:
+your_conc <- c(52, 49, 48, 51, 50)
+
+# Calculate mean and standard deviation
+mean(your_conc) 
+sd(your_conc)
+```
+
+<br>
+
+### Summary
+
+In this section, you have:
+
+-   Created a numeric vector
+
+-   Calculated the mean and standard deviation
+
+-   Started thinking about how to interpret these in the context of pharmaceutical data
+
+These are fundamental tools for any kind of data analysis and you're now equipped to start using them in R.
+
+<br>
+
+## Plotting Data with ggplot2
+
+Visualising data is one of the most important steps in any analysis. It helps you understand trends, detect problems, and communicate results clearly.
+
+In pharmaceutical science, plotting concentration over time is a key part of understanding drug absorption, distribution, and elimination.
+
+In this section, you'll learn how to use the `ggplot2` package to create a basic scatter plot and line graph.
+
+<br>
+
+### Step 1: Load the ggplot2 package
+
+If this is the first time you're using `ggplot2`, make sure it's installed:
+
+```{r, eval=FALSE}
+install.packages("ggplot2")
+```
+
+Now load the package:
+
+```{r}
+library(ggplot2)
+```
+
+<br>
+
+### Step 2: Create a simple data frame
+
+Let's use a small dataset showing how drug concentration changes over 5 hours:
+
+```{r}
+# Create a data frame with time and concentration
+
+data <- data.frame( Time = c(0, 1, 2, 3, 4), Concentration = c(50, 40, 30, 20, 10) )
+```
+
+You can print the data frame to check it:
+
+```{r}
+print(data)
+```
+
+<br>
+
+### Step 3: Plot the data
+
+We'll now create a scatter plot showing Concentration vs. Time, and then connect the points with a line to show the trend.
+
+```{r}
+# Create a scatter plot with a line
+
+ggplot(data, aes(x = Time, y = Concentration)) + 
+  geom_point() +             # add the points 
+  geom_line() +              # connect the points with a line 
+  labs( 
+    title = "Drug Concentration Over Time", 
+    x = "Time (hrs)", 
+    y = "Concentration (mg/L)" 
+  )
+```
+
+You should see a plot that shows the drug concentration decreasing over time, a common pharmacokinetic pattern.
+
+<br>
+
+### What's Happening Here?
+
+`aes(x = Time, y = Concentration)`: tells ggplot which variables to plot.
+
+`geom_point()`: adds points to the graph.
+
+`geom_line()`: draws lines between the points.
+
+`labs()`: adds a title and axis labels.
+
+<br>
+
+### Try This Yourself
+
+-   Change one of the concentration values and run the plot again. What happens to the shape of the curve?
+
+-   Add more time points to the data frame.
+
+-   Try removing `geom_line()` --- how does that change the interpretation?
+
+-   Add a new patient or condition and compare their profiles side-by-side (optional -- challenge task).
+
+```{r}
+# Your turn: modify the dataset or try new values
+
+my_data <- data.frame( 
+  Time = c(0, 1, 2, 3, 4, 5), 
+  Concentration = c(52, 47, 33, 24, 15, 8) 
+  )
+
+ggplot(my_data, aes(x = Time, y = Concentration)) + 
+  geom_point() + 
+  geom_line() + 
+  labs( 
+    title = "Modified Drug Concentration Curve", 
+    x = "Time (hrs)", 
+    y = "Concentration (mg/L)" 
+  )
+```
+
+<br>
+
+### Summary
+
+In this section, you've learned how to:
+
+-   Create a data frame in R
+
+-   Use ggplot2 to plot numerical data
+
+-   Label and customise a basic plot
+
+Plotting is one of the most powerful ways to understand your data. With ggplot2, it's easy to build on this foundation as your analysis becomes more complex - we'll come back to this in future workshops, as well as learning about more technical plotting tools.
+
+<br>
+
+## Overarching summary
+
+In this section, you learned how to:
+
+-   Use the `ggplot2` package to create clear, informative plots
+-   Build a basic scatter plot and line graph from your data
+-   Label your axes and add a title to make your plot easy to understand
+
+Visualising data helps you spot patterns and trends, for example, how drug concentration changes over time. This is an essential skill in pharmaceutical science and chemistry, and you'll be using it a lot more as your datasets get bigger and more complex.
+
+Remember: if your code isn’t working, check that the `ggplot2` package is installed and loaded using `library(ggplot2)` before plotting.

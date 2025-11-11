@@ -2,13 +2,12 @@ project:
   type: website
 
 website:
-  title: "CH4004-R.github.io"
+  title: "CH4004 R programming"
   navbar:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
-      - intro.qmd
+      - Workshop1.qmd
       - Workshop2.qmd
       
 filters:
