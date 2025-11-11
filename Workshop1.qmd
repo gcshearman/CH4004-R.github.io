@@ -376,6 +376,7 @@ Now load the package:
 
 ```{webr}
 #| context: setup
+webr::install("ggplot2")
 library(ggplot2)
 ```
 
