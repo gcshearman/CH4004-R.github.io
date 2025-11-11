@@ -1,8 +1,7 @@
 ---
 title: "Workshop 1"
 webr:
-  packages:
-    - ggplot2
+  packages: [`ggplot2`]
 ---
 
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}} 
