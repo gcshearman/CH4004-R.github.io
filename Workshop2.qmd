@@ -2,14 +2,8 @@
 title: "Workshop 2"
 ---
 
-{{< include ./_extensions/r-wasm/live/_knitr.qmd >}} 
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
 {{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
-
-```{webr}
-#| persist: true
-#| echo: false
-total_score <- 0
-```
 
 ## Welcome to Workshop 2: Cleaning and Wrangling Your Chemistry Data
 
@@ -19,7 +13,7 @@ In this workshop, you will learn how to:
 -   Inspect the data to identify common issues
 -   Prepare for cleaning and wrangling tasks
 
-### Working with R Studio 
+### Working with R Studio
 
 Please load up R Studio, and once you've tested each the run code chunks in this browser version, try copying them over to R Studio and running them in that environment - I recommend that you do this as you go through! It's very important that you get used to working in R Studio - so please do practice.
 
@@ -72,13 +66,13 @@ In this example, we'll use `nchar()` to count the number of letters in the word 
  banana_length <- nchar("____")
 ```
 
-::: {.hint exercise="banana-example"}
+:::: {.hint exercise="banana-example"}
 ::: {.callout-note collapse="false"}
 ## Hint 1
 
 Remember to keep the name of the word to be counted in inverted commas " ".
 :::
-:::
+::::
 
 ::: {.solution exercise="banana-example"}
 ## Fully worked solution
@@ -119,7 +113,7 @@ install.packages("readr")
 install.packages("dplyr")
 ```
 
-Please note that for the browser version these have already been installed automatically for you but you will have to install them in R Studio - simply copy and paste the code in! 
+Please note that for the browser version these have already been installed automatically for you but you will have to install them in R Studio - simply copy and paste the code in!
 
 In R Studio, you can find out which packages have been installed by looking at the 'Packages' tab in the bottom right pane to spot them!
 
@@ -161,9 +155,9 @@ library(readr)
 
 Now you do the same for dplyr!
 :::
-:::
+::::
 
-::: {.hint exercise="load-packages-exercise"}
+:::: {.hint exercise="load-packages-exercise"}
 ::: {.callout-note collapse="false"}
 ## Hint 2
 
@@ -174,7 +168,7 @@ library(readr)
 library(dplyr)
 ```
 :::
-:::
+::::
 
 ::: {.solution exercise="load-packages-exercise"}
 ## Fully worked solution
@@ -223,7 +217,7 @@ Whether you're working with:
 > **Why it matters:**\
 > If we skip the cleaning step, we risk drawing wrong conclusions — or feeding errors into models or visualisations. It’s like trying to bake a cake with the wrong ingredients.
 
---------------------------------------------------------------------
+------------------------------------------------------------------------
 
 ## Importing the ESOL Dataset
 
@@ -233,7 +227,7 @@ Now let's load a sample dataset: **ESOL**, a solubility dataset containing chemi
 
 You can access the file `esol_messy.csv` from the data folder associated with this tutorial.
 
---------------------------------------------------------------------
+------------------------------------------------------------------------
 
 ### Exercise: Import the ESOL dataset
 
@@ -279,7 +273,7 @@ esol_data <- read_csv("data/esol_messy.csv", show_col_types = FALSE)
 
 ```
 
-::: {.hint exercise="print-esol-data"}
+:::: {.hint exercise="print-esol-data"}
 ::: {.callout-note collapse="false"}
 ## Hint 1
 
@@ -289,7 +283,7 @@ Use the print() function with the name of the function (here: esol_data)
 print(esol_data)
 ```
 :::
-:::
+::::
 
 ::: {.solution exercise="print-esol-data"}
 ## Fully worked solution
@@ -563,7 +557,7 @@ The Lipophilicity dataset has already been imported and cleaned into the browser
 
 For the browser version, as I mentioned, the cleaned dataset is already in a dataframe called: **clean_lipo**. Remember, your cleaned ESOL dataset is also in a dataframe called: **clean_esol**.
 
---------------------------------------------------------------------
+------------------------------------------------------------------------
 
 ### Joining Two Datasets in R
 
@@ -642,7 +636,7 @@ You’ve just worked through a full data cleaning and wrangling workflow using *
 ✅ You **joined two datasets** using a common key (`SMILES`) to create a richer dataset\
 ✅ You explored your cleaned, combined dataset like a pro!
 
---------------------------------------------------------------------
+------------------------------------------------------------------------
 
 ### What should you take away from this tutorial?
 
@@ -650,10 +644,6 @@ You’ve just worked through a full data cleaning and wrangling workflow using *
 -   Tools like `filter()`, `mutate()`, and `select()` give you full control over how your data is structured.
 -   Combining datasets can open the door to deeper analysis, comparisons, and insight — especially in fields like **chemoinformatics**.
 
-
-
 <br><br><br>
 
 > **License:** This tutorial is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
-
-

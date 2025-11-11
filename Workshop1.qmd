@@ -1,9 +1,9 @@
 ---
 title: "Workshop 1"
 webr:
-  packages: [`ggplot2`]
+  packages: ['ggplot2', 'dplyr']
 ---
-
+ 
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}} 
 {{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
 
@@ -39,7 +39,7 @@ You will need to type any text in the grey boxes into the 'Console' region of R 
 
 Try executing the text below by typing it in the Console area where you see a \> and then pressing *Enter*.
 
-```{r}
+```{webr}
 boxplot(len ~ dose, data = ToothGrowth, main = "Effect of Vitamin C Dose on Tooth Growth", col = "lightblue")
 
 ```
@@ -370,7 +370,7 @@ In this section, you'll learn how to use the `ggplot2` package to create a basic
 
 If this is the first time you're using `ggplot2`, make sure it's installed:
 
-```{r, eval=FALSE}
+```r
 install.packages("ggplot2")
 ```
 
@@ -469,11 +469,11 @@ In this section, you've learned how to:
 
 -   Create a data frame in R
 
--   Use ggplot2 to plot numerical data
+-   Use `ggplot2` to plot numerical data
 
 -   Label and customise a basic plot
 
-Plotting is one of the most powerful ways to understand your data. With ggplot2, it's easy to build on this foundation as your analysis becomes more complex - we'll come back to this in future workshops, as well as learning about more technical plotting tools.
+Plotting is one of the most powerful ways to understand your data. With `ggplot2`, it's easy to build on this foundation as your analysis becomes more complex - we'll come back to this in future workshops, as well as learning about more technical plotting tools.
 
 <br>
 
