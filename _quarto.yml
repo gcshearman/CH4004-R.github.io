@@ -21,6 +21,7 @@ webr:
     - base
     - gradethis
     - tidyverse
+    - ggplot2
 
 format:
   live-html:

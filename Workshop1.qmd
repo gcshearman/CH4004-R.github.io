@@ -1,7 +1,5 @@
 ---
 title: "Workshop 1"
-webr:
-  packages: ['ggplot2', 'dplyr']
 ---
  
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}} 
@@ -376,7 +374,8 @@ install.packages("ggplot2")
 
 Now load the package:
 
-```{r}
+```{webr}
+#| context: setup
 library(ggplot2)
 ```
 
