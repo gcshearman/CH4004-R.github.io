@@ -1,7 +1,5 @@
 ---
 title: "Loading Data and Making Your First Plot"
-format: 
-  html
 ---
 
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}} 
