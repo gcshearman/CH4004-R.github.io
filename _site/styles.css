@@ -7,6 +7,12 @@
 }
 
 
+body {
+  background-color: lightyellow !important;
+}
+
+
+
 /* add tools-tabset css for the setup instructions */ 
 
 .panel-tabset[data-group="tools-tabset"] .choose-your-tool {
