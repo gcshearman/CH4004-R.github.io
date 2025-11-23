@@ -18,7 +18,7 @@
   font-size: 1.0rem;
   text-align: left;
   vertical-align: center;
-  color: black !important;
+  color: black;
 }
 
 .panel-tabset[data-group="tools-tabset"] .tab-content {
@@ -62,19 +62,9 @@
 }
 
 .panel-tabset[data-group="tools-tabset"] .nav-tabs .nav-link img {
-  height: 80%;
+  width: 65px;
+  height: 65px;
   display: block;
   margin-bottom: 2px;
 }
 
-/* Keep tab buttons inline instead of full-width */
-.panel-tabset[data-group="tools-tabset"] .nav-tabs .nav-link {
-  display: inline-block !important;   /* key fix */
-  width: 120px;                       /* your desired width */
-  height: 120px;
-}
-
-.nav-tabs .nav-link {
-  display: block;
-  width: 100%;
-}
