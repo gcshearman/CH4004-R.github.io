@@ -8,36 +8,30 @@ This set of workshops will guide you from the basics of R to data analysis relev
 
 ## Workshops
 
-+-------------+-----------------------------------------------------------------+-------------------------------------------------------------------------------+
-| Workshop    | Title                                                           | Skills Learned                                                                |
-+=============+=================================================================+===============================================================================+
-| 1           | R You Ready? Getting                                            | Introduction to R                                                             |
-|             | Started with Chemistry                                          | Basic syntax                                                                  |
-|             | Data!                                                           | Simple plotting                                                               |
-+-------------+-----------------------------------------------------------------+-------------------------------------------------------------------------------+
-| 2           | Data in a Lab Coat: Cleaning                                    | Importing data using `readr`\                                                 |
-|             | and Wrangling Your Chemistry Data                               | Data cleaning and manipulation using `dplyr`                                  |
-+-------------+-----------------------------------------------------------------+-------------------------------------------------------------------------------+
-| 3           | Plotting Power! Visualizing Your Data Like a Pro                | Complex visualizations for scientific data                                    |
-|             |                                                                 | Advanced `ggplot2` visualizations                                             |
-+-------------+-----------------------------------------------------------------+-------------------------------------------------------------------------------+
-| 4           | Make It Match! The Magic of Correlation and Regression          | Performing correlation and linear regression analysis                         |
-+-------------+-----------------------------------------------------------------+-------------------------------------------------------------------------------+
-| 5           | Tox Talk: Exploring Toxicity Data with Statistics               | Introduction to using R for statistical tests for                             |
-|             |                                                                 | comparing groups (e.g., t-tests, ANOVA)                                       |
-+-------------+-----------------------------------------------------------------+-------------------------------------------------------------------------------+
-| 6           | Statistics Are Sexy: Hypothesis Testing and p                   | Introduction to the use of R for hypothesis testing and interpreting p-values |
-|             | values                                                          |                                                                               |
-+-------------+-----------------------------------------------------------------+-------------------------------------------------------------------------------+
-| 7           | It’s All About the Data: Big Data in Chemistry                  | Introduction to big data analysis using R                                     |
-+-------------+-----------------------------------------------------------------+-------------------------------------------------------------------------------+
-| 8           | Chemical Reactions and Functions: R-ing the Curve!              | Applying functions and curve fitting to real-world chemical data              |
-+-------------+-----------------------------------------------------------------+-------------------------------------------------------------------------------+
-| 9           | The Plot Thickens: Beautiful Data Visualization                 | Advanced `ggplot2` techniques for data visualization                          |
-+-------------+-----------------------------------------------------------------+-------------------------------------------------------------------------------+
-| 10          | Statistical Sherlock: Investigating Toxicity with Statistics    | Conducting statistical hypothesis testing to                                  |
-|             |                                                                 | compare experimental groups                                                   |
-+-------------+-----------------------------------------------------------------+-------------------------------------------------------------------------------+
++----------+----------------------------------------------------------------+-------------------------------------------------------------------------------------------+
+| Workshop | Title                                                          | Skills Learned                                                                            |
++==========+================================================================+===========================================================================================+
+| 1        | R You Ready? Getting Started with Chemistry Data!              | Introduction to R Basic syntax Simple plotting                                            |
++----------+----------------------------------------------------------------+-------------------------------------------------------------------------------------------+
+| 2        | Data in a Lab Coat: Cleaning and Wrangling Your Chemistry Data | Importing data using `readr`\                                                             |
+|          |                                                                | Data cleaning and manipulation using `dplyr`                                              |
++----------+----------------------------------------------------------------+-------------------------------------------------------------------------------------------+
+| 3        | Plotting Power! Visualizing Your Data Like a Pro               | Complex visualizations for scientific data Advanced `ggplot2` visualizations              |
++----------+----------------------------------------------------------------+-------------------------------------------------------------------------------------------+
+| 4        | Make It Match! The Magic of Correlation and Regression         | Performing correlation and linear regression analysis                                     |
++----------+----------------------------------------------------------------+-------------------------------------------------------------------------------------------+
+| 5        | Tox Talk: Exploring Toxicity Data with Statistics              | Introduction to using R for statistical tests for comparing groups (e.g., t-tests, ANOVA) |
++----------+----------------------------------------------------------------+-------------------------------------------------------------------------------------------+
+| 6        | Statistics Are Sexy: Hypothesis Testing and p values           | Introduction to the use of R for hypothesis testing and interpreting p-values             |
++----------+----------------------------------------------------------------+-------------------------------------------------------------------------------------------+
+| 7        | It’s All About the Data: Big Data in Chemistry                 | Introduction to big data analysis using R                                                 |
++----------+----------------------------------------------------------------+-------------------------------------------------------------------------------------------+
+| 8        | Chemical Reactions and Functions: R-ing the Curve!             | Applying functions and curve fitting to real-world chemical data                          |
++----------+----------------------------------------------------------------+-------------------------------------------------------------------------------------------+
+| 9        | The Plot Thickens: Beautiful Data Visualization                | Advanced `ggplot2` techniques for data visualization                                      |
++----------+----------------------------------------------------------------+-------------------------------------------------------------------------------------------+
+| 10       | Statistical Sherlock: Investigating Toxicity with Statistics   | Conducting statistical hypothesis testing to compare experimental groups                  |
++----------+----------------------------------------------------------------+-------------------------------------------------------------------------------------------+
 
 ## Examples where R is used in Chemistry & Pharmaceutical Science
 
@@ -90,7 +84,7 @@ The following is a collection of journal articles (links to!) where R has been c
 
 <!-- -->
 
--    **readxl**\
+-   **readxl**\
     *Purpose:* Import Excel files without external dependencies.
 
 -   **tidyr**\

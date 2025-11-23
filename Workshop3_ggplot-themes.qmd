@@ -1,0 +1,175 @@
+---
+title: "Labels, Themes and Faceting"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+{{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
+
+```{webr}
+#| include: false
+webr::install("ggplot2")
+library(ggplot2)
+```
+
+```{webr}
+#| setup: true
+#| exercise:
+#|  - basic_labels
+#|  - basic_theme-min
+#|  - basic_theme-void
+#|  - basic_theme-labs
+#|  - basic-facet1
+#|  - basic-facet2
+data <- read_csv("data/delaney-processed.csv")
+```
+
+Once you’ve made a plot, it’s important to make it clear and easy to read. In this section, we’ll learn how to add informative titles and axis labels, improve the overall look with themes, and break plots into multiple panels using faceting. These techniques help highlight patterns in the data and make your plots more professional and easier to interpret.
+
+### Labels
+
+#### Adding and improving labels
+
+Good labels make plots readable and informative. Let's take the original scatter plot that we make and change & add labels to make it a bit more clear:
+
+```{webr}
+#| exercise: basic_labels
+ggplot(data, aes(x = `Molecular Weight`, y = `measured log solubility in mols per litre`)) + geom_point() +
+  labs(
+    title = "Solubility vs Molecular Weight",
+    x = "Molecular Weight (g/mol)",
+    y = "Measured Log Solubility",
+    caption = "Data from solubility measurements"
+  )
+```
+
+The command `labs()` has several arguments, including:
+
+- `title` which gives the plot a main title,
+- `caption` which is typically used to provide information about the data source,
+- `x` for the x-axis label, and
+- `y` the y-axis label.
+
+In `ggplot2`, you can customize the size, colour, and style of labels and text using the `theme() function`...
+
+### Themes
+
+Themes control the overall appearance of a plot, including background, grid lines, and text styles. Using a theme like `theme_minimal()` or `theme_classic()` can make your plots cleaner and easier to read, and you can further customize fonts, colours, and spacing to improve clarity.
+
+The default theme is `theme_grey()` but there are several others e.g.:
+
+- theme_bw()
+- theme_linedraw()
+- theme_light()
+- theme_dark()
+- theme_minimal()
+- theme_classic()
+- theme_void()
+
+There are also more than seventy other themes in additional packages (but don't worry about these for now!).
+
+In the example below, the theme has been changed to `theme_minimal()`:
+
+```{webr}
+#| exercise: basic_theme-min
+ggplot(data, aes(x = `Molecular Weight`, y = `measured log solubility in mols per litre`)) + geom_point() +
+  labs(
+    title = "Solubility vs Molecular Weight",
+    x = "Molecular Weight (g/mol)",
+    y = "Measured Log Solubility",
+    caption = "Data from solubility measurements"
+  ) +
+  theme_minimal()
+```
+
+Try it yourself! In the box below, copy the command from above and change the theme to `theme_void()`:
+
+```{webr}
+#| exercise: basic_theme-void
+#| min-lines: 8
+
+
+
+
+```
+
+
+:::: {.hint exercise="basic_theme-void"}
+::: {.callout-note collapse="false"}
+## Hint 1
+
+Simply change `theme_minimal()` to `theme_void()`.
+:::
+::::
+
+::: {.solution exercise="basic_theme-void"}
+## Fully worked solution
+
+```{webr}
+#| exercise: basic_theme-void
+#| solution: true
+ggplot(data, aes(x = `Molecular Weight`, y = `measured log solubility in mols per litre`)) + geom_point() +
+  labs(
+    title = "Solubility vs Molecular Weight",
+    x = "Molecular Weight (g/mol)",
+    y = "Measured Log Solubility",
+    caption = "Data from solubility measurements"
+  ) +
+  theme_void()
+```
+:::
+
+```{webr}
+#| exercise: basic_theme-void
+#| check: true
+gradethis::grade_this_code()
+```
+
+Now you've got the hang of this, try changing the theme to some of the other options, including `theme_classic()`.
+
+As mentioned earlier, we can also use `theme()` to change the size, colour, location etc. of the labels, as illustrated in:
+
+```{webr}
+#| exercise: basic_theme-labs
+ggplot(data, aes(x = `Molecular Weight`, y = `measured log solubility in mols per litre`)) + geom_point() +
+  labs(
+    title = "Solubility vs Molecular Weight",
+    x = "Molecular Weight (g/mol)",
+    y = "Measured Log Solubility",
+    caption = "Data from solubility measurements"
+  ) +
+  theme_classic() +
+  theme(
+    plot.title = element_text(size = 16, face = "bold", colour = "darkblue", hjust = 0.5),
+    axis.title = element_text(size = 14, face = "bold"),
+    axis.text = element_text(size = 12, colour = "red")
+  )
+```
+
+There's a lot more than can be done with themes... if you wish to learn more, see: [ggplot2-themes](https://ggplot2-book.org/themes.html).
+
+### Faceting (panels)
+
+Faceting splits a plot into multiple panels based on the levels of one or more categorical variables, so you can compare patterns across groups. It’s a powerful way to show subplots side by side without overloading a single plot with too much information.
+
+Let's try splitting our original scatter plot into multiple smaller panels based on the number of rings:
+
+```{webr}
+#| exercise: basic-facet1
+ggplot(data, aes(x = `Molecular Weight`, y = `measured log solubility in mols per litre`)) + 
+  geom_point() + 
+  facet_wrap(~ `Number of Rings`)
+```
+
+The argument `facet_wrap(~ VARIABLE)` creates a grid of plots, one per level.
+
+In case you're surprised by the fact that some compounds seem to have a surprisingly large number of rings... the two points in the 'Number of Rings = 8' panel both correspond to digitoxin (under slightly different conditions), which has a rather complex structure:
+
+![Chemical structure of digitoxin](images/Digitoxin_structure.png)
+
+We can take this even further and facet by two variables... however, this dataset doesn't really lend itself to this.
+
+### Summary
+
+You’ve learned how to explore your data using histograms, density plots, scatterplots, boxplots, and violin plots, including ways to add jittered points to reveal individual observations. You've also covered how to improve clarity by adding informative titles, axis labels, and legends, customizing text and themes, and using faceting to split plots into multiple panels for easier comparison. 
+
+Many of these functions are not possible in Excel - actually, we've only just explored the tip of the iceberg... there's far, far more that we can do with `ggplot2`.

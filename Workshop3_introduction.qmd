@@ -1,0 +1,25 @@
+---
+title: "Introduction to Workshop 3"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+{{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
+
+## Welcome to Workshop 3: Plotting Power! Visualizing Your Data Like a Pro 
+
+This workshop will go through how R can help you visualise molecular properties and explore relationships in scientific data. We'll be focusing on solubility but of course everything learnt here will also be applicable to other datasets!
+
+### What you'll be learning
+
+In this workshop, you will learn how to:
+
+-   Load data and create a basic plot (`ggplot`)
+-   Explore your data using different plot types including histograms, boxplot and trendlines
+-   Use graphing themes and faceting to improve clarity and visualisation
+-   Interpret patterns in your data
+
+### Why does this matter?
+
+- Visualisation is essential for understanding structure–property relationships.
+- Solubility affects absorption, formulation and drug design decisions.
+- **Data skills are increasingly expected in modern chemical and pharmaceutical research**.

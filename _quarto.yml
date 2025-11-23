@@ -3,15 +3,33 @@ project:
 
 website:
   title: "CH4004 R programming"
+  page-navigation: true
   navbar:
+    logo: CH4004-R-logo2.png
     left:
       - href: index.qmd
         text: Home
       - Workshop1.qmd
       - Workshop2.qmd
+      - href: Workshop3_introduction.qmd
+        text: Workshop 3
+  
+  sidebar:
+    style: "docked"
+    search: true
+    contents: 
+      - Workshop1.qmd
+      - Workshop2.qmd
+      - section: "Workshop 3"
+        contents: 
+          - Workshop3_introduction.qmd
+          - Workshop3_ggplot.qmd
+          - Workshop3_plot-types.qmd
+          - Workshop3_ggplot-themes.qmd
       
 filters:
   - live
+  - tools_tabset.lua
 
 resources:
   - data

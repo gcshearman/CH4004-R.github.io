@@ -1,0 +1,184 @@
+---
+title: "Loading Data and Making Your First Plot"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}} 
+{{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
+
+### Importing the dataset
+
+In [Worksheet 2](Workshop2.qmd), you learnt how to import CSV datasets using the `readr` package and its `read_csv()` command. In this section, we'll apply the same skills to the Delaney solubility dataset (this is actually the original 'esol' dataset so you may recognise it!). You'll perform the import both in WebR (within your browser) and in RStudio (on your computer). To get started, simply select one of the buttons below:
+
+::: {.panel-tabset group="tools-tabset"}
+### WebR
+
+You'll be using the dataset "delaney-processed.csv". As with [Worksheet 2](Workshop2.qmd), this is a .csv file and therefore needs to be imported using the `readr` package. For simplicity, this has already been installed and loaded up for you. We can therefore simply read it into a dataframe, which we are going to call `data`. On WebR, the delaney-processed.csv file has been saved into a folder (weirdly also) called *data*, so we need to ensure that we call it from that folder:
+
+```{webr}
+data <- read_csv("data/delaney-processed.csv")
+```
+
+### RStudio
+
+**Step 1:** Firstly, check that the packages that you will need today are installed. For this worksheet, you'll need either: (i)`tidyverse` (which includes both `readr` and `ggplot2`) OR `readr`, and `ggplot2`.
+
+You can either install packages in RStudio by selecting the 'Tools' tab, then 'Install packages...' (as per the video below), or simply type (in `Console`):
+
+``` r
+install.packages("tidyverse")
+```
+
+(here, this would install the package `tidyverse`) remembering that you must always include *inverted commas*.
+
+{{<video videos/R-install-packages.mp4>}}
+
+**Step 2:** Open the packages, using the `library` command i.e.:
+
+``` r
+library(tidyverse)
+```
+
+**Step 3:** Download the `delaney-processed.csv` file from Canvas: [CH4004 Mathematics and R Computing](https://canvas.kingston.ac.uk/courses/32805/pages/mathematics) (scroll all the way down to the Workshops section) and take note of where you have saved it.
+
+**Step 4:** In RStudio, change the *working directory* to the location in which the file is saved. You can do this by clicking on the 'Session' tab, then 'Set Working Directory' and finally 'Choose Directory...'. Watch the video below for more guidance.
+
+{{<video videos/R-working-dir.mp4>}}
+
+**Step 5:** Now you can read it into a dataframe, in the same way as for WebR i.e.:
+
+``` r
+data <- read_csv("delaney-processed.csv")
+```
+
+Just remember that you don't need a link to a 'data' folder as the csv file is stored in your working directory.
+:::
+
+**From now on, you should just be able to copy and paste any commands straight into RStudio.**
+
+### Creating a basic `ggplot`
+
+Have a good look at the data in the .csv file... there is a lot of information in it, including chemical compound names, molecular weights and their solubilities.
+
+We'll begin by plotting **molecular weight** against measured **log solubility**. This is a useful start as molecular weight is one of the simplest molecular descriptors and might (or might not!) correlate with solubility.
+
+Solubility (i.e. the number of moles of a compound that dissolves in one litre of water) is given here as a **log** value since many of the compounds are only sparingly soluble!! So... while methanol is extremely soluble, compounds such as tetradecane are practically insoluble with a solubility value of \< 1 $\times$ 10$^{-8}$ mol/L.
+
+```{webr}
+#| include: false
+webr::install("ggplot2")
+library(ggplot2)
+```
+
+```{webr}
+#| setup: true
+#| exercise:
+#|  - first_ggplot
+#|  - ggplot-aes-size
+#|  - glimpse-data
+#|  - ggplot-aes-colour
+data <- read_csv("data/delaney-processed.csv")
+```
+
+```{webr}
+#| exercise: first_ggplot
+ggplot(data, aes(x = `Molecular Weight`, y = `measured log solubility in mols per litre`)) + geom_point()
+```
+
+Unlike standard plots, a `ggplot` is a way of creating plots in R using a *layered grammar of graphics*, where you start with a dataset and then add layers to define what's displayed. Each layer can represent points, lines or other visual elements, and you can customise axes, colours and themes to clearly communicate your data.
+
+Here, the command `ggplot(data, aes(...))` starts a new ggplot and tells R to use your dataset called data.
+
+Inside the `aes()` (“aesthetics”) function, you specify which variables to plot:
+
+-   x = `Molecular Weight` places the compounds' molecular weight (where the column is called *Molecular Weight*) on the horizontal axis.
+-   y = `measured log solubility in mols per litre` places the measured log solubility on the vertical axis.
+
+The plus symbol, `+` is used in ggplot to “add layers”. Each new layer modifies or enhances the plot.
+
+`geom_point()` adds a layer of points to create a scatter plot, which is commonly used to examine relationships between two continuous variables. In this case, it allows us to explore whether molecular weight appears to influence solubility. From the graph that you've just made, we can clearly see that it does!
+
+### Exploring your data
+
+You’ve already made a basic scatter plot of molecular weight vs. measured solubility. Now it’s time to experiment with mapping other variables to visual features.
+
+Let's try adding extra features to this plot. The scatter points can (excitingly!) be mapped to other properties - so, as an example, the size of the points can be related to e.g. the number of hydrogen bond donors of the compound. The act of connecting a data variable to a visual property in this way is called **aesthetic mapping**.
+
+At this point, it will be worthwhile having a look at the data to check what the names of the columns first! The command `glimpse()` is perfect for this i.e..
+
+```{webr}
+#| exercise: glimpse-data
+glimpse(data)
+```
+
+In order to map the size of the points to a variable, the command `size` needs to be included within the `aes` brackets. In the exercise below, replace the `...` with the name of the column of data that represents the number of H bond donors in each compound. Remember to use backticks \` around your column name.
+
+```{webr}
+#| exercise: ggplot-aes-size
+ggplot(data, aes(x = `Molecular Weight`, y = `measured log solubility in mols per litre`, size = ...)) + geom_point()
+```
+
+:::: {.hint exercise="ggplot-aes-size"}
+::: {.callout-note collapse="false"}
+## Hint 1
+
+The relevant column is called `Number of H-Bond Donors`.
+:::
+::::
+
+::: {.solution exercise="ggplot-aes-size"}
+## Fully worked solution
+
+```{webr}
+#| exercise: ggplot-aes-size
+#| solution: true
+ggplot(data, aes(x = `Molecular Weight`, y = `measured log solubility in mols per litre`, size = `Number of H-Bond Donors`)) + geom_point()
+```
+:::
+
+```{webr}
+#| exercise: ggplot-aes-size
+#| check: true
+gradethis::grade_this_code()
+```
+
+Clearly there is some dependence of solubility on the number of hydrogen bond donors in a compound. We can try visualising this by colour instead, to see if it's more clear... as before, replace the `...` in the box below with the relevant name of the column and see what happens:
+
+```{webr}
+#| exercise: ggplot-aes-colour
+ggplot(data, aes(x = `Molecular Weight`, y = `measured log solubility in mols per litre`, colour = ...)) + geom_point()
+```
+
+:::: {.hint exercise="ggplot-aes-colour"}
+::: {.callout-note collapse="false"}
+## Hint 1
+
+The relevant column is called `Number of H-Bond Donors`. Remember to include backticks around the name.
+:::
+::::
+
+::: {.solution exercise="ggplot-aes-size"}
+## Fully worked solution
+
+```{webr}
+#| exercise: ggplot-aes-colour
+#| solution: true
+ggplot(data, aes(x = `Molecular Weight`, y = `measured log solubility in mols per litre`, colour = `Number of H-Bond Donors`)) + geom_point()
+```
+:::
+
+```{webr}
+#| exercise: ggplot-aes-colour
+#| check: true
+gradethis::grade_this_code()
+```
+
+The ability to colour map (using continuous colour scales) is not possible in Excel. In fact, in R you can also do many other fantastic graphing feats that aren't possible in Excel.
+
+Some other properties of the scatter points that you might want to control are: 
+
+- Shape 
+- Fill 
+- Transparency (called 'alpha') 
+- Line type (this is for line plots rather than scatter plots!)
+
+In the command line above, try replacing `colour` with `alpha` and see what happens!!

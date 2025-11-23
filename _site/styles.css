@@ -1,2 +1,68 @@
 /* css styles */
 
+
+
+
+/*-- scss:rules --*/
+.navbar-brand img { 
+  min-height: 60px;
+  width: auto;
+}
+
+.panel-tabset[data-group="tools-tabset"] .choose-your-tool {
+  max-width: 90px;
+  margin-right: 25px;
+  margin-top: 40px;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.0rem;
+  text-align: left;
+  vertical-align: center;
+  color: black !important;
+}
+
+.panel-tabset[data-group="tools-tabset"] .tab-content {
+  border: none;
+  padding-left: 5px;
+}
+
+.panel-tabset[data-group="tools-tabset"] .nav-tabs {
+  border-bottom: none;
+}
+
+.panel-tabset[data-group="tools-tabset"] .nav-tabs .nav-link {
+  text-align: center;
+  margin-right: 20px;
+  margin-top: 10px;
+  border: 3 px solid black;
+  background-color: white;
+  border-radius: 10px;
+  color: inherit;
+  width: 120px;
+  height: 120px;
+  font-size: 0.8em;
+  transition: all 0.3s ease;
+}
+
+.panel-tabset[data-group="tools-tabset"] .nav-tabs .nav-link, 
+.panel-tabset[data-group="tools-tabset"] .nav-tabs .nav-link.active, 
+.panel-tabset[data-group="tools-tabset"] .nav-tabs .nav-item.show .nav-link {
+  border: 3px solid black;
+  border-radius: 10px;
+}
+.panel-tabset[data-group="tools-tabset"] .nav-tabs .nav-link:hover {
+   border-color: rgb(80,146,221);
+   border-width: 1px;
+} 
+
+.panel-tabset[data-group="tools-tabset"] .nav-tabs .nav-link.active, 
+.panel-tabset[data-group="tools-tabset"] .nav-tabs .nav-item.show .nav-link {
+  border-color: black;
+  border-width: 5px;
+}
+
+.panel-tabset[data-group="tools-tabset"] .nav-tabs .nav-link img {
+  height: 80%;
+  display: block;
+  margin-bottom: 2px;
+}

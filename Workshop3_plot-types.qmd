@@ -1,0 +1,180 @@
+---
+title: "Exploring Plot Types"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+{{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
+
+```{webr}
+#| include: false
+webr::install("ggplot2")
+library(ggplot2)
+```
+
+```{webr}
+#| setup: true
+#| exercise:
+#|  - basic_histo
+#|  - histo-density
+#|  - histo-rug
+#|  - basic_boxplot
+#|  - boxplot-Hbond-jitter
+#|  - boxplot-Hbond
+#|  - basic-violin
+data <- read_csv("data/delaney-processed.csv")
+```
+
+In this section, you’ll learn how to make a variety of plots in R using `ggplot2`, including some that aren’t possible (or are painful!) in Excel. We’ll continue to use the delaney_processed.csv dataset to explore the distributions and relationships between molecular properties and solubility.
+
+### Histograms
+
+#### A basic histogram
+
+A histogram shows the shape of a continuous variable, perfect for variables like solubility, molecular weight, polar surface area, etc.
+
+Let's start by plotting a basic histogram:
+
+```{webr}
+#| exercise: basic_histo
+ggplot(data, aes(x = `measured log solubility in mols per litre`)) + geom_histogram(binwidth = 0.5, fill = "steelblue", colour = "white")
+```
+
+The line:
+
+``` r
+geom_histogram(binwidth = 0.5, fill = "steelblue", colour = "white")
+```
+
+adds a histogram layer to the ggplot. Each argument controls a different aspects of how the histogram looks:
+
+-   `geom_histogram(...)` tells ggplot to araw a histogram of the variable mapped inside aes().
+-   `binwidth = 0.5` sets how wide each bar (“bin”) should be. A smaller binwidth produces more bars hence more detail but equally, more noise. A larger binwidth, on the other hand, is smoother but less detailed.
+-   `fill = "steelblue"` sets the inside colour of each bar. There are a LOT (!) of named colours in R (at last count, 655... you can see the whole list by typing `colours()` in the Console). The command `fill` also takes both `rgb()` and `hex code` inputs (if you're not sure of the name!).
+-   `colour = "white"` sets the outline colour of the bars.
+
+Try changing the colour of the bars to `yellowgreen` or `orchid` and see what happens.
+
+#### Plotting a histogram with a density curve
+
+You may want to plot both the bars of a histogram and a smooth curve showing the distribution. Try the command below:
+
+```{webr}
+#| exercise: histo-density
+ggplot(data, aes(x = `measured log solubility in mols per litre`)) + geom_histogram(aes(y = after_stat(density)), binwidth = 0.5, fill = "steelblue", colour = "white") + geom_density()
+```
+
+There are two key differences between the code here and that of earlier:
+
+1.  `aes(y = after_stat(density))`, which scales the histogram so that the total area under the curve is equal to 1 rather than the frequency count.
+2.  `geom_density()` adds the density curve on top.
+
+#### Plotting a histogram with a rug plot
+
+A **rug** is simply a tick mark ("rug"). A rug plot therefore shows tick marks for each individual datapoint along the axis. By defaut, the rug is plotted along the x-axis at the bottom of the plot. Try adding a call to `geom_rug()` to the end of the command below to add the rug!
+
+```{webr}
+#| exercise: histo-rug
+ggplot(data, aes(x = `measured log solubility in mols per litre`)) + geom_histogram(binwidth = 0.5, fill = "steelblue", colour = "white")
+```
+
+:::: {.hint exercise="histo-rug"}
+::: {.callout-note collapse="false"}
+## Hint 1
+
+You should add: `+ geom_rug()` to the end of the command to add another layer, which, in this case is the rug.
+:::
+::::
+
+::: {.solution exercise="histo-rug"}
+## Fully worked solution
+
+```{webr}
+#| exercise: histo-rug
+#| solution: true
+ggplot(data, aes(x = `measured log solubility in mols per litre`)) + geom_histogram(binwidth = 0.5, fill = "steelblue", colour = "white") + geom_rug()
+```
+:::
+
+```{webr}
+#| exercise: histo-rug
+#| check: true
+gradethis::grade_this_code()
+```
+
+### Boxplots
+
+#### A basic boxplot
+
+Boxplots are excellent for summarising distributions and spotting outliers. A default boxplot in R follows the standard Tukey format i.e. it shows the middle 50% of the data inside the box (from the 25th to 75th percentile), with a line marking the median. The “whiskers” extend to the largest and smallest values that aren’t extreme, and any points beyond them are outliers.
+
+Let's try plotting a basic boxplot with the data:
+
+```{webr}
+#| exercise: basic_boxplot
+ggplot(data, aes(y = `measured log solubility in mols per litre`)) + geom_boxplot(fill = "lightgreen")
+```
+
+Here, all we've done is added a layer creating a boxplot using the command `geom_boxplot()`.
+
+We could take this a bit further and, by treating the number of H-bond donors as a categorical variable (since its discrete), we can use the boxplots to see if there are any trends relating the number of H-bond donors to the solubility.
+
+```{webr}
+#| exercise: boxplot-Hbond
+ggplot(data, aes(x = factor(`Number of H-Bond Donors`), y = `measured log solubility in mols per litre`)) + geom_boxplot(fill = "lightgreen")
+```
+
+Here, the command `factor()` converts the numeric integers into categorical labels.
+
+We can go even further and overlay the original datapoints - we'll use the `geom_jitter()` command so that the datapoints are spread out a bit, to avoid overlapping! This is known as *jittering*.
+
+Add the line:
+
+``` r
+geom_jitter(width = 0.2, alpha = 0.5)
+```
+
+to the following:
+
+```{webr}
+#| exercise: boxplot-Hbond-jitter
+ggplot(data, aes(x = factor(`Number of H-Bond Donors`), y = `measured log solubility in mols per litre`)) + geom_boxplot(fill = "lightgreen")
+```
+
+:::: {.hint exercise="boxplot-Hbond-jitter"}
+::: {.callout-note collapse="false"}
+## Hint 1
+
+You should add: `+ geom_jitter(width = 0.2, alpha = 0.5)` to the end of the command to add another layer of jittered points.
+:::
+::::
+
+::: {.solution exercise="boxplot-Hbond-jitter"}
+## Fully worked solution
+
+```{webr}
+#| exercise: boxplot-Hbond-jitter
+#| solution: true
+ggplot(data, aes(x = factor(`Number of H-Bond Donors`), y = `measured log solubility in mols per litre`)) + geom_boxplot(fill = "lightgreen") + geom_jitter(width = 0.2, alpha = 0.5)
+```
+:::
+
+```{webr}
+#| exercise: boxplot-Hbond-jitter
+#| check: true
+gradethis::grade_this_code()
+```
+
+Try playing around with the `width` and `alpha` values to see what happens!
+
+It should be noted that these types of overlays are extremely hard to do in Excel (without considerable coding etc.).
+
+### Violin plots
+
+You may not have heard of violin plots before but they are very exciting!! In brief, a violin plot shows the full distribution of a continuous variable by combining a boxplot with a mirrored density curve, so you can see where values are concentrated. The width of the “violin” at each point represents the density of observations, giving more detail than a standard boxplot.
+
+This can be illustrated using the command below (don't fret about the warning that will come up!):
+
+```{webr}
+#| exercise: basic-violin
+ggplot(data, aes(x = factor(`Number of H-Bond Donors`), y = `measured log solubility in mols per litre`)) + geom_violin(fill = "orange", drop = FALSE) + geom_boxplot(width = 0.1)
+```
