@@ -66,3 +66,15 @@
   display: block;
   margin-bottom: 2px;
 }
+
+/* Keep tab buttons inline instead of full-width */
+.panel-tabset[data-group="tools-tabset"] .nav-tabs .nav-link {
+  display: inline-block !important;   /* key fix */
+  width: 120px;                       /* your desired width */
+  height: 120px;
+}
+
+.nav-tabs .nav-link {
+  display: block;
+  width: 100%;
+}
