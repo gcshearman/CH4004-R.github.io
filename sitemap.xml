@@ -2,22 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop1.html</loc>
-    <lastmod>2025-11-11T15:39:00.285Z</lastmod>
+    <lastmod>2025-11-23T20:08:07.264Z</lastmod>
   </url>
   <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop2.html</loc>
-    <lastmod>2025-11-11T15:39:00.286Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/index.html</loc>
-    <lastmod>2025-11-11T15:39:00.311Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/intro.html</loc>
-    <lastmod>2025-11-11T15:39:00.311Z</lastmod>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop3_ggplot.html</loc>
+    <lastmod>2025-11-23T20:08:07.265Z</lastmod>
   </url>
   <url>
     <loc>https://gcshearman.github.io/CH4004-R.github.io/about.html</loc>
-    <lastmod>2025-11-11T15:39:00.309Z</lastmod>
+    <lastmod>2025-11-23T20:08:07.373Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop3_ggplot-themes.html</loc>
+    <lastmod>2025-11-23T20:08:07.265Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/index.html</loc>
+    <lastmod>2025-11-23T20:08:07.383Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/intro.html</loc>
+    <lastmod>2025-11-23T20:08:07.383Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop2.html</loc>
+    <lastmod>2025-11-23T20:08:07.265Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop3_introduction.html</loc>
+    <lastmod>2025-11-23T20:08:07.265Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop3_plot-types.html</loc>
+    <lastmod>2025-11-23T20:08:07.265Z</lastmod>
   </url>
 </urlset>
