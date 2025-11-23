@@ -42,7 +42,7 @@ webr:
     - ggplot2
 
 format:
-  live-html:
+  html:
     theme:
       - cosmo
       - brand
