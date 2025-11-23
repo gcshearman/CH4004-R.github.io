@@ -41,14 +41,11 @@ webr:
     - ggplot2
 
 format:
-  html:
-    theme:
+  live-html:
+      css: styles.css
+      theme:
       - cosmo
       - brand
-    css: styles.css
-    toc: true
+  
 
 engine: knitr
-
-editor: visual
-
