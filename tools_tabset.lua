@@ -14,7 +14,6 @@ quarto.doc.include_text('after-body', [[
       choose.classList.add("no-anchor");
       choose.classList.add("choose-your-tool");
       choose.innerText = "Choose your platform:";
-      choose.style.color = "black"
       navTab.prepend(choose);
     }       
   </script>
