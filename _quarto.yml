@@ -28,7 +28,6 @@ website:
           - Workshop3_ggplot-themes.qmd
       
 filters:
-  - live
   - tools_tabset.lua
 
 resources:
