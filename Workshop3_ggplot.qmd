@@ -2,7 +2,7 @@
 title: "Loading Data and Making Your First Plot"
 ---
 
-{{< include ./_extensions/r-wasm/live/_knitr.qmd >}} 
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
 {{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
 
 ### Importing the dataset
