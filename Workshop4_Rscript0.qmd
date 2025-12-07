@@ -1,0 +1,115 @@
+---
+title: "Script 0: Hello, World!"
+webR:
+  packages: []
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}} 
+
+### R Script Structure
+
+Unlike some computing languages (e.g. C/C++, Java, Fortran), which are 'compiled' languages, R (and also e.g. Python) is an interpreted scripting language and hence:
+
+-   DOESN'T need a 'main()' function.
+-   DOESN'T need explicit 'start' or 'end' statements.
+-   Instead, commands are just written top-to-bottom.
+
+`Comments` (shown as lines starting with `#`) are ignored by R but are VERY helpful for people (including yourself when you revisit it!) reading your code. This makes R scripts very simple to modify and re-run!
+
+:::{.callout-important}
+It is CRITICAL to choose sensible names for variables... together with comments, this helps your script be easily readable.
+:::
+
+One last thing... R scripts can be run either all at once or line by line. User's choice.
+
+### <span class="tag-webr">WebR</span> Your first R script: Hello, World!{#hello-world}
+
+Let's start with a very small starter script. In traditional programming, the first script is often "Hello, World!", so let's stick to that tradition:
+
+```{webr}
+#| exercise: hello
+
+# This is just a comment... you can write anything you want after the `hash` symbol. It won't be read by R.
+
+cat("Hello, World!\n")
+
+```
+
+<span class="highlight-green"><strong>ACTIVITY:</strong></span> Run the code above.
+
+Once you've checked that it works here (you should see text stating 'Hello, World!' that's appeared just above this sentence) after you used the 'Run Code' button (in the browser), do the following:
+
+<span class="highlight-green"><strong>ACTIVITY:</strong></span> Follow the steps below to create a new R script file.
+
+### <span class="tag-rstudio">RStudio</span> Create a new R script file
+
+1.  Launch RStudio (you will need to use AppsAnywhere if using a KU computer)
+2.  Click on **File** → **New File** → **R Script** (or press `Ctrl+Shift+N` / `Cmd+Shift+N`).
+
+A short video of this is shown below: 
+
+{{< video "videos/R-create-Rscript.mp4" >}}
+
+### <span class="tag-rstudio">RStudio</span> Write an R script
+
+In this particular case, the code that you need is given in the sub-section [Hello, World!](#hello-world) above. 
+
+<span class="highlight-green"><strong>ACTIVITY:</strong></span> Copy and paste the "Hello, World!" R code above into the blank area (called the "editor pane") that has appeared in the top left quarter of RStudio. i.e.:
+
+![](images/Screenshot-Rscript0-ed.png){fig-alt="The RStudio editor pane" width="75%"}
+
+### <span class="tag-rstudio">RStudio</span> Save as an R script file
+
+Now you can save this file! Let's call it 'RScript0'. 
+
+<span class="highlight-green"><strong>ACTIVITY:</strong></span> Follow the steps below to save your R script file.
+
+1.  Click on **File** → **Save As...** which will bring up the Save File window.
+2.  Enter a filename (here: RScript0)
+3.  Check to make sure that 'R' is written in the 'Save As Type' box
+4.  Click 'Save'.
+
+The short video below shows this in action:
+
+{{< video "videos/R-save-Rscript.mp4" >}}
+
+You now have a *persistent* R script file that you can close and re-open any time, well done!
+
+### <span class="tag-rstudio">RStudio</span> Run an R script file
+
+Above the editor pane, there is a row of clickable buttons i.e.:
+
+![](images/R-row.png){fig-alt="The buttons above the RStudio editor pane" }
+\n The buttons allow you to do the following:
+
+`Run` – The **Run** button executes the *current* line of code where the cursor is, or any code you have selected. It’s useful for testing small sections of a script incrementally without running the entire file.
+
+`Source` – The **Source** button runs the **entire R script from start to finish** in the current R session. This executes all lines of code in order, but only prints output that your code explicitly generates. It’s ideal for running complete scripts or reproducing analyses.
+
+`Source with Echo` (this is an option found in the ↓ button next to 'Source') – This option also runs the entire script, but in addition, it **prints each command to the console as it runs**. This is helpful for debugging or reviewing what the script is doing, because you can see both the commands and their results in real time.
+
+<span class="highlight-pink"><strong>EXPERIMENT:</strong></span> Try clicking `Source` and see what's outputted in the 'Console' window (bottom left quarter of RStudio). Also try clicking on the other two options to see how they all differ.
+
+### <span class="tag-rstudio">RStudio</span> Close an R Script file
+
+Closing an R script file in RStudio is, thankfully, very easy! 
+
+<span class="highlight-green"><strong>ACTIVITY:</strong></span> Click the `x` button on the tab in RStudio where the name of your R file is...
+
+![](images/R-close-file.png){fig-alt="Closing an R script file in RStudio" width="45%" }
+
+### <span class="tag-rstudio">RStudio</span> Open an R script file
+
+<span class="highlight-green"><strong>ACTIVITY:</strong></span> Follow the steps below to open your saved R script file:
+
+1.  Click on **File** → **Open File...** which will bring up the Open File window.
+2.  Navigate to where your R file is saved (i.e. find the correct directory)
+3.  Select it and click'Open'
+
+{{< video "videos/R-open-Rscript.mp4" >}}
+
+### Section summary
+
+You should now be able to open, save and close an R script file in RStudio, well done! 
+
+In the next section, you'll start creating a script that is more relevant to the degree that you're studying...

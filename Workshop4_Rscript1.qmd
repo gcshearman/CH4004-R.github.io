@@ -1,0 +1,303 @@
+---
+title: "Conditional if/else statements"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+{{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
+
+In this section, you'll be developing an R script to determine whether a certain mass of chemical can fully be dissolved in a certain volume of solvent (assume water, unless otherwise stated) based on its known solubility.
+
+You'll also be using some conditional statements, here `if` and `else` statements in order to generate a certain outcome depending on the scenario. Conditional statements are the backbone of coding, so very useful to get to grips with as early as possible!
+
+### What are `if/else` statements?
+
+In everyday life, we make decisions based on conditions all the time:
+
+-   If it’s raining, I’ll take an umbrella.
+-   If the solution is cloudy, I need to mix it more.
+-   If the mass is greater than the solubility limit, not everything will dissolve.
+
+Programming languages need a way to do exactly the same thing i.e. to choose between different actions depending on a situation.
+
+That’s what if/else statements are for.
+
+An `if/else` statement lets your program ask a question and make a decision:
+
+-   **If** some condition is true → do one thing
+-   **Else** (meaning “otherwise”) → do something else
+
+It’s a simple *decision-making tool* for your code.
+
+#### The structure of an `if/else` statement in R
+
+Here's the pattern:
+
+``` r
+if (condition) {
+  # Code that runs when the condition is TRUE
+} else {
+  # Code that runs when the condition is FALSE
+}
+```
+
+R checks the condition once, then chooses a path.
+
+#### Why should you care?
+
+Chemistry is full of conditional decisions:
+
+-   Will this dissolve or not?
+-   Is the concentration too high?
+-   Is the temperature above the melting point?
+-   Is this reaction complete?
+
+You can turn these real lab questions into code using `if/else`.
+
+For example:
+
+``` r
+if (mass_added <= max_dissolved) {
+  cat("All of it will dissolve.")
+} else {
+  cat("Some will remain undissolved.")
+}
+```
+
+This is literally the same reasoning you apply in the lab, just automated!
+
+::: callout-note
+Remember: `cat()` prints text or values to the screen and con*cat*enates them together into one continuous, readable message.
+:::
+
+### [WebR]{.tag-webr} Testing `if/else` statements
+
+Let's try a tiny example first, so you can see `if/else` statements in action... here is some code below.
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Try running the code below as it is:
+
+```{webr}
+x <- 10
+
+if (x < 20) {
+  cat("x is less than 20\n")
+} else {
+  cat("x is NOT less than 20\n")
+}
+```
+
+::: callout-note
+The `\n` in the `cat()` commands is an escape sequence (a special combination of characters that represents something not easily typed or non-printable). Specifically, `\n` represents a call for a new line to be generated in the output (like pressing the 'Enter' key, in coding language).
+:::
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Now edit the value for `x` in the code above to be 30 (rather than 10). Run the code again. What happens?
+
+### [WebR]{.tag-webr} Applying conditional statements
+
+In this section, we (or rather you) are trying to create a short R script file that will determine whether the proposed mass of a chemical (here, called `mass_added`) for dilution (in a certain volume) will result in the chemical fully dissolving or not. In the latter eventuality, this means that the mass proposed is greater than the mass limit for that volume of solvent (here, called `max_dissolved`).
+
+The 'condition' (using an `if/else` statement) should therefore be:
+
+``` r
+if (mass_added <= max_dissolved) {
+  # everything dissolves
+} else {
+  # some remains undissolved
+}
+```
+
+We do, however, also need to calculate the value of `max_dissolved` from known (i.e. published) solubility values, and the desired volume. This little code snippet does this:
+
+```{webr}
+# Example numbers — later you will enter your own
+solubility <- 14  # mg/mL
+volume <- 100     # mL
+
+# Calculation
+max_dissolved <- solubility * volume
+
+cat("Maximum that can dissolve is:", max_dissolved, "mg\n")
+```
+
+In the code above, the unknown chemical has a known solubility limit of 14 mg/mL and there is 100 mL solvent.
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Run the code above to determine the maximum mass of the unknown chemical that can be dissolved.
+
+[<strong>EXPERIMENT:</strong>]{.highlight-pink} Caffeine has moderate solubility in water of 22 mg/mL at room temperature. Assuming that the average coffee mug has a volume of 250 mL, modify the code below to determine what the maximum amount of caffeine is that can be dissolved in a coffee cup's worth of water.
+
+```{webr}
+#| exercise: caff-max-dissolve
+# Example numbers 
+solubility <- 14  # mg/mL
+volume <- 100     # mL
+
+# Calculation
+max_dissolved <- solubility * volume
+
+cat("Maximum that can dissolve is:", max_dissolved, "mg\n")
+```
+
+::: {.hint exercise="caff-max-dissolve"}
+::: {.callout-note collapse="false"}
+## Hint 1
+
+You will need to edit the numbers for solubility and volume.
+:::
+:::
+
+::: {.solution exercise="caff-max-dissolve"}
+## Fully worked solution
+
+```{webr}
+#| exercise: caff-max-dissolve
+#| solution: true
+# Example numbers 
+solubility <- 22  # mg/mL
+volume <- 250     # mL
+
+# Calculation
+max_dissolved <- solubility * volume
+
+cat("Maximum that can dissolve is:", max_dissolved, "mg\n")
+```
+:::
+
+```{webr}
+#| exercise: caff-max-dissolve
+#| check: true
+gradethis::grade_this_code()
+```
+
+We can now put both of these parts together and add a variable that represents the proposed mass (i.e. `mass_added`). 
+
+**Make sure you can understand all of lines of the code in the code snippet below.**
+
+```{webr}
+#| exercise: fur-max-dissolve
+# Example numbers 
+solubility <- 14  # mg/mL
+volume <- 100     # mL
+
+# Calculation
+max_dissolved <- solubility * volume
+
+mass_added <- 500  # mg 
+
+if (mass_added <= max_dissolved) {
+  cat("All of it will dissolve!\n")
+} else {
+  cat("Some will remain undissolved.\n")
+}
+```
+
+[<strong>EXPERIMENT:</strong>]{.highlight-pink} Furosemide (a diuretic) has quite poor solubility in water of 0.055 mg/mL at room temperature. Edit the code above to determine whether 30 mg of furosemide will dissolve fully in 1 L (i.e. 1000 mL) of water or not.
+
+::: {.hint exercise="fur-max-dissolve"}
+::: {.callout-note collapse="false"}
+## Hint 1
+
+You will need to edit the numbers for solubility and volume.
+:::
+:::
+
+::: {.solution exercise="fur-max-dissolve"}
+## Fully worked solution
+
+```{webr}
+#| exercise: fur-max-dissolve
+#| solution: true
+# Example numbers 
+solubility <- 0.055  # mg/mL
+volume <- 1000     # mL
+
+# Calculation
+max_dissolved <- solubility * volume
+
+mass_added <- 30  # mg 
+
+if (mass_added <= max_dissolved) {
+  cat("All of it will dissolve!\n")
+} else {
+  cat("Some will remain undissolved.\n")
+}
+```
+:::
+
+```{webr}
+#| exercise: fur-max-dissolve
+#| check: true
+gradethis::grade_this_code()
+```
+
+### The `readline()` command
+
+Sometimes, your script needs information from you e.g. the name of a compound, how much mass you added or the volume of solvent.
+
+That’s what `readline()` does:
+
+-   It pauses the script and shows a prompt message.
+-   You type your answer and press Enter.
+-   The script remembers what you typed so it can use it in calculations.
+
+A typical example of `readline()` in use is given below:
+
+``` r
+drug_name <- readline(prompt = "Enter the name of the compound: ")
+```
+It should be emphasised that this command isn't suitable for this simple browser environment but works beautifully in <span class="tag-rstudio">RStudio</span>!
+
+### <span class="tag-rstudio">RStudio</span> A Solubility Checker R Script
+
+<span class="highlight-green"><strong>ACTIVITY:</strong></span> In RStudio, open a new R script file, copy the code below and save it as: `Solubility_checker.R`.
+
+::: callout-note
+Remember, you don't need to write the '.R' in the name as it will automatically save as an R file, assuming that you've chosen the correct option).
+:::
+
+```r
+# =================================================
+# Script 1: Solubility Check - Interactive Version
+# =================================================
+
+# This script calculates whether a given mass of a compound
+# will fully dissolve in a certain volume of solvent.
+
+# ----------------------------------------
+# STEP 1: Ask the user for input
+# ----------------------------------------
+drug_name <- readline(prompt = "Enter the name of the compound: ")
+solubility <- as.numeric(readline(prompt = "Enter solubility (mg/mL): "))
+volume <- as.numeric(readline(prompt = "Enter volume of solvent (mL): "))
+mass_added <- as.numeric(readline(prompt = "Enter mass of compound added (mg): "))
+
+# ----------------------------------------
+# STEP 2: Calculate maximum dissolvable mass
+# ----------------------------------------
+max_dissolved <- solubility * volume
+
+# ----------------------------------------
+# STEP 3: Check if the mass added will fully dissolve
+# ----------------------------------------
+if (mass_added <= max_dissolved) {
+  cat("All of the", drug_name, "will dissolve!\n")
+} else {
+  cat("Some of the", drug_name, "will remain undissolved.\n")
+  cat("Maximum mass that can dissolve is:", max_dissolved, "mg\n")
+}
+```
+When you use `readline()`, the value you type is always stored as text (a “string”), even if it looks like a number.
+
+Since, computers treat text differently from numbers, if you try to do any calculations with text, R will give an error.
+
+The `as.numeric()` command simply converts text into a number so that R can do calculations.
+
+<span class="highlight-green"><strong>ACTIVITY:</strong></span> Now click 'Source' to run the whole code, and use it to determine whether a sugar cube, which has a mass of 4.0 grams and a solubility of 2000 mg/mL in water at room temperature, can fully dissolve in 10 mL of water. 
+
+The video below shows a quick run-through of this!
+
+{{< video "videos/R-sol_checker_script.mp4" >}}
+
+#### Section summary
+
+You've learned how to use `if/else` statements. Just in case you're wondering, you can use just an `if` statement without an `else` clause - in the case where the the condition is FALSE, R simply skips the code inside `if()` and continues with the rest of the script.  
+
+In the next section, you'll write a whole script yourself!

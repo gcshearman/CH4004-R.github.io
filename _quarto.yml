@@ -13,6 +13,8 @@ website:
       - Workshop2.qmd
       - href: Workshop3_introduction.qmd
         text: Workshop 3
+      - href: Workshop4_introduction.qmd
+        text: Workshop 4        
   
   sidebar:
     style: "docked"
@@ -25,7 +27,13 @@ website:
           - Workshop3_introduction.qmd
           - Workshop3_ggplot.qmd
           - Workshop3_plot-types.qmd
-          - Workshop3_ggplot-themes.qmd
+          - Workshop3_ggplot-themes.qmd      
+      - section: "Workshop 4"
+        contents: 
+          - Workshop4_introduction.qmd
+          - Workshop4_Rscript0.qmd
+          - Workshop4_Rscript1.qmd
+          - Workshop4_Rscript2.qmd
       
 filters:
   - tools_tabset.lua

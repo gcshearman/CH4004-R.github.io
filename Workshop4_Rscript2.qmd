@@ -1,0 +1,224 @@
+---
+title: "The `ifelse` statement"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}} {{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
+
+In this section, you'll write your own R script (with a bit of help ;-)) to calculate how much stock solution is needed for multiple dilutions. You will also learn how to use the `ifelse()` function to flag dilutions automatically that use a high proportion of your stock. This combines practical chemistry calculations with 'vectorized' logical checks, showing how R can help you make lab planning faster and safer.
+
+### What is the `ifelse` statement?
+
+The `ifelse()` function is like a supercharged version of the `if/else` statements you learned earlier. Instead of checking a single condition, it can evaluate a whole vector of values at once and return a result for each one. This makes it perfect for tasks like our dilution script, where you want to check multiple samples or volumes simultaneously and get a quick, clear outcome for each.
+
+::: callout-note
+Remember: In R, a **vector** is a sequence of values of the same type (numbers, text, or logical) stored together as a single object.
+:::
+
+#### The structure of an `ifelse` statement in R
+
+An `ifelse()` statement has three parts:
+
+-   the condition to check,
+-   the value to return if the condition is true, and
+-   the value to return if the condition is false.
+
+The general structure looks like:
+
+``` r
+ifelse(condition, value_if_true, value_if_false)
+```
+
+For example, the code below enables you to flag whether a stock volume is safe to use.
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Run the code below:
+
+```{webr}
+V_stock_needed <- 60
+stock_available <- 80
+
+usage <- ifelse(V_stock_needed <= stock_available, "Safe", "Too much")
+print(usage)
+```
+
+When you have multiple values, `ifelse()` can check each one at the same time. This is called **vectorized operation**. For example, suppose we have three dilutions and want to flag which ones use too much stock...
+
+<span class="highlight-green"><strong>ACTIVITY:</strong></span> Run the code below, look at the output and try to understand why the each of the results has been outputted:
+
+```{webr}
+V_stock_needed <- c(30, 60, 40)
+stock_available <- 50
+
+usage <- ifelse(V_stock_needed <= stock_available, "Safe", "Too much")
+cat(usage, sep="\n")
+```
+
+The `sep` argument in the `cat()` function tells R what to put between the items you are printing. By default, `cat()` just prints everything together with a space.
+
+If you use `sep = "\n"`, R prints each item on a new line.
+
+You can also use other characters, like ", " to separate items with a comma and space.
+
+### [RStudio]{.tag-rstudio} A simple dilution calculator
+
+In this section, *you* will write an R script file.
+
+The goal is to calculate how much stock solution you need to prepare **one dilution**, using the familiar formula:
+
+$$C_1 V_1 = C_2 V_2$$
+
+This is one of the most important calculations you will ever do in the lab, so it’s the perfect place to start writing real code.
+
+Your script needs to be able to:
+
+-   Store values for the stock concentration (C₁), final concentration (C₂), and final volume (V₂)\
+-   Use the dilution equation to calculate the volume of stock needed (V₁)\
+-   Print a clear, readable message telling you the result\
+    Instead of copying a finished script, you’ll build it piece by piece... the way a real coder would.
+
+<span class="highlight-green"><strong>ACTIVITY:</strong></span> Do step 1:
+
+**Step 1:**: 
+1. Open **RStudio**\
+2. Go to **File → New File → R Script**\
+3. A blank script window will open\
+4. Save the file immediately as: **`simple_dilution.R`**
+
+You’ll now add the script code yourself!
+
+**Step 2:** At this point, it's always good to describe what you are hoping your code will do. 
+
+<span class="highlight-green"><strong>ACTIVITY:</strong></span> Type this (or something along these lines) at the top of your blank script:
+
+``` r
+# Simple Dilution Calculator
+# Calculates V1 using C1 * V1 = C2 * V2
+```
+
+This makes your script readable and helps you get used to how R scripts begin.
+
+**Step 3:** Create your variables... your script needs three pieces of information:
+
+-   stock concentration (C₁)
+-   final concentration (C₂)
+-   final volume (V₂)
+
+<span class="highlight-green"><strong>ACTIVITY:</strong></span> Add these lines to your script (typing them yourself):
+
+```r
+stock_conc <- 
+final_conc <- 
+final_vol  <- 
+```
+
+<span class="highlight-green"><strong>ACTIVITY:</strong></span> Now fill in the numbers... for example, try C₁ = 5 mg/mL, C₂ = 2 mg/mL, V₂ = 50 mL. But feel free to choose any realistic values you want!
+
+**Step 4:**
+You now need to add the dilution calculation. 
+
+<span class="highlight-green"><strong>ACTIVITY:</strong></span> type the exact line below under your variables:
+
+```r
+V_stock_needed <- (final_conc * final_vol) / stock_conc
+```
+This uses your numbers and the formula to calculate V₁.
+
+***Step 5:**
+You now need a command that prints your result!
+
+<span class="highlight-green"><strong>ACTIVITY:</strong></span> At the end of your script, type:
+
+```r
+cat("You need", round(V_stock_needed, 2), "mL of stock solution.\n")
+```
+
+::: callout-note
+The `round()` function in R is used to make numbers easier to read by shortening them to a set number of decimal places. It takes a number and rounds it to the number of decimal places you choose. Here, the values are
+:::
+
+**Step 5:**
+Now let's run your script!
+
+<span class="highlight-green"><strong>ACTIVITY:</strong></span> Click `Source` (top right of the script pane), then look in the Console for your result.
+
+<span class="highlight-pink"><strong>EXPERIMENT:</strong></span> Try changing your values and running again. 
+
+This is how chemists use code to check dilutions quickly and accurately.
+
+#### Wow! You built your first R script!!
+
+Well done. You didn’t just copy code... you constructed a real calculation script exactly the way working scientists do.
+
+Next, we’ll extend this idea to more a complex script that handles multiple dilutions at once.
+
+### A multiple dilution calculator in R
+
+The code below allows you to undertake complex diltion calculations with multiple dilutions at once.
+
+```r
+# -----------------------------------------------------
+# Multiple Dilution Calculator
+# -----------------------------------------------------
+# This script calculates the volume of stock solution (V1)
+# needed for several dilutions using C1 * V1 = C2 * V2.
+# It also checks whether each dilution uses more than 80%
+# of the available stock and labels it as "High usage" or "Safe".
+# -----------------------------------------------------
+
+
+# --- 1. Stock information ---
+
+# Stock concentration (C1, mg/mL)
+stock_conc <- 5
+
+# Total volume of stock available (mL)
+stock_available <- 80
+
+
+# --- 2. Final solution requirements (vectors!) ---
+
+# Desired final concentrations (C2, mg/mL)
+final_conc <- c(2, 1.5, 3)
+
+# Final volumes to prepare (V2, mL)
+final_vols <- c(50, 100, 75)
+
+
+# --- 3. Calculate volumes of stock needed (V1) ---
+
+V_stock_needed <- (final_conc * final_vols) / stock_conc
+
+
+# --- 4. Check % stock used by each dilution ---
+
+stock_fraction <- V_stock_needed / stock_available
+
+usage_label <- ifelse(stock_fraction > 0.8,
+                      "High usage",
+                      "Safe")
+
+
+# --- 5. Print results clearly ---
+
+cat("Dilution results:\n")
+cat("-----------------------------\n\n")
+
+for (i in seq_along(V_stock_needed)) {
+  cat("Sample", i, ":\n")
+  cat("  C2 =", final_conc[i], "mg/mL\n")
+  cat("  V2 =", final_vols[i], "mL\n")
+  cat("  Stock needed =", round(V_stock_needed[i], 2), "mL\n")
+  cat("  Usage =", usage_label[i], "\n\n")
+}
+```
+
+<span class="highlight-green"><strong>ACTIVITY:</strong></span> Copy the code above, create a new script file (name it yourself!), paste and try running (remember: use `Source`). 
+
+<span class="highlight-pink"><strong>EXPERIMENT:</strong></span> Try editing the stock concentration (`stock_conc`), the stock amount that's available (`stock_available`), the final concentrations (`final_conc`) and volumes (`final_vols`) - you should be able to see how much stock each sample uses, which ones use a lot of stock, how changing concentrations alters V₁ and, finally, how vectors let R calculate many things at once.
+
+### Section summary
+
+In this section, you learned how R can quickly handle several dilution calculations at once. Instead of calculating each dilution separately, you stored all your final concentrations and volumes in vectors, allowing R to process each sample automatically. You also used an `ifelse()` statement to check whether a dilution used more than 80% of the available stock — a simple but powerful example of how computers make decisions based on conditions.
+
+Your script currently checks each dilution individually, which is perfect for building confidence with vector calculations and conditional logic. In real laboratory planning you’d also want to check whether the total stock needed for all dilutions combined exceeds what is available... something we can add later as your scripts become more sophisticated. For now, you have built a practical, flexible tool that introduces the essential logic behind automated dilution calculations.
+
+By writing and running your own script, you now have a reusable tool: change the input values and R instantly recalculates everything for you. This is exactly how scientists use code to plan solutions efficiently and avoid costly lab mistakes. You’ve combined chemistry, logic, and scripting to produce something genuinely useful, well done!

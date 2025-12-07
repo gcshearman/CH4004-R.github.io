@@ -1,0 +1,31 @@
+---
+title: "Introduction to Workshop 4"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+## Welcome to Workshop 4: Writing your own R Scripts: Turning Lab Calculations into Code
+
+Welcome to the “Write your own R Scripts” workshop! Now that you've got some of the basics of R under your belt, in this session, you’ll learn how to create your very first R script files to perform chemical and pharmaceutical calculations. We’ll focus on two core tasks:
+
+-   checking how much of a compound can dissolve in a given volume of solvent, and
+-   calculating dilutions using the familiar C₁V₁ = C₂V₂ formula.
+
+By the end of the workshop, you’ll be able to write, save and run your own scripts, turning manual lab calculations into reproducible, automated tools.
+
+### What you'll be learning
+
+In this workshop, you will learn how to:
+
+-   Create and save R script files
+-   Print results clearly using `cat()` or similar functions
+-   Use interactive input with `readline()` to make scripts dynamic
+-   Structure a script with comments to make it readable and reusable
+-   Use conditional statements (`if/else`)
+
+### Why does this matter?
+
+Following this workshop, you should be able to turn manual lab calculations into reproducible, automated tools using R. By learning to write your own scripts, you’ll save time, reduce errors, and gain a skill that’s directly applicable to chemistry and pharmaceutical work and sets the foundation for more advanced data analysis later.
+
+I'll be using two badges:
+<span class="tag-webr">WebR</span> and <span class="tag-rstudio">RStudio</span> to denote whether the text (and tasks for you to work through) relates to the browser (this is WebR) or RStudio.

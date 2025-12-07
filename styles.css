@@ -6,6 +6,7 @@
   width: auto !important;     /* preserves aspect ratio */
 }
 
+
 /* add tools-tabset css for the setup instructions */ 
 
 .panel-tabset[data-group="tools-tabset"] .choose-your-tool {
@@ -67,3 +68,57 @@
   display: block;
   margin-bottom: 2px;
 }
+
+.highlight-yellow {
+  background-color: #fff176;
+  padding: 2px 4px;
+  border-radius: 0px;
+}
+.highlight-blue {
+  background-color: #cde7ff;
+  padding: 2px 3px;
+  border-radius: 0px;
+}
+.highlight-green {
+  background-color: #b2ff59;  /* neon lime highlighter green */
+  padding: 2px 3px;
+  border-radius: 0px;
+}
+.highlight-pink {
+  background-color: #ff80ab;  /* fluorescent pink */
+  padding: 2px 3px;
+  border-radius: 0px;
+}
+
+/* ==========================
+   WebR Tag
+   ========================== */
+.tag-webr {
+  display: inline-block;
+  background-color: #00c0ff;   /* bright turquoise */
+  color: black;                /* readable text */
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-size: 0.9em;
+  vertical-align: middle;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+/* ==========================
+   RStudio Tag
+   ========================== */
+.tag-rstudio {
+  display: inline-block;
+  background-color: #3465a4;   /* RStudio blue */
+  color: white;                /* readable on dark background */
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-size: 0.9em;
+  vertical-align: middle;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+
+
