@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Home – CH4004 R programming</title>
+<title>Introduction to Workshop 5 – CH4004 R programming</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,6 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./Workshop5_exploring-data.html" rel="next">
+<link href="./Workshop4_Rscript2.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -99,11 +101,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./Workshop1.html"> 
+    <a class="nav-link active" href="./Workshop1.html" aria-current="page"> 
 <span class="menu-text">Workshop 1</span></a>
   </li>  
   <li class="nav-item">
@@ -133,7 +135,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Home</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Workshop5_introduction.html">Workshop 5</a></li><li class="breadcrumb-item"><a href="./Workshop5_introduction.html">Introduction to Workshop 5</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -246,7 +248,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Workshop5_introduction.html" class="sidebar-item-text sidebar-link">
+  <a href="./Workshop5_introduction.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Introduction to Workshop 5</span></a>
   </div>
 </li>
@@ -285,9 +287,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Workshop5_introduction.html">Workshop 5</a></li><li class="breadcrumb-item"><a href="./Workshop5_introduction.html">Introduction to Workshop 5</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Home</h1>
+<h1 class="title">Introduction to Workshop 5</h1>
 </div>
 
 
@@ -304,145 +306,13 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome-to-the-r-programming-workshops-for-pharmaceutical-science-and-chemistry" class="level2">
-<h2 class="anchored" data-anchor-id="welcome-to-the-r-programming-workshops-for-pharmaceutical-science-and-chemistry">Welcome to the R programming workshops for Pharmaceutical Science and Chemistry</h2>
-<p>This set of workshops will guide you from the basics of R to data analysis relevant to your field. These will support you throughout your time at Kingston University and will also provide you with an invaluable <em>future skill</em>.</p>
-</section>
-<section id="workshops" class="level2">
-<h2 class="anchored" data-anchor-id="workshops">Workshops</h2>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 6%">
-<col style="width: 38%">
-<col style="width: 54%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Workshop</th>
-<th>Title</th>
-<th>Skills Learned</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td>R You Ready? Getting Started with Chemistry Data!</td>
-<td>Introduction to R Basic syntax Simple plotting</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>Data in a Lab Coat: Cleaning and Wrangling Your Chemistry Data</td>
-<td>Importing data using <code>readr</code><br>
-Data cleaning and manipulation using <code>dplyr</code></td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td>Plotting Power! Visualizing Your Data Like a Pro</td>
-<td>Complex visualizations for scientific data Advanced <code>ggplot2</code> visualizations</td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td>Make It Match! The Magic of Correlation and Regression</td>
-<td>Performing correlation and linear regression analysis</td>
-</tr>
-<tr class="odd">
-<td>5</td>
-<td>Tox Talk: Exploring Toxicity Data with Statistics</td>
-<td>Introduction to using R for statistical tests for comparing groups (e.g., t-tests, ANOVA)</td>
-</tr>
-<tr class="even">
-<td>6</td>
-<td>Statistics Are Sexy: Hypothesis Testing and p values</td>
-<td>Introduction to the use of R for hypothesis testing and interpreting p-values</td>
-</tr>
-<tr class="odd">
-<td>7</td>
-<td>It’s All About the Data: Big Data in Chemistry</td>
-<td>Introduction to big data analysis using R</td>
-</tr>
-<tr class="even">
-<td>8</td>
-<td>Chemical Reactions and Functions: R-ing the Curve!</td>
-<td>Applying functions and curve fitting to real-world chemical data</td>
-</tr>
-<tr class="odd">
-<td>9</td>
-<td>The Plot Thickens: Beautiful Data Visualization</td>
-<td>Advanced <code>ggplot2</code> techniques for data visualization</td>
-</tr>
-<tr class="even">
-<td>10</td>
-<td>Statistical Sherlock: Investigating Toxicity with Statistics</td>
-<td>Conducting statistical hypothesis testing to compare experimental groups</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="examples-where-r-is-used-in-chemistry-pharmaceutical-science" class="level2">
-<h2 class="anchored" data-anchor-id="examples-where-r-is-used-in-chemistry-pharmaceutical-science">Examples where R is used in Chemistry &amp; Pharmaceutical Science</h2>
-<p>The following is a collection of journal articles (links to!) where R has been critical in pushing forwards the boundaries of science in the following contexts (this list will be extended as we go on!):</p>
-<section id="analytical-chemistry" class="level3">
-<h3 class="anchored" data-anchor-id="analytical-chemistry">Analytical Chemistry</h3>
-<ul>
-<li><p>Exploratory multivariate analysis using R Language for method development in liquid chromatography | Analytical and Bioanalytical Chemistry (<a href="https://link.springer.com/article/10.1007/s00216-024-05705-y?" class="uri">https://link.springer.com/article/10.1007/s00216-024-05705-y?</a>)</p></li>
-<li><p>Utilizing High-Resolution Mass Spectrometry Data Mining Strategy in R Programming Language for Rapid Annotation of Absorbed Prototypes and Metabolites of Gypenosides | Molecules (<a href="https://www.mdpi.com/1420-3049/30/4/779" class="uri">https://www.mdpi.com/1420-3049/30/4/779</a>)</p></li>
-</ul>
-</section>
-<section id="medicinal-chemistry" class="level3">
-<h3 class="anchored" data-anchor-id="medicinal-chemistry">Medicinal Chemistry</h3>
-<ul>
-<li>The Use of the R Language for Medicinal Chemistry Applications | Bentham Science (<a href="https://www.eurekaselect.com/article/48427" class="uri">https://www.eurekaselect.com/article/48427</a>)</li>
-</ul>
-</section>
-<section id="pharmacokinetics" class="level3">
-<h3 class="anchored" data-anchor-id="pharmacokinetics">Pharmacokinetics</h3>
-<ul>
-<li><p>Design Evaluation and Optimization of Population Pharmacokinetics Model Using an R Package PopED (<a href="https://www.mdpi.com/2227-7390/11/21/4407" class="uri">https://www.mdpi.com/2227-7390/11/21/4407</a>)</p></li>
-<li><p>Enabling transparent toxicokinetic modeling for public health risk assessment | PLOS One (<a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0321321" class="uri">https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0321321</a>)</p></li>
-</ul>
-</section>
-<section id="formulations" class="level3">
-<h3 class="anchored" data-anchor-id="formulations">Formulations</h3>
-<ul>
-<li>AI-Driven Pharmaceutical Data Analysis Tool for Drug Formulation Development | Journal of Pharmaceutical Innovation (<a href="https://link.springer.com/article/10.1007/s12247-025-10203-4" class="uri">https://link.springer.com/article/10.1007/s12247-025-10203-4</a>)</li>
-</ul>
-</section>
-</section>
-<section id="useful-r-packages" class="level2">
-<h2 class="anchored" data-anchor-id="useful-r-packages">Useful R packages</h2>
-<ul>
-<li><strong>tidyverse</strong><br>
-<em>Purpose:</em> Data manipulation, cleaning, and visualization (includes dplyr, tidyr, ggplot2).</li>
-</ul>
-<!-- -->
-<ul>
-<li><strong>ggplot2</strong><br>
-<em>Purpose:</em> Grammar of graphics for high-quality plots of chemical and pharmaceutical data.</li>
-</ul>
-<!-- -->
-<ul>
-<li><strong>plotly</strong><br>
-<em>Purpose:</em> Interactive visualization for complex datasets.</li>
-</ul>
-<!-- -->
-<ul>
-<li><strong>shiny</strong><br>
-<em>Purpose:</em> Building interactive web apps for chemical data dashboards.</li>
-</ul>
-<!-- -->
-<ul>
-<li><strong>readr</strong><br>
-<em>Purpose:</em> Fast and friendly functions for reading rectangular data (CSV, TSV)</li>
-</ul>
-<!-- -->
-<ul>
-<li><p><strong>readxl</strong><br>
-<em>Purpose:</em> Import Excel files without external dependencies.</p></li>
-<li><p><strong>tidyr</strong><br>
-<em>Purpose:</em> Reshape messy data into tidy format (long vs wide).</p></li>
-<li><p><strong>dplyr</strong><br>
-<em>Purpose:</em> Grammar of data manipulation (filter, select, mutate, summarise).</p></li>
-</ul>
+<section id="welcome-to-workshop-5-correlation-linear-regression" class="level2">
+<h2 class="anchored" data-anchor-id="welcome-to-workshop-5-correlation-linear-regression">Welcome to Workshop 5: Correlation &amp; Linear Regression</h2>
+<p>In this session, we’ll build on the R scripting and plotting skills you’ve developed so far and apply them to analysing real chemical and pharmaceutical science data. You’ll work with simple but realistic datasets (such as calibration data) to explore how measured variables relate to one another, using R as a tool to support scientific interpretation rather than just number-crunching.</p>
+<section id="what-youll-be-learning" class="level3">
+<h3 class="anchored" data-anchor-id="what-youll-be-learning">What you’ll be learning</h3>
+<p>By the end of this workshop, you’ll be able to visualise relationships between variables using scatter plots, quantify how strongly those variables are related using correlation, and fit simple linear regression models to experimental data. You’ll also learn how to interpret these results in a meaningful scientific context, understand what model parameters represent physically, and recognise the limitations of correlation and linear models when applied to real experimental measurements.</p>
+<p>As per Workshop 4, I’ll be using two badges: <span class="tag-webr">WebR</span> and <span class="tag-rstudio">RStudio</span> to denote whether the text (and tasks for you to work through) relates to the browser (this is WebR) or RStudio.</p>
 
 
 <script type="ojs-module-contents">
@@ -459,6 +329,7 @@ eyJjb250ZW50cyI6W119
 <script type="vfs-file">
 WyJkYXRhL2Vzb2xfbWVzc3kuY3N2IiwiZGF0YS9MaXBvcGhpbGljaXR5LmNzdiIsImRhdGEvZGVsYW5leS1wcm9jZXNzZWQuY3N2Il0=
 </script>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -873,6 +744,18 @@ window._ojs.runtime.interpretFromScriptTags();
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Workshop4_Rscript2.html" class="pagination-link" aria-label="The `ifelse` statement">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">The <code>ifelse</code> statement</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Workshop5_exploring-data.html" class="pagination-link" aria-label="Exploring Relationships in Experimental Data">
+        <span class="nav-page-text">Exploring Relationships in Experimental Data</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

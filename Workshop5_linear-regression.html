@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Home – CH4004 R programming</title>
+<title>Modelling Relationships with Linear Regression – CH4004 R programming</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,6 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./Workshop5_limits.html" rel="next">
+<link href="./Workshop5_correlating-data.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -73,6 +75,35 @@ ul.task-list li input[type="checkbox"] {
 <script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
 <link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -99,11 +130,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./Workshop1.html"> 
+    <a class="nav-link active" href="./Workshop1.html" aria-current="page"> 
 <span class="menu-text">Workshop 1</span></a>
   </li>  
   <li class="nav-item">
@@ -133,7 +164,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Home</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Workshop5_introduction.html">Workshop 5</a></li><li class="breadcrumb-item"><a href="./Workshop5_linear-regression.html">Modelling Relationships with Linear Regression</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -264,7 +295,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Workshop5_linear-regression.html" class="sidebar-item-text sidebar-link">
+  <a href="./Workshop5_linear-regression.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Modelling Relationships with Linear Regression</span></a>
   </div>
 </li>
@@ -285,9 +316,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Workshop5_introduction.html">Workshop 5</a></li><li class="breadcrumb-item"><a href="./Workshop5_linear-regression.html">Modelling Relationships with Linear Regression</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Home</h1>
+<h1 class="title">Modelling Relationships with Linear Regression</h1>
 </div>
 
 
@@ -304,149 +335,113 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome-to-the-r-programming-workshops-for-pharmaceutical-science-and-chemistry" class="level2">
-<h2 class="anchored" data-anchor-id="welcome-to-the-r-programming-workshops-for-pharmaceutical-science-and-chemistry">Welcome to the R programming workshops for Pharmaceutical Science and Chemistry</h2>
-<p>This set of workshops will guide you from the basics of R to data analysis relevant to your field. These will support you throughout your time at Kingston University and will also provide you with an invaluable <em>future skill</em>.</p>
-</section>
-<section id="workshops" class="level2">
-<h2 class="anchored" data-anchor-id="workshops">Workshops</h2>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 6%">
-<col style="width: 38%">
-<col style="width: 54%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Workshop</th>
-<th>Title</th>
-<th>Skills Learned</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td>R You Ready? Getting Started with Chemistry Data!</td>
-<td>Introduction to R Basic syntax Simple plotting</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>Data in a Lab Coat: Cleaning and Wrangling Your Chemistry Data</td>
-<td>Importing data using <code>readr</code><br>
-Data cleaning and manipulation using <code>dplyr</code></td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td>Plotting Power! Visualizing Your Data Like a Pro</td>
-<td>Complex visualizations for scientific data Advanced <code>ggplot2</code> visualizations</td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td>Make It Match! The Magic of Correlation and Regression</td>
-<td>Performing correlation and linear regression analysis</td>
-</tr>
-<tr class="odd">
-<td>5</td>
-<td>Tox Talk: Exploring Toxicity Data with Statistics</td>
-<td>Introduction to using R for statistical tests for comparing groups (e.g., t-tests, ANOVA)</td>
-</tr>
-<tr class="even">
-<td>6</td>
-<td>Statistics Are Sexy: Hypothesis Testing and p values</td>
-<td>Introduction to the use of R for hypothesis testing and interpreting p-values</td>
-</tr>
-<tr class="odd">
-<td>7</td>
-<td>It’s All About the Data: Big Data in Chemistry</td>
-<td>Introduction to big data analysis using R</td>
-</tr>
-<tr class="even">
-<td>8</td>
-<td>Chemical Reactions and Functions: R-ing the Curve!</td>
-<td>Applying functions and curve fitting to real-world chemical data</td>
-</tr>
-<tr class="odd">
-<td>9</td>
-<td>The Plot Thickens: Beautiful Data Visualization</td>
-<td>Advanced <code>ggplot2</code> techniques for data visualization</td>
-</tr>
-<tr class="even">
-<td>10</td>
-<td>Statistical Sherlock: Investigating Toxicity with Statistics</td>
-<td>Conducting statistical hypothesis testing to compare experimental groups</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="examples-where-r-is-used-in-chemistry-pharmaceutical-science" class="level2">
-<h2 class="anchored" data-anchor-id="examples-where-r-is-used-in-chemistry-pharmaceutical-science">Examples where R is used in Chemistry &amp; Pharmaceutical Science</h2>
-<p>The following is a collection of journal articles (links to!) where R has been critical in pushing forwards the boundaries of science in the following contexts (this list will be extended as we go on!):</p>
-<section id="analytical-chemistry" class="level3">
-<h3 class="anchored" data-anchor-id="analytical-chemistry">Analytical Chemistry</h3>
+<div class="cell" data-setup="true" data-exercise="[&quot;linear-model&quot;,&quot;regression-plot&quot;]">
+<script type="exercise-setup-linear-model-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjpbImxpbmVhci1tb2RlbCIsInJlZ3Jlc3Npb24tcGxvdCJdLCJzZXR1cCI6dHJ1ZX0sImNvZGUiOiJjYWxpYnJhdGlvbiA8LSBkYXRhLmZyYW1lKGNvbmNlbnRyYXRpb25fbU0gPSBjKDAuMDAsIDAuMDUsIDAuMTAsIDAuMjAsIDAuNDApLGFic29yYmFuY2UgPSBjKDAuMDIsIDAuMTQsIDAuMjksIDAuNTksIDEuMTgpKSJ9
+</script>
+<script type="exercise-setup-regression-plot-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjpbImxpbmVhci1tb2RlbCIsInJlZ3Jlc3Npb24tcGxvdCJdLCJzZXR1cCI6dHJ1ZX0sImNvZGUiOiJjYWxpYnJhdGlvbiA8LSBkYXRhLmZyYW1lKGNvbmNlbnRyYXRpb25fbU0gPSBjKDAuMDAsIDAuMDUsIDAuMTAsIDAuMjAsIDAuNDApLGFic29yYmFuY2UgPSBjKDAuMDIsIDAuMTQsIDAuMjksIDAuNTksIDEuMTgpKSJ9
+</script>
+</div>
+<p>Correlation tells us how strongly two variables are related, but it does not give us an equation. In this section, we will use <code>linear regression</code> to build a simple mathematical model that describes the relationship between concentration and absorbance.</p>
+<section id="webr-from-correlation-to-a-model" class="level3">
+<h3 class="anchored" data-anchor-id="webr-from-correlation-to-a-model"><span class="tag-webr">WebR</span> From correlation to a model</h3>
+<p>A linear regression model describes the relationship between two variables using a straight-line equation:</p>
+<p><span class="math display">\[ y = mx + c \]</span></p>
+<p>In our case:</p>
 <ul>
-<li><p>Exploratory multivariate analysis using R Language for method development in liquid chromatography | Analytical and Bioanalytical Chemistry (<a href="https://link.springer.com/article/10.1007/s00216-024-05705-y?" class="uri">https://link.springer.com/article/10.1007/s00216-024-05705-y?</a>)</p></li>
-<li><p>Utilizing High-Resolution Mass Spectrometry Data Mining Strategy in R Programming Language for Rapid Annotation of Absorbed Prototypes and Metabolites of Gypenosides | Molecules (<a href="https://www.mdpi.com/1420-3049/30/4/779" class="uri">https://www.mdpi.com/1420-3049/30/4/779</a>)</p></li>
+<li>𝑥 is concentration</li>
+<li>𝑦 is absorbance</li>
+</ul>
+<p>R can fit this model directly from the data.</p>
+<p><span class="highlight-green"><strong>ACTIVITY:</strong></span> Let’s fit a linear regression model to our calibration data from earlier:</p>
+<div class="cell" data-exercise="linear-model">
+<div>
+<div id="webr-2" class="exercise-cell">
+
+</div>
+<script type="webr-2-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoibGluZWFyLW1vZGVsIn0sImNvZGUiOiJtb2RlbCA8LSBsbShhYnNvcmJhbmNlIH4gY29uY2VudHJhdGlvbl9tTSwgZGF0YSA9IGNhbGlicmF0aW9uKVxuIyBXZSBjYW4gdXNlIHRoZSBjb21tYW5kIGBzdW1tYXJ5YCB0byB2aWV3IGEgc3VtbWFyeSBvZiB0aGUgbW9kZWxcbnN1bW1hcnkobW9kZWwpIn0=
+</script>
+</div>
+</div>
+<p>Take a moment to look at the output. There are a few <em>key</em> pieces of information:</p>
+<p><strong>1. Coefficients</strong> This section gives the numbers for the straight-line equation: <span class="math display">\[ y = mx + c \]</span> You will see two rows:</p>
+<ul>
+<li>(Intercept) This is the value of 𝑐. It represents the absorbance when the concentration is zero (background or baseline signal).</li>
+<li>concentration_mM This is the slope 𝑚. It tells you how much the absorbance changes for each unit increase in concentration.</li>
+</ul>
+<p><strong>2. Standard error</strong> This tells you how far the data points typically are from the fitted line.</p>
+<ul>
+<li>A smaller value means the data lie closer to the line</li>
+<li>A larger value means there is more scatter around the model</li>
+</ul>
+<p><strong>3. Multiple R squared</strong> This tells you how well the straight line explains the data. This value is closely related to the correlation you calculated earlier.Think of this as a measure of experimental noise.</p>
+<ul>
+<li>Values range from 0 to 1.</li>
+<li>A value close to 1 means the linear model explains most of the variation in absorbance.</li>
+<li>For a good calibration curve, R<sup>2</sup> is usually high.</li>
 </ul>
 </section>
-<section id="medicinal-chemistry" class="level3">
-<h3 class="anchored" data-anchor-id="medicinal-chemistry">Medicinal Chemistry</h3>
-<ul>
-<li>The Use of the R Language for Medicinal Chemistry Applications | Bentham Science (<a href="https://www.eurekaselect.com/article/48427" class="uri">https://www.eurekaselect.com/article/48427</a>)</li>
-</ul>
+<section id="visualising-the-fitted-model" class="level3">
+<h3 class="anchored" data-anchor-id="visualising-the-fitted-model">Visualising the fitted model</h3>
+<p><span class="highlight-green"><strong>ACTIVITY:</strong></span> It’s good practice to plot the regression line on top of the data. This allows us to check visually how well the model fits.</p>
+<div class="cell" data-exercise="regression-plot">
+<div>
+<div id="webr-3" class="exercise-cell">
+
+</div>
+<script type="webr-3-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoicmVncmVzc2lvbi1wbG90In0sImNvZGUiOiJnZ3Bsb3QoY2FsaWJyYXRpb24sIGFlcyh4ID0gY29uY2VudHJhdGlvbl9tTSwgeSA9IGFic29yYmFuY2UpKSArXG5nZW9tX3BvaW50KHNpemUgPSAzKSArXG5nZW9tX3Ntb290aChtZXRob2QgPSBcImxtXCIsIHNlID0gRkFMU0UpICtcbmxhYnMoXG54ID0gXCJDb25jZW50cmF0aW9uIChtTSlcIixcbnkgPSBcIkFic29yYmFuY2VcIixcbnRpdGxlID0gXCJMaW5lYXIgUmVncmVzc2lvbiBGaXQgdG8gQ2FsaWJyYXRpb24gRGF0YVwiXG4pICtcbnRoZW1lX21pbmltYWwoKSJ9
+</script>
+</div>
+</div>
+<p><span class="highlight-pink"><strong>EXPERIMENT:</strong></span> Compare this plot to the scatter plot from the earlier section. The line should follow the trend in the data closely.</p>
 </section>
-<section id="pharmacokinetics" class="level3">
-<h3 class="anchored" data-anchor-id="pharmacokinetics">Pharmacokinetics</h3>
+<section id="what-does-the-model-tell-us" class="level3">
+<h3 class="anchored" data-anchor-id="what-does-the-model-tell-us">What does the model tell us?</h3>
+<p>The regression model gives us more than a visual trend:</p>
 <ul>
-<li><p>Design Evaluation and Optimization of Population Pharmacokinetics Model Using an R Package PopED (<a href="https://www.mdpi.com/2227-7390/11/21/4407" class="uri">https://www.mdpi.com/2227-7390/11/21/4407</a>)</p></li>
-<li><p>Enabling transparent toxicokinetic modeling for public health risk assessment | PLOS One (<a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0321321" class="uri">https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0321321</a>)</p></li>
+<li>it provides an equation</li>
+<li>it allows prediction</li>
+<li>it can be used to evaluate how suitable a linear model is.</li>
 </ul>
+<p>However, a good numerical fit does not automatically mean the model is chemically valid.</p>
 </section>
-<section id="formulations" class="level3">
-<h3 class="anchored" data-anchor-id="formulations">Formulations</h3>
+<section id="rstudio-saving-and-commenting-your-model" class="level3">
+<h3 class="anchored" data-anchor-id="rstudio-saving-and-commenting-your-model"><span class="tag-rstudio">RStudio</span> Saving and commenting your model</h3>
+<p>Once you’ve checked that the model works in WebR, you should save it in your script.</p>
+<p><span class="highlight-green"><strong>ACTIVITY:</strong></span> In RStudio:</p>
+<ol type="1">
+<li>Add the lm() model to your script</li>
+<li>Include the regression plot</li>
+<li>Write short comments explaining:</li>
+</ol>
 <ul>
-<li>AI-Driven Pharmaceutical Data Analysis Tool for Drug Formulation Development | Journal of Pharmaceutical Innovation (<a href="https://link.springer.com/article/10.1007/s12247-025-10203-4" class="uri">https://link.springer.com/article/10.1007/s12247-025-10203-4</a>)</li>
+<li>what the slope represents physically,</li>
+<li>what a high R<sup>2</sup> means in this context.</li>
 </ul>
-</section>
-</section>
-<section id="useful-r-packages" class="level2">
-<h2 class="anchored" data-anchor-id="useful-r-packages">Useful R packages</h2>
-<ul>
-<li><strong>tidyverse</strong><br>
-<em>Purpose:</em> Data manipulation, cleaning, and visualization (includes dplyr, tidyr, ggplot2).</li>
-</ul>
-<!-- -->
-<ul>
-<li><strong>ggplot2</strong><br>
-<em>Purpose:</em> Grammar of graphics for high-quality plots of chemical and pharmaceutical data.</li>
-</ul>
-<!-- -->
-<ul>
-<li><strong>plotly</strong><br>
-<em>Purpose:</em> Interactive visualization for complex datasets.</li>
-</ul>
-<!-- -->
-<ul>
-<li><strong>shiny</strong><br>
-<em>Purpose:</em> Building interactive web apps for chemical data dashboards.</li>
-</ul>
-<!-- -->
-<ul>
-<li><strong>readr</strong><br>
-<em>Purpose:</em> Fast and friendly functions for reading rectangular data (CSV, TSV)</li>
-</ul>
-<!-- -->
-<ul>
-<li><p><strong>readxl</strong><br>
-<em>Purpose:</em> Import Excel files without external dependencies.</p></li>
-<li><p><strong>tidyr</strong><br>
-<em>Purpose:</em> Reshape messy data into tidy format (long vs wide).</p></li>
-<li><p><strong>dplyr</strong><br>
-<em>Purpose:</em> Grammar of data manipulation (filter, select, mutate, summarise).</p></li>
-</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A regression model is a scientific tool. Always interpret its parameters in terms of the experiment.</p>
+</div>
+</div>
+<p>One more section to go…</p>
 
 
+<script type="webr-data">
+eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC41LjQvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyIsImJhc2UiLCJncmFkZXRoaXMiLCJ0aWR5dmVyc2UiLCJnZ3Bsb3QyIl0sInJlcG9zIjpbXX0sInJlbmRlcl9kZiI6ImRlZmF1bHQifQ==
+</script>
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W119
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0zIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8zO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzMgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgLy8gRGVmYXVsdCBleGVyY2lzZSBjb25maWd1cmF0aW9uXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKFxuICAgIHtcbiAgICAgIGlkOiBcIndlYnItMy1jb250ZW50c1wiLFxuICAgICAgZW52aXI6IGBleGVyY2lzZS1lbnYtJHtibG9jay5hdHRyLmV4ZXJjaXNlfWAsXG4gICAgICBlcnJvcjogZmFsc2UsXG4gICAgICBjYXB0aW9uOiAnRXhlcmNpc2UnLFxuICAgIH0sXG4gICAgYmxvY2suYXR0clxuICApO1xuXG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxudmlld29mIF93ZWJyX3ZhbHVlXzMgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzMsIHt9KTtcbl93ZWJyX2ZlZWRiYWNrXzMgPSB7XG4gIGNvbnN0IHsgV2ViUkdyYWRlciB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3QgZW1wdHlGZWVkYmFjayA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpO1xuXG4gIGNvbnN0IGdyYWRlciA9IG5ldyBXZWJSR3JhZGVyKF93ZWJyX3ZhbHVlXzMuZXZhbHVhdG9yKTtcbiAgY29uc3QgZmVlZGJhY2sgPSBhd2FpdCBncmFkZXIuZ3JhZGVFeGVyY2lzZSgpO1xuICBpZiAoIWZlZWRiYWNrKSByZXR1cm4gZW1wdHlGZWVkYmFjaztcbiAgcmV0dXJuIGZlZWRiYWNrO1xufVxuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzI7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0yIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfMiA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTItY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICAvLyBEZWZhdWx0IGV4ZXJjaXNlIGNvbmZpZ3VyYXRpb25cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oXG4gICAge1xuICAgICAgaWQ6IFwid2Vici0yLWNvbnRlbnRzXCIsXG4gICAgICBlbnZpcjogYGV4ZXJjaXNlLWVudi0ke2Jsb2NrLmF0dHIuZXhlcmNpc2V9YCxcbiAgICAgIGVycm9yOiBmYWxzZSxcbiAgICAgIGNhcHRpb246ICdFeGVyY2lzZScsXG4gICAgfSxcbiAgICBibG9jay5hdHRyXG4gICk7XG5cbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG52aWV3b2YgX3dlYnJfdmFsdWVfMiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMiwge30pO1xuX3dlYnJfZmVlZGJhY2tfMiA9IHtcbiAgY29uc3QgeyBXZWJSR3JhZGVyIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBlbXB0eUZlZWRiYWNrID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7XG5cbiAgY29uc3QgZ3JhZGVyID0gbmV3IFdlYlJHcmFkZXIoX3dlYnJfdmFsdWVfMi5ldmFsdWF0b3IpO1xuICBjb25zdCBmZWVkYmFjayA9IGF3YWl0IGdyYWRlci5ncmFkZUV4ZXJjaXNlKCk7XG4gIGlmICghZmVlZGJhY2spIHJldHVybiBlbXB0eUZlZWRiYWNrO1xuICByZXR1cm4gZmVlZGJhY2s7XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici1wcmVsdWRlIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoid2ViUk9qcyA9IHtcbiAgY29uc3QgeyBXZWJSLCBDaGFubmVsVHlwZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZS5XZWJSO1xuICBjb25zdCB7XG4gICAgV2ViUkV2YWx1YXRvcixcbiAgICBXZWJSRW52aXJvbm1lbnRNYW5hZ2VyLFxuICAgIHNldHVwUixcbiAgICBiNjREZWNvZGUsXG4gICAgY29sbGFwc2VQYXRoXG4gIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHN0YXR1c0NvbnRhaW5lciA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKFwiZXhlcmNpc2UtbG9hZGluZy1zdGF0dXNcIik7XG4gIGNvbnN0IGluZGljYXRvckNvbnRhaW5lciA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKFwiZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGluZGljYXRvckNvbnRhaW5lci5jbGFzc0xpc3QucmVtb3ZlKFwiZC1ub25lXCIpO1xuXG4gIGxldCBzdGF0dXNUZXh0ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKVxuICBzdGF0dXNUZXh0LmNsYXNzTGlzdCA9IFwiZXhlcmNpc2UtbG9hZGluZy1kZXRhaWxzXCI7XG4gIHN0YXR1c1RleHQgPSBzdGF0dXNDb250YWluZXIuYXBwZW5kQ2hpbGQoc3RhdHVzVGV4dCk7XG4gIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5pdGlhbGlzZWA7XG5cbiAgLy8gSG9pc3QgaW5kaWNhdG9yIG91dCBmcm9tIGZpbmFsIHNsaWRlIHdoZW4gcnVubmluZyB1bmRlciByZXZlYWxcbiAgY29uc3QgcmV2ZWFsU3RhdHVzID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgLmV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpZiAocmV2ZWFsU3RhdHVzKSB7XG4gICAgcmV2ZWFsU3RhdHVzLnJlbW92ZSgpO1xuICAgIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsID4gLnNsaWRlc1wiKS5hcHBlbmRDaGlsZChyZXZlYWxTdGF0dXMpO1xuICB9XG5cbiAgLy8gTWFrZSBhbnkgcmV2ZWFsIHNsaWRlcyB3aXRoIGxpdmUgY2VsbHMgc2Nyb2xsYWJsZVxuICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKFwiLnJldmVhbCAuZXhlcmNpc2UtY2VsbFwiKS5mb3JFYWNoKChlbCkgPT4ge1xuICAgIGVsLmNsb3Nlc3QoJ3NlY3Rpb24uc2xpZGUnKS5jbGFzc0xpc3QuYWRkKFwic2Nyb2xsYWJsZVwiKTtcbiAgfSlcblxuICAvLyB3ZWJSIHN1cHBsZW1lbnRhbCBkYXRhIGFuZCBvcHRpb25zXG4gIGNvbnN0IGRhdGFDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItZGF0YVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGRhdGEgPSBKU09OLnBhcnNlKGI2NERlY29kZShkYXRhQ29udGVudCkpO1xuXG4gIC8vIEdyYWIgbGlzdCBvZiByZXNvdXJjZXMgdG8gYmUgZG93bmxvYWRlZFxuICBjb25zdCBmaWxlc0NvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwidmZzLWZpbGVcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBmaWxlcyA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGZpbGVzQ29udGVudCkpO1xuXG4gIC8vIFVzZSBQb3N0TWVzc2FnZSBjaGFubmVsIGZvciBhc3luYyBjb21tdW5pY2F0aW9uXG4gIC8vIFdlIGRvIG5vdCBleHBlY3QgdG8gdGFrZSBuZXN0ZWQgcHJvbXB0IGlucHV0IGluIFF1YXJ0byBMaXZlIGNlbGxzXG4gIGRhdGEub3B0aW9ucy5jaGFubmVsVHlwZSA9IENoYW5uZWxUeXBlLlBvc3RNZXNzYWdlO1xuXG4gIC8vIEluaXRpYWxpc2Ugd2ViUiBhbmQgc2V0dXAgZm9yIFIgY29kZSBldmFsdWF0aW9uXG4gIGxldCB3ZWJSUHJvbWlzZSA9IChhc3luYyAod2ViUikgPT4ge1xuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgd2ViUmA7XG4gICAgYXdhaXQgd2ViUi5pbml0KCk7XG5cbiAgICAvLyBJbnN0YWxsIHByb3ZpZGVkIGxpc3Qgb2YgcGFja2FnZXNcbiAgICAvLyBFbnN1cmUgd2ViUiBkZWZhdWx0IHJlcG8gaXMgaW5jbHVkZWRcbiAgICBkYXRhLnBhY2thZ2VzLnJlcG9zLnB1c2goXCJodHRwczovL3JlcG8uci13YXNtLm9yZ1wiKVxuICAgIGF3YWl0IGRhdGEucGFja2FnZXMucGtncy5tYXAoKHBrZykgPT4gKCkgPT4ge1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiAke3BrZ31gO1xuICAgICAgcmV0dXJuIHdlYlIuZXZhbFJWb2lkKGBcbiAgICAgICAgd2Vicjo6aW5zdGFsbChwa2csIHJlcG9zID0gcmVwb3MpXG4gICAgICAgIGxpYnJhcnkocGtnLCBjaGFyYWN0ZXIub25seSA9IFRSVUUpXG4gICAgICBgLCB7IGVudjoge1xuICAgICAgICBwa2c6IHBrZyxcbiAgICAgICAgcmVwb3M6IGRhdGEucGFja2FnZXMucmVwb3MsXG4gICAgICB9fSk7XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICAvLyBEb3dubG9hZCBhbmQgaW5zdGFsbCByZXNvdXJjZXNcbiAgICBhd2FpdCBmaWxlcy5tYXAoKGZpbGUpID0+IGFzeW5jICgpID0+IHtcbiAgICAgIGNvbnN0IG5hbWUgPSBmaWxlLnN1YnN0cmluZyhmaWxlLmxhc3RJbmRleE9mKCcvJykgKyAxKTtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcmVzb3VyY2U6ICR7bmFtZX1gO1xuICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChmaWxlKTtcbiAgICAgIGlmICghcmVzcG9uc2Uub2spIHtcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBDYW4ndCBkb3dubG9hZCBcXGAke2ZpbGV9XFxgLiBFcnJvciAke3Jlc3BvbnNlLnN0YXR1c306IFwiJHtyZXNwb25zZS5zdGF0dXNUZXh0fVwiLmApO1xuICAgICAgfVxuICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLmFycmF5QnVmZmVyKCk7XG5cbiAgICAgIC8vIFN0b3JlIFVSTHMgaW4gdGhlIGN3ZCB3aXRob3V0IGFueSBzdWJkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBpZiAoZmlsZS5pbmNsdWRlcyhcIjovL1wiKSkge1xuICAgICAgICBmaWxlID0gbmFtZTtcbiAgICAgIH1cblxuICAgICAgLy8gQ29sbGFwc2UgaGlnaGVyIGRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGZpbGUgPSBjb2xsYXBzZVBhdGgoZmlsZSk7XG5cbiAgICAgIC8vIENyZWF0ZSBkaXJlY3RvcnkgdHJlZSwgaWdub3JpbmcgXCJkaXJlY3RvcnkgZXhpc3RzXCIgVkZTIGVycm9yc1xuICAgICAgY29uc3QgcGFydHMgPSBmaWxlLnNwbGl0KCcvJykuc2xpY2UoMCwgLTEpO1xuICAgICAgbGV0IHBhdGggPSAnJztcbiAgICAgIHdoaWxlIChwYXJ0cy5sZW5ndGggPiAwKSB7XG4gICAgICAgIHBhdGggKz0gcGFydHMuc2hpZnQoKSArICcvJztcbiAgICAgICAgY29uc3QgYW5hbHlzaXMgPSBhd2FpdCB3ZWJSLkZTLmFuYWx5emVQYXRoKHBhdGgpO1xuICAgICAgICBpZiAoIWFuYWx5c2lzLmV4aXN0cykge1xuICAgICAgICAgIHRyeSB7XG4gICAgICAgICAgICBhd2FpdCB3ZWJSLkZTLm1rZGlyKHBhdGgpO1xuICAgICAgICAgIH0gY2F0Y2ggKGUpIHtcbiAgICAgICAgICAgIHRocm93IG5ldyBFcnJvcihgRmlsZXN5c3RlbSBFcnJvcjogXCIke2UubWVzc2FnZX1cIi5gKTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gV3JpdGUgdGhpcyBmaWxlIHRvIHRoZSBWRlNcbiAgICAgIHJldHVybiBhd2FpdCB3ZWJSLkZTLndyaXRlRmlsZShmaWxlLCBuZXcgVWludDhBcnJheShkYXRhKSk7XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYEluc3RhbGxpbmcgd2ViUiBzaGltc2A7XG4gICAgYXdhaXQgd2ViUi5ldmFsUlZvaWQoYHdlYnI6OnNoaW1faW5zdGFsbCgpYCk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYFdlYlIgZW52aXJvbm1lbnQgc2V0dXBgO1xuICAgIGF3YWl0IHNldHVwUih3ZWJSLCBkYXRhKTtcblxuICAgIHN0YXR1c1RleHQucmVtb3ZlKCk7XG4gICAgaWYgKHN0YXR1c0NvbnRhaW5lci5jaGlsZHJlbi5sZW5ndGggPT0gMCkge1xuICAgICAgc3RhdHVzQ29udGFpbmVyLnBhcmVudE5vZGUucmVtb3ZlKCk7XG4gICAgfVxuICAgIHJldHVybiB3ZWJSO1xuICB9KShuZXcgV2ViUihkYXRhLm9wdGlvbnMpKTtcblxuICAvLyBLZWVwIHRyYWNrIG9mIGluaXRpYWwgT0pTIGJsb2NrIHJlbmRlclxuICBjb25zdCByZW5kZXJlZE9qcyA9IHt9O1xuXG4gIGNvbnN0IHByb2Nlc3MgPSBhc3luYyAoY29udGV4dCwgaW5wdXRzKSA9PiB7XG4gICAgY29uc3Qgd2ViUiA9IGF3YWl0IHdlYlJQcm9taXNlO1xuICAgIGNvbnN0IGV2YWx1YXRvciA9IG5ldyBXZWJSRXZhbHVhdG9yKHdlYlIsIGNvbnRleHQpXG4gICAgYXdhaXQgZXZhbHVhdG9yLnByb2Nlc3MoaW5wdXRzKTtcbiAgICByZXR1cm4gZXZhbHVhdG9yLmNvbnRhaW5lcjtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgcHJvY2VzcyxcbiAgICB3ZWJSUHJvbWlzZSxcbiAgICByZW5kZXJlZE9qcyxcbiAgfTtcbn1cbiJ9XX0=
 </script>
 <div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
 <div id="exercise-loading-status" class="d-flex gap-2">
@@ -873,6 +868,18 @@ window._ojs.runtime.interpretFromScriptTags();
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Workshop5_correlating-data.html" class="pagination-link" aria-label="Quantifying Relationships with Correlation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Quantifying Relationships with Correlation</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Workshop5_limits.html" class="pagination-link" aria-label="Using the Model and Knowing Its Limits">
+        <span class="nav-page-text">Using the Model and Knowing Its Limits</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
