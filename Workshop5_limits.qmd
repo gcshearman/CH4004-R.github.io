@@ -1,0 +1,50 @@
+---
+title: "Using the Model and Knowing Its Limits"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}} {{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
+
+```{webr}
+#| setup: true
+#| exercise:
+#|  - prediction
+calibration <- data.frame(concentration_mM = c(0.00, 0.05, 0.10, 0.20, 0.40),absorbance = c(0.02, 0.14, 0.29, 0.59, 1.18))
+model <- lm(absorbance ~ concentration_mM, data = calibration)
+```
+
+A linear regression model is most useful when it can be applied to real experimental problems. In this final section, we will briefly use the model for prediction and reflect on when a linear model should and should not be trusted.
+
+### [WebR]{.tag-webr} Using the model for prediction
+
+Once a model has been fitted, it can be used to estimate values that were not directly measured. Let's try getting the model to predict an absorbance value for a concentration of 0.15 mM:
+
+```{webr}
+#| exercise: prediction
+new_sample <- data.frame(concentration_mM = 0.15)
+predict(model, new_sample)
+```
+
+This is how calibration curves are typically used in practice: the model allows us to estimate unknown values from measured data.
+
+#### Thinking about limitations
+
+Even when a model fits the data well, it is important to think critically about its validity.
+
+A linear model may not be appropriate if:
+
+ - the relationship is not truly linear,
+ - residuals show a clear pattern,
+ - measurements approach instrumental limits, or
+ - experimental uncertainty increases at high values.
+ 
+#### Final takeaway
+
+Linear regression is a powerful tool, but it should always be used alongside:
+
+ - clear visualisation,
+ - chemical understanding, and
+ - scientific judgement.
+
+:::{.callout-important}
+A good model is not just statistically sound — it must also make sense chemically.
+:::

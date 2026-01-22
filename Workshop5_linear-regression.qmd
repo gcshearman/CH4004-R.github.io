@@ -1,0 +1,108 @@
+---
+title: "Modelling Relationships with Linear Regression"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}} {{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
+
+```{webr}
+#| setup: true
+#| exercise:
+#|  - linear-model
+#|  - regression-plot
+calibration <- data.frame(concentration_mM = c(0.00, 0.05, 0.10, 0.20, 0.40),absorbance = c(0.02, 0.14, 0.29, 0.59, 1.18))
+```
+
+Correlation tells us how strongly two variables are related, but it does not give us an equation. In this section, we will use `linear regression` to build a simple mathematical model that describes the relationship between concentration and absorbance.
+
+### [WebR]{.tag-webr} From correlation to a model
+
+A linear regression model describes the relationship between two variables using a straight-line equation:
+
+$$ y = mx + c $$
+
+In our case: 
+
+- 𝑥 is concentration
+- 𝑦 is absorbance
+
+R can fit this model directly from the data.
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Let's fit a linear regression model to our calibration data from earlier:
+
+```{webr}
+#| exercise: linear-model
+model <- lm(absorbance ~ concentration_mM, data = calibration)
+# We can use the command `summary` to view a summary of the model
+summary(model)
+```
+
+Take a moment to look at the output. There are a few *key* pieces of information:
+
+**1. Coefficients**
+This section gives the numbers for the straight-line equation: $$ y = mx + c $$
+You will see two rows:
+
+ - (Intercept)
+This is the value of 𝑐. It represents the absorbance when the concentration is zero (background or baseline signal).
+ - concentration_mM
+This is the slope 𝑚. It tells you how much the absorbance changes for each unit increase in concentration.
+
+**2. Standard error**
+This tells you how far the data points typically are from the fitted line.
+
+ - A smaller value means the data lie closer to the line
+ - A larger value means there is more scatter around the model
+ 
+**3. Multiple R squared**
+ This tells you how well the straight line explains the data. This value is closely related to the correlation you calculated earlier.Think of this as a measure of experimental noise.
+
+ - Values range from 0 to 1.
+ - A value close to 1 means the linear model explains most of the variation in absorbance.
+ - For a good calibration curve, R<sup>2</sup> is usually high.
+
+### Visualising the fitted model
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} It's good practice to plot the regression line on top of the data. This allows us to check visually how well the model fits.
+
+```{webr}
+#| exercise: regression-plot
+ggplot(calibration, aes(x = concentration_mM, y = absorbance)) +
+geom_point(size = 3) +
+geom_smooth(method = "lm", se = FALSE) +
+labs(
+x = "Concentration (mM)",
+y = "Absorbance",
+title = "Linear Regression Fit to Calibration Data"
+) +
+theme_minimal()
+```
+
+[<strong>EXPERIMENT:</strong>]{.highlight-pink} Compare this plot to the scatter plot from the earlier section. The line should follow the trend in the data closely.
+
+### What does the model tell us?
+
+The regression model gives us more than a visual trend:
+
+ - it provides an equation
+ - it allows prediction
+ - it can be used to evaluate how suitable a linear model is.
+
+However, a good numerical fit does not automatically mean the model is chemically valid.
+
+### [RStudio]{.tag-rstudio} Saving and commenting your model
+
+Once you've checked that the model works in WebR, you should save it in your script.
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} In RStudio:
+
+ 1. Add the lm() model to your script
+ 2. Include the regression plot
+ 3. Write short comments explaining:
+   - what the slope represents physically,
+   - what a high R<sup>2</sup> means in this context.
+
+:::{.callout-important}
+A regression model is a scientific tool. Always interpret its parameters in terms of the experiment.
+:::
+
+One more section to go...

@@ -14,7 +14,9 @@ website:
       - href: Workshop3_introduction.qmd
         text: Workshop 3
       - href: Workshop4_introduction.qmd
-        text: Workshop 4        
+        text: Workshop 4
+      - href: Workshop5_introduction.qmd
+        text: Workshop 5
   
   sidebar:
     style: "docked"
@@ -34,6 +36,13 @@ website:
           - Workshop4_Rscript0.qmd
           - Workshop4_Rscript1.qmd
           - Workshop4_Rscript2.qmd
+      - section: "Workshop 5"
+        contents: 
+          - Workshop5_introduction.qmd
+          - Workshop5_exploring-data.qmd
+          - Workshop5_correlating-data.qmd
+          - Workshop5_linear-regression.qmd
+          - Workshop5_limits.qmd
       
 filters:
   - tools_tabset.lua

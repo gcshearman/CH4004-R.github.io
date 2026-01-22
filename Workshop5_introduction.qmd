@@ -1,0 +1,16 @@
+---
+title: "Introduction to Workshop 5"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+## Welcome to Workshop 5: Correlation & Linear Regression
+
+In this session, we’ll build on the R scripting and plotting skills you’ve developed so far and apply them to analysing real chemical and pharmaceutical science data. You’ll work with simple but realistic datasets (such as calibration data) to explore how measured variables relate to one another, using R as a tool to support scientific interpretation rather than just number-crunching.
+
+### What you'll be learning
+
+By the end of this workshop, you’ll be able to visualise relationships between variables using scatter plots, quantify how strongly those variables are related using correlation, and fit simple linear regression models to experimental data. You’ll also learn how to interpret these results in a meaningful scientific context, understand what model parameters represent physically, and recognise the limitations of correlation and linear models when applied to real experimental measurements.
+
+As per Workshop 4, I'll be using two badges:
+<span class="tag-webr">WebR</span> and <span class="tag-rstudio">RStudio</span> to denote whether the text (and tasks for you to work through) relates to the browser (this is WebR) or RStudio.

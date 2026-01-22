@@ -1,0 +1,94 @@
+---
+title: "Quantifying Relationships with Correlation"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}} {{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
+
+After visualising your data in Section 1, the next step is to quantify how strongly two variables are related. In chemistry and pharmaceutical science, this helps us understand whether one measurement reliably changes with another.
+
+### [WebR]{.tag-webr} Calculating Pearson correlation
+
+The most common correlation measure is Pearson correlation, which quantifies linear relationships. It ranges from -1 (perfect negative) to +1 (perfect positive), with 0 meaning no linear relationship.
+
+In R, the `cor()` function calculates the correlation for us. We'll use the same calibration data as in the previous section!
+
+```{webr}
+#| setup: true
+#| exercise:
+#|  - pearson-correlation
+#|  - spearman-correlation
+
+calibration <- data.frame(concentration_mM = c(0.00, 0.05, 0.10, 0.20, 0.40),absorbance = c(0.02, 0.14, 0.29, 0.59, 1.18))
+```
+
+```{webr}
+#| exercise: pearson-correlation
+cor(calibration$concentration_mM, calibration$absorbance)
+```
+
+When you call the function `cor(x,y)`, it looks at two numeric vectors (here: our concentration and absorbance) and calculates a single number between -1 and 1.
+
+**How to interpret it:**
+
+| Value | Meaning |
+|------------------------------------|------------------------------------|
+| +1 | Perfect positive linear relationship (as x increases, y increases proportionally) |
+| 0 | No linear relationship |
+| -1 | Perfect negative linear relationship (as x increases, y decreases proportionally) |
+
+-   The closer the number is to **1 or -1**, the **stronger the linear relationship**.
+
+-   If the number is **near 0**, there is **little or no linear connection**.
+
+::: callout-important
+`cor` is effectively R (from the more well known R<sup>2</sup> term)... so if you want R<sup>2</sup>, simply square the `cor` value!
+:::
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} What does this mean about our calibration data?
+
+### [WebR]{.tag-webr} Exploring Spearman correlation
+
+Sometimes the relationship is monotonic but not perfectly linear. Spearman correlation uses ranks instead of actual values and is less sensitive to outliers.
+
+::: callout-note
+The term `monotonic` means that the variables tend to more in the same direction but not necessarily at a constant rate - so, for example, you might have a section in the graph that increases slowly, then another section that increases faster etc. Notably, there won't be any sections that decrease.
+:::
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} The command below allows you to run a Spearman correlation. Try it and see what you get out!!
+
+```{webr}
+#| exercise: spearman-correlation
+cor(calibration$concentration_mM, calibration$absorbance, method = "spearman")
+```
+
+So... Spearman correlation measures whether two variables change together in a consistent way, even if the relationship is not a straight line.
+
+Instead of using the raw values, Spearman correlation ranks the data (from smallest to largest), then checks whether the ranks increase or decrease together.
+
+Just like Pearson correlation, Spearman correlation gives a number between –1 and +1:
+
+ - +1 → as one variable increases, the other always increases
+ - –1 → as one variable increases, the other always decreases
+ - 0 → no consistent relationship
+
+The closer the value is to ±1, the stronger and more consistent the relationship.
+
+All this means that Spearman correlation works better for curved trends, but less sensitive to outliers.
+
+::: callout-important
+A strong correlation does NOT mean causation. In our case, a high correlation is expected because absorbance increases with concentration, but correlation alone does not give a predictive model.
+:::
+
+### [RStudio]{.tag-rstudio} Consolidating your correlation analysis
+
+Now let's move your work into your script in RStudio...
+
+<span class="highlight-green"><strong>ACTIVITY:</strong></span>
+
+ - Add to your existing script from the previous section.
+ - Include both the Pearson and Spearman correlations.
+ - Add brief comments interpreting the results scientifically. *Remember*: you use a `#` to add comments that are not read by R.
+
+:::{.callout-important}
+Correlation is a numerical summary, not a predictive model. We will learn how to create models in the next section.
+:::

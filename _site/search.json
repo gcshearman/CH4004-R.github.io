@@ -349,5 +349,77 @@
       "Workshop 4",
       "The `ifelse` statement"
     ]
+  },
+  {
+    "objectID": "Workshop5_introduction.html",
+    "href": "Workshop5_introduction.html",
+    "title": "Introduction to Workshop 5",
+    "section": "",
+    "text": "In this session, we’ll build on the R scripting and plotting skills you’ve developed so far and apply them to analysing real chemical and pharmaceutical science data. You’ll work with simple but realistic datasets (such as calibration data) to explore how measured variables relate to one another, using R as a tool to support scientific interpretation rather than just number-crunching.\n\n\nBy the end of this workshop, you’ll be able to visualise relationships between variables using scatter plots, quantify how strongly those variables are related using correlation, and fit simple linear regression models to experimental data. You’ll also learn how to interpret these results in a meaningful scientific context, understand what model parameters represent physically, and recognise the limitations of correlation and linear models when applied to real experimental measurements.\nAs per Workshop 4, I’ll be using two badges: WebR and RStudio to denote whether the text (and tasks for you to work through) relates to the browser (this is WebR) or RStudio.",
+    "crumbs": [
+      "Home",
+      "Workshop 5",
+      "Introduction to Workshop 5"
+    ]
+  },
+  {
+    "objectID": "Workshop5_introduction.html#welcome-to-workshop-5-correlation-linear-regression",
+    "href": "Workshop5_introduction.html#welcome-to-workshop-5-correlation-linear-regression",
+    "title": "Introduction to Workshop 5",
+    "section": "",
+    "text": "In this session, we’ll build on the R scripting and plotting skills you’ve developed so far and apply them to analysing real chemical and pharmaceutical science data. You’ll work with simple but realistic datasets (such as calibration data) to explore how measured variables relate to one another, using R as a tool to support scientific interpretation rather than just number-crunching.\n\n\nBy the end of this workshop, you’ll be able to visualise relationships between variables using scatter plots, quantify how strongly those variables are related using correlation, and fit simple linear regression models to experimental data. You’ll also learn how to interpret these results in a meaningful scientific context, understand what model parameters represent physically, and recognise the limitations of correlation and linear models when applied to real experimental measurements.\nAs per Workshop 4, I’ll be using two badges: WebR and RStudio to denote whether the text (and tasks for you to work through) relates to the browser (this is WebR) or RStudio.",
+    "crumbs": [
+      "Home",
+      "Workshop 5",
+      "Introduction to Workshop 5"
+    ]
+  },
+  {
+    "objectID": "Workshop5_exploring-data.html",
+    "href": "Workshop5_exploring-data.html",
+    "title": "Exploring Relationships in Experimental Data",
+    "section": "",
+    "text": "Important\n\n\n\nIn chemistry and pharmaceutical science, data analysis should always begin by looking at the data. Before calculating statistics or fitting models, we first visualise relationships to assess whether further analysis is appropriate.\n\n\nThis first section broadly refreshes everything that we covered in workshops 1-4. If an instruction doesn’t seem familiar, please revisit the earlier workshops.\n\nWebR Creating a small experimental dataset\nWe’ll start by creating a small dataset directly in R. This represents the type of data that you might collect during a UV–Vis calibration experiment.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nACTIVITY: In the box below, type in the command needed to print this data out.\n\n\n\n\n\n\nNote\n\n\n\nRemember, in these boxes, if you’re not sure, you can click on ‘Hint’ to get a hint (normally, very strong!) about what to enter :-).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNoteHint 1\n\n\n\n\n\nIn order to print the data, you simply need to type the name of the data (in this case, it’s called ‘calibration’).\n\n\n\n\n\n\n\ncalibration\ncalibration\n\n\n\n\n\n\nTake a moment to check that you understand what each column represents and what the units are.\n\n\nVisualising the relationship\nThe next step is to visualise the relationship between the two variables. A scatter plot is the most appropriate choice when comparing two continuous measurements. If you’re not sure how to do this, please revisit Workshop 3, when we went through a whole lot of different types of plot visualisations using ggplot2.\nACTIVITY: Try running the command below to plot your data:\n\n\n\n\n\n\n\n\nLook carefully at the plot. Ask yourself whether a straight-line relationship seems reasonable!\nAs a refresher, let’s try improving this plot by adding labels, a title and a clean theme\n\n\nImproving the plot\nLet’s start by running the below…:\n\n\n\n\n\n\n\n\nWhat’s changed between this graph and the previous one that you generated?\nEXPERIMENT: Try modifying the plot to:\n\nchange the point size or colour\ntry a different theme (e.g. theme_classic, theme_dark, theme_void etc.)\n\n\n\nRStudio Saving your work in a script\nLet’s now swap over to RStudio. Remember, as we’re using ggplot to create some graphs, we have to ensure that relevant packages are installed and then loaded.\nACTIVITY: You therefore need to run the commands:\ninstall.packages(\"ggplot2\")\nlibrary(ggplot2)\nNow open a new R script file, copy the text below and paste into the file:\ncalibration &lt;- data.frame(\n  concentration_mM = c(0.00, 0.05, 0.10, 0.20, 0.40),\n  absorbance = c(0.02, 0.14, 0.29, 0.59, 1.18)\n  )\nggplot(calibration, aes(x = concentration_mM, y = absorbance)) +\ngeom_point(size = 3, colour = \"blue\") +\nlabs(\nx = \"Concentration (mM)\",\ny = \"Absorbance\",\ntitle = \"UV–Vis Calibration Data\"\n) +\ntheme_minimal()\nThen save (user’s choice for the name of the file :-)). You can now use this in future if you wish to plot anything!\nThe next section will look at starting to quantify relationships using correlation…",
+    "crumbs": [
+      "Home",
+      "Workshop 5",
+      "Exploring Relationships in Experimental Data"
+    ]
+  },
+  {
+    "objectID": "Workshop5_correlating-data.html",
+    "href": "Workshop5_correlating-data.html",
+    "title": "Quantifying Relationships with Correlation",
+    "section": "",
+    "text": "After visualising your data in Section 1, the next step is to quantify how strongly two variables are related. In chemistry and pharmaceutical science, this helps us understand whether one measurement reliably changes with another.\n\nWebR Calculating Pearson correlation\nThe most common correlation measure is Pearson correlation, which quantifies linear relationships. It ranges from -1 (perfect negative) to +1 (perfect positive), with 0 meaning no linear relationship.\nIn R, the cor() function calculates the correlation for us. We’ll use the same calibration data as in the previous section!\n\n\n\n\n\n\n\n\n\n\n\n\nWhen you call the function cor(x,y), it looks at two numeric vectors (here: our concentration and absorbance) and calculates a single number between -1 and 1.\nHow to interpret it:\n\n\n\n\n\n\n\nValue\nMeaning\n\n\n\n\n+1\nPerfect positive linear relationship (as x increases, y increases proportionally)\n\n\n0\nNo linear relationship\n\n\n-1\nPerfect negative linear relationship (as x increases, y decreases proportionally)\n\n\n\n\nThe closer the number is to 1 or -1, the stronger the linear relationship.\nIf the number is near 0, there is little or no linear connection.\n\n\n\n\n\n\n\nImportant\n\n\n\ncor is effectively R (from the more well known R2 term)… so if you want R2, simply square the cor value!\n\n\nACTIVITY: What does this mean about our calibration data?\n\n\nWebR Exploring Spearman correlation\nSometimes the relationship is monotonic but not perfectly linear. Spearman correlation uses ranks instead of actual values and is less sensitive to outliers.\n\n\n\n\n\n\nNote\n\n\n\nThe term monotonic means that the variables tend to more in the same direction but not necessarily at a constant rate - so, for example, you might have a section in the graph that increases slowly, then another section that increases faster etc. Notably, there won’t be any sections that decrease.\n\n\nACTIVITY: The command below allows you to run a Spearman correlation. Try it and see what you get out!!\n\n\n\n\n\n\n\n\nSo… Spearman correlation measures whether two variables change together in a consistent way, even if the relationship is not a straight line.\nInstead of using the raw values, Spearman correlation ranks the data (from smallest to largest), then checks whether the ranks increase or decrease together.\nJust like Pearson correlation, Spearman correlation gives a number between –1 and +1:\n\n+1 → as one variable increases, the other always increases\n–1 → as one variable increases, the other always decreases\n0 → no consistent relationship\n\nThe closer the value is to ±1, the stronger and more consistent the relationship.\nAll this means that Spearman correlation works better for curved trends, but less sensitive to outliers.\n\n\n\n\n\n\nImportant\n\n\n\nA strong correlation does NOT mean causation. In our case, a high correlation is expected because absorbance increases with concentration, but correlation alone does not give a predictive model.\n\n\n\n\nRStudio Consolidating your correlation analysis\nNow let’s move your work into your script in RStudio…\nACTIVITY:\n\nAdd to your existing script from the previous section.\nInclude both the Pearson and Spearman correlations.\nAdd brief comments interpreting the results scientifically. Remember: you use a # to add comments that are not read by R.\n\n\n\n\n\n\n\nImportant\n\n\n\nCorrelation is a numerical summary, not a predictive model. We will learn how to create models in the next section.",
+    "crumbs": [
+      "Home",
+      "Workshop 5",
+      "Quantifying Relationships with Correlation"
+    ]
+  },
+  {
+    "objectID": "Workshop5_linear-regression.html",
+    "href": "Workshop5_linear-regression.html",
+    "title": "Modelling Relationships with Linear Regression",
+    "section": "",
+    "text": "Correlation tells us how strongly two variables are related, but it does not give us an equation. In this section, we will use linear regression to build a simple mathematical model that describes the relationship between concentration and absorbance.\n\nWebR From correlation to a model\nA linear regression model describes the relationship between two variables using a straight-line equation:\n\\[ y = mx + c \\]\nIn our case:\n\n𝑥 is concentration\n𝑦 is absorbance\n\nR can fit this model directly from the data.\nACTIVITY: Let’s fit a linear regression model to our calibration data from earlier:\n\n\n\n\n\n\n\n\nTake a moment to look at the output. There are a few key pieces of information:\n1. Coefficients This section gives the numbers for the straight-line equation: \\[ y = mx + c \\] You will see two rows:\n\n(Intercept) This is the value of 𝑐. It represents the absorbance when the concentration is zero (background or baseline signal).\nconcentration_mM This is the slope 𝑚. It tells you how much the absorbance changes for each unit increase in concentration.\n\n2. Standard error This tells you how far the data points typically are from the fitted line.\n\nA smaller value means the data lie closer to the line\nA larger value means there is more scatter around the model\n\n3. Multiple R squared This tells you how well the straight line explains the data. This value is closely related to the correlation you calculated earlier.Think of this as a measure of experimental noise.\n\nValues range from 0 to 1.\nA value close to 1 means the linear model explains most of the variation in absorbance.\nFor a good calibration curve, R2 is usually high.\n\n\n\nVisualising the fitted model\nACTIVITY: It’s good practice to plot the regression line on top of the data. This allows us to check visually how well the model fits.\n\n\n\n\n\n\n\n\nEXPERIMENT: Compare this plot to the scatter plot from the earlier section. The line should follow the trend in the data closely.\n\n\nWhat does the model tell us?\nThe regression model gives us more than a visual trend:\n\nit provides an equation\nit allows prediction\nit can be used to evaluate how suitable a linear model is.\n\nHowever, a good numerical fit does not automatically mean the model is chemically valid.\n\n\nRStudio Saving and commenting your model\nOnce you’ve checked that the model works in WebR, you should save it in your script.\nACTIVITY: In RStudio:\n\nAdd the lm() model to your script\nInclude the regression plot\nWrite short comments explaining:\n\n\nwhat the slope represents physically,\nwhat a high R2 means in this context.\n\n\n\n\n\n\n\nImportant\n\n\n\nA regression model is a scientific tool. Always interpret its parameters in terms of the experiment.\n\n\nOne more section to go…",
+    "crumbs": [
+      "Home",
+      "Workshop 5",
+      "Modelling Relationships with Linear Regression"
+    ]
+  },
+  {
+    "objectID": "Workshop5_limits.html",
+    "href": "Workshop5_limits.html",
+    "title": "Using the Model and Knowing Its Limits",
+    "section": "",
+    "text": "A linear regression model is most useful when it can be applied to real experimental problems. In this final section, we will briefly use the model for prediction and reflect on when a linear model should and should not be trusted.\n\nWebR Using the model for prediction\nOnce a model has been fitted, it can be used to estimate values that were not directly measured. Let’s try getting the model to predict an absorbance value for a concentration of 0.15 mM:\n\n\n\n\n\n\n\n\nThis is how calibration curves are typically used in practice: the model allows us to estimate unknown values from measured data.\n\nThinking about limitations\nEven when a model fits the data well, it is important to think critically about its validity.\nA linear model may not be appropriate if:\n\nthe relationship is not truly linear,\nresiduals show a clear pattern,\nmeasurements approach instrumental limits, or\nexperimental uncertainty increases at high values.\n\n\n\nFinal takeaway\nLinear regression is a powerful tool, but it should always be used alongside:\n\nclear visualisation,\nchemical understanding, and\nscientific judgement.\n\n\n\n\n\n\n\nImportant\n\n\n\nA good model is not just statistically sound — it must also make sense chemically.",
+    "crumbs": [
+      "Home",
+      "Workshop 5",
+      "Using the Model and Knowing Its Limits"
+    ]
   }
 ]

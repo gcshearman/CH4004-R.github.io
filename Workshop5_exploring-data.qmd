@@ -1,0 +1,148 @@
+---
+title: "Exploring Relationships in Experimental Data"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+{{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
+
+::: callout-important
+In chemistry and pharmaceutical science, data analysis should always begin by looking at the data. Before calculating statistics or fitting models, we first visualise relationships to assess whether further analysis is appropriate.
+:::
+
+This first section broadly refreshes everything that we covered in workshops 1-4. If an instruction doesn't seem familiar, please revisit the earlier workshops.
+
+### [WebR]{.tag-webr} Creating a small experimental dataset
+
+We'll start by creating a small dataset directly in R. This represents the type of data that you might collect during a UV–Vis calibration experiment.
+
+```{webr}
+#| include: false
+webr::install("ggplot2")
+library(ggplot2)
+```
+
+```{webr}
+#| setup: true
+#| exercise:
+#|  - calibration-data
+#|  - print-data
+#|  - scatter-plot
+#|  - scatter-plot-better
+calibration <- data.frame(concentration_mM = c(0.00, 0.05, 0.10, 0.20, 0.40),absorbance = c(0.02, 0.14, 0.29, 0.59, 1.18))
+```
+
+```{webr}
+#| exercise: calibration-data
+calibration <- data.frame(
+  concentration_mM = c(0.00, 0.05, 0.10, 0.20, 0.40),
+  absorbance = c(0.02, 0.14, 0.29, 0.59, 1.18)
+  )
+```
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} In the box below, type in the command needed to print this data out.
+
+::: callout-note
+Remember, in these boxes, if you're not sure, you can click on 'Hint' to get a hint (normally, very strong!) about what to enter :-).
+:::
+
+```{webr}
+#| exercise: print-data
+
+```
+
+:::: {.hint exercise="print-data"}
+::: {.callout-note collapse="false"}
+## Hint 1
+
+In order to print the data, you simply need to type the name of the data (in this case, it's called 'calibration').
+:::
+::::
+
+::: {.solution exercise="print-data"}
+## Fully worked solution
+
+```{webr}
+#| exercise: print-data
+#| solution: true
+calibration
+```
+:::
+
+```{webr}
+#| exercise: print-data
+#| check: true
+gradethis::grade_this_code()
+```
+
+Take a moment to check that you understand what each column represents and what the units are.
+
+### Visualising the relationship
+
+The next step is to visualise the relationship between the two variables. A scatter plot is the most appropriate choice when comparing two continuous measurements. If you're not sure how to do this, please revisit `Workshop 3`, when we went through a whole lot of different types of plot visualisations using `ggplot2`.
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Try running the command below to plot your data:
+
+```{webr}
+#| exercise: scatter-plot
+
+ggplot(calibration, aes(x = concentration_mM, y = absorbance)) +
+geom_point(size = 3)
+```
+
+Look carefully at the plot. Ask yourself whether a straight-line relationship seems reasonable!
+
+As a refresher, let's try improving this plot by adding labels, a title and a clean theme
+
+### Improving the plot
+
+Let's start by running the below...:
+
+```{webr}
+#| exercise: scatter-plot-better
+ggplot(calibration, aes(x = concentration_mM, y = absorbance)) +
+geom_point(size = 3, colour = "blue") +
+labs(
+x = "Concentration (mM)",
+y = "Absorbance",
+title = "UV–Vis Calibration Data"
+) +
+theme_minimal()
+```
+
+What's changed between this graph and the previous one that you generated?
+
+[<strong>EXPERIMENT:</strong>]{.highlight-pink} Try modifying the plot to:
+
+ - change the point size or colour
+ - try a different theme (e.g. theme_classic, theme_dark, theme_void etc.)
+ 
+### [RStudio]{.tag-rstudio} Saving your work in a script
+
+Let's now swap over to RStudio. Remember, as we're using `ggplot` to create some graphs, we have to ensure that relevant packages are installed and then loaded. 
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} You therefore need to run the commands:
+
+```r
+install.packages("ggplot2")
+library(ggplot2)
+```
+Now open a new R script file, copy the text below and paste into the file:
+
+```r
+calibration <- data.frame(
+  concentration_mM = c(0.00, 0.05, 0.10, 0.20, 0.40),
+  absorbance = c(0.02, 0.14, 0.29, 0.59, 1.18)
+  )
+ggplot(calibration, aes(x = concentration_mM, y = absorbance)) +
+geom_point(size = 3, colour = "blue") +
+labs(
+x = "Concentration (mM)",
+y = "Absorbance",
+title = "UV–Vis Calibration Data"
+) +
+theme_minimal()
+```
+Then save (user's choice for the name of the file :-)). You can now use this in future if you wish to plot anything!
+
+The next section will look at starting to quantify relationships using correlation...
+
