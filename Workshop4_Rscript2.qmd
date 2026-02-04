@@ -132,7 +132,7 @@ cat("You need", round(V_stock_needed, 2), "mL of stock solution.\n")
 ```
 
 ::: callout-note
-The `round()` function in R is used to make numbers easier to read by shortening them to a set number of decimal places. It takes a number and rounds it to the number of decimal places you choose. Here, the values are
+The `round()` function in R is used to make numbers easier to read by shortening them to a set number of decimal places. It takes a number and rounds it to the number of decimal places you choose. 
 :::
 
 **Step 5:**

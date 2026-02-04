@@ -1,0 +1,251 @@
+---
+title: "Using t-tests"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}} 
+{{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
+
+```{webr}
+#| setup: true
+#| exercise:
+#|  - subset
+#|  - ttest
+tox_data <- data.frame(
+  compound = rep(c("Control", "Compound_A", "Compound_B"), each = 6),
+  viability_percent = c(
+    98, 95, 97, 96, 94, 99,
+    82, 79, 85, 80, 78, 83,
+    60, 58, 62, 55, 59, 57
+  )
+)
+control <- subset(tox_data, compound == "Control")
+compound_a <- subset(tox_data, compound == "Compound_A")
+```
+
+In many toxicology experiments, the primary question is whether a treatment produces a measurable effect compared to a control. When comparing two groups, a `t-test` is often an appropriate starting point.
+
+In this section, we will use a t-test to compare cell viability between:
+
+ - the Control group
+ - Compound A
+
+Our experimental question is:
+
+::: {.callout-tip appearance="simple"}
+*Does Compound A reduce cell viability compared to the control?*
+:::
+
+Statistically, this becomes a comparison of the mean viability between two groups, taking experimental variability into account.
+
+[WebR]{.tag-webr} Selecting the groups of interest
+
+<span class="highlight-green"><strong>ACTIVITY:</strong></span>  First, let's extract the measurements for the two groups we want to compare. 
+
+```{webr}
+#| exercise: subset
+control <- subset(tox_data, compound == "Control")
+compound_a <- subset(tox_data, compound == "Compound_A")
+control
+compound_a
+```
+
+[WebR]{.tag-webr} Running a two-sample t-test
+
+We can now compare the two groups using the function `t.test()`.
+
+```{webr}
+#| exercise: ttest
+t.test(
+  compound_a$viability_percent,
+  control$viability_percent
+)
+```
+
+The output includes:
+
+ - the estimated difference in means
+ - a confidence interval
+ - a p-value assessing whether the difference could plausibly be due to chance
+
+Let's go through this in a bit more detail...
+
+Firstly, Welch’s two sample t-test doesn't assume equal variances, which is usually a good default choice.
+
+The *t*-value was -11.609. The *t*-value was the standardized difference between the group means.
+
+ - The negative sign just tells you the direction:
+mean of compound A < mean of control.
+ - The magnitude (11.6) is very large → the groups are far apart relative to their variability.
+
+The *df* value represents the degrees of freedom. Here, the value is 9.0114.
+
+ - Welch’s test estimates df based on sample sizes and variances, so it’s often non-integer.
+ - Small df suggests small sample sizes, which makes the effect size even more striking here.
+ 
+ The *p*-value is 0.000001009. This is TINY! 
+ 
+ - Interpretation: If the true means were equal, seeing a difference this large would be extraordinarily unlikely.
+ - You would reject the null hypothesis at any reasonable significance level (0.05, 0.01, 0.001).
+ 
+ The confidence interval (CI) ranges from -18.32 to -12.35. This is the confidence interval for: *(mean of compound A - mean of control)*
+ 
+ - The interval is entirely below zero, reinforcing statistical significance.
+ - Interpretation: You’re 95% confident that compound A reduces viability by about 12–18 percentage points compared to control.
+
+At this stage, I recommend that you just focus on:
+
+ - the direction of the effect (which group has lower viability)
+ - whether the *p*-value is small relative to your chosen threshold
+
+<span class="highlight-pink"><strong>EXPERIMENT:</strong></span> Instead of comparing Compound A to the control, modify the code to compare: **Compound B vs Control**.
+
+:::callout-note
+It is important to change the names of any of the variables used as well as the data itself. This is *good practice* from a programming perspective.
+:::
+
+```{webr}
+#| exercise: ttest-retake
+tox_data <- data.frame(
+  compound = rep(c("Control", "Compound_A", "Compound_B"), each = 6),
+  viability_percent = c(
+    98, 95, 97, 96, 94, 99,
+    82, 79, 85, 80, 78, 83,
+    60, 58, 62, 55, 59, 57
+  )
+)
+control <- subset(tox_data, compound == "Control")
+compound_a <- subset(tox_data, compound == "Compound_A")
+t.test(
+  compound_a$viability_percent,
+  control$viability_percent
+)
+```
+
+::: {.hint exercise="ttest-retake"}
+::: {.callout-note collapse="false"}
+## Hint 1
+
+You will need to edit any part of the code that mentions compound A.
+:::
+:::
+
+::: {.solution exercise="ttest-retake"}
+## Fully worked solution
+
+```{webr}
+#| exercise: ttest-retake
+#| solution: true
+tox_data <- data.frame(
+  compound = rep(c("Control", "Compound_A", "Compound_B"), each = 6),
+  viability_percent = c(
+    98, 95, 97, 96, 94, 99,
+    82, 79, 85, 80, 78, 83,
+    60, 58, 62, 55, 59, 57
+  )
+)
+control <- subset(tox_data, compound == "Control")
+compound_b <- subset(tox_data, compound == "Compound_B")
+t.test(
+  compound_b$viability_percent,
+  control$viability_percent
+)
+```
+:::
+
+```{webr}
+#| exercise: ttest-retake
+#| check: true
+gradethis::grade_this_code()
+```
+
+### Interpreting the result
+
+Statistical output should always be interpreted in context.
+
+Consider:
+
+ - Is the observed difference large relative to experimental variability?
+ - Does the result match what you saw in the boxplot?
+ - Would this difference be biologically meaningful, even if statistically significant?
+
+<span class="highlight-pink"><strong>EXPERIMENT:</strong></span> Store the result!
+
+Rather than printing the test result directly, modify the code below so that the result of the t-test is saved to an object called `ttest_result`. 
+
+You should then print this object to the console.
+
+This reinforces a key R habit: store results so they can be reused later (for reports, plots, or further analysis).
+
+```{webr}
+#| exercise: ttest-store
+tox_data <- data.frame(
+  compound = rep(c("Control", "Compound_A", "Compound_B"), each = 6),
+  viability_percent = c(
+    98, 95, 97, 96, 94, 99,
+    82, 79, 85, 80, 78, 83,
+    60, 58, 62, 55, 59, 57
+  )
+)
+control <- subset(tox_data, compound == "Control")
+compound_b <- subset(tox_data, compound == "Compound_B")
+t.test(
+  compound_b$viability_percent,
+  control$viability_percent
+)
+```
+
+::: {.hint exercise="ttest-store"}
+::: {.callout-note collapse="false"}
+## Hint 1
+
+Use the structure: variable <- ...
+:::
+:::
+
+::: {.solution exercise="ttest-store"}
+## Fully worked solution
+
+```{webr}
+#| exercise: ttest-store
+#| solution: true
+tox_data <- data.frame(
+  compound = rep(c("Control", "Compound_A", "Compound_B"), each = 6),
+  viability_percent = c(
+    98, 95, 97, 96, 94, 99,
+    82, 79, 85, 80, 78, 83,
+    60, 58, 62, 55, 59, 57
+  )
+)
+control <- subset(tox_data, compound == "Control")
+compound_b <- subset(tox_data, compound == "Compound_B")
+ttest_result <- t.test(
+  compound_b$viability_percent,
+  control$viability_percent
+)
+```
+:::
+
+```{webr}
+#| exercise: ttest-store
+#| check: true
+gradethis::grade_this_code()
+```
+
+[RStudio]{.tag-rstudio} Updating your analysis script
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Open your toxicity_analysis.R script and add:
+
+ - the code that subsets the data
+ - the t-test comparing Control vs Compound A
+ - the modified t-test comparing Control vs Compound B
+
+Add a short comment answering:
+
+ - Which compound appears more toxic based on this analysis?
+ - You will reuse this script in the next section when comparing more than two groups.
+ 
+### Looking ahead
+
+Comparing two groups works well when experiments are simple. However, many toxicity studies involve multiple treatments or doses.
+
+In the next section, we will extend this analysis using ANOVA, which allows us to compare all treatment groups in a single statistical model.

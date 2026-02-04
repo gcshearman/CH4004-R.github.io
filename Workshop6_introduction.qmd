@@ -1,0 +1,34 @@
+---
+title: "Introduction to Workshop 6"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+## Welcome to Workshop 6: Tox Talk: Exploring Toxicity Data with Statistics
+
+In chemistry, pharmaceutical science and, of course (!), toxicology, we rarely care about a single measurement. Instead, we compare groups:
+
+ - treated vs untreated cells
+ - different compounds
+ - multiple doses of the same compound
+
+Since experimental data always contain variability, we need statistical tools to help us decide whether observed differences are likely due to real effects or random variation.
+
+### What you'll be learning
+
+In this workshop, you'll use R to perform and interpret common statistical tests used to compare groups, focusing on examples drawn from toxicity-style experiments such as cell viability assays.
+
+Rather than treating statistics as a black box, the goal is to:
+
+ - understand what question a statistical test is answering
+ - choose an appropriate test for a given experimental design
+ - interpret results in a scientifically meaningful way
+
+We will focus on two widely used approaches:
+
+ - t-tests, for comparing two groups
+ - analysis of variance (ANOVA), for comparing more than two groups
+
+
+As per Workshops 4 & 5, I'll be using two badges:
+<span class="tag-webr">WebR</span> and <span class="tag-rstudio">RStudio</span> to denote whether the text (and tasks for you to work through) relates to the browser (this is WebR) or RStudio.

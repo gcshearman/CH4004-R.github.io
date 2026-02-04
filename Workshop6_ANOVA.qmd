@@ -1,0 +1,184 @@
+---
+title: "Comparing multiple groups using ANOVA"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}} 
+{{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
+
+```{webr}
+#| setup: true
+#| exercise:
+#|  - anova
+#|  - tukey
+#|  - anova-store
+tox_data <- data.frame(
+  compound = rep(c("Control", "Compound_A", "Compound_B"), each = 6),
+  viability_percent = c(
+    98, 95, 97, 96, 94, 99,
+    82, 79, 85, 80, 78, 83,
+    60, 58, 62, 55, 59, 57
+  )
+)
+tox_anova <- aov(
+  viability_percent ~ compound,
+  data = tox_data
+)
+```
+
+In the previous section, we compared treatments two at a time using t-tests. While this works for simple experiments, it quickly becomes inefficient and statistically problematic when more than two groups are involved.
+
+When comparing three or more groups, a more appropriate approach is *analysis of variance (ANOVA)*.
+
+### Why not multiple t-tests?
+
+If we compared:
+
+ - Control vs Compound A
+ - Control vs Compound B
+ - Compound A vs Compound B
+
+we would be performing multiple tests on the same dataset. Each test carries a chance of a false positive, and these risks accumulate.
+
+ANOVA avoids this by asking a single question: Is there evidence that at least one group mean differs from the others?
+
+### [WebR]{.tag-webr} Fitting an ANOVA model
+
+In R, ANOVA is fit using a model formula, which you have already encountered in other contexts (see the `lm` command from Workshop 5, which fits a linear regression model... it's the same set-up).
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Let's run the code below:
+
+```{webr}
+#| exercise: anova
+tox_anova <- aov(
+  viability_percent ~ compound,
+  data = tox_data
+)
+
+summary(tox_anova)
+```
+
+:::callout-note
+The function `aov` runs ANOVA. The first expression within the `aov()` function refers to the specific group of values that are to be compared (here `viability_percent`). The term after the ~ then refers to the predictors i.e. the aspect that you want to find out whether it has any effect on the data (in this case, `compound`). The second expression then identifies the name of the data in which both `viability_percent` and `compound` are.
+:::
+
+This model compares the mean viability across all treatment groups simultaneously.
+
+At this stage, let's just focus on:
+
+ - the p-value associated with `compound` (this is represented by Pr(>F))... in this case, this represents the probability of seeing an F of a certain size (in this case 402, which is *very* large) if all compound means were actually zero. The `***` just means: p < 0.001.
+ - whether the data provide evidence of differences between groups
+
+You can summarise this in a single sentence:
+*A one-way ANOVA showed a significant effect of compound on the response, F(2, 15) = 402, p < 0.001.*
+
+### Check your expectations
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Before looking closely at the output, think back to:
+
+ - the summary statistics
+ - the boxplots
+ 
+ that you ran earlier.
+
+**Question:** Do the ANOVA results match what you expected based on visual inspection?
+
+### What ANOVA does not tell you
+
+A significant ANOVA result indicates that not all group means are equal, but it does not tell you:
+
+ - which groups differ
+ - how large those differences are
+
+To answer those questions, we need a follow-up analysis.
+
+### [WebR]{.tag-webr} Post-hoc comparisons
+
+A common post-hoc approach is `Tukey’s Honest Significant Difference (HSD) test`, which compares all pairs of groups while accounting for multiple testing.
+
+```{webr}
+#| exercise: tukey
+TukeyHSD(tox_anova)
+```
+
+This output shows:
+
+ - pairwise comparisons between treatments
+ - confidence intervals for differences in means
+ - adjusted p-values
+
+::: callout-warning
+If you see `p adj = 0`, this does not mean the p-value is literally zero. Instead, it means that the adjusted p-value is smaller than R’s printing threshold. In essence: p ≪ 0.001.
+:::
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Using the Tukey HSD results, identify which compound shows the largest decrease in viability relative to the control.
+
+::: callout-tip
+Pay attention to both the sign and magnitude of the differences.
+:::
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Modify the code below so that the ANOVA result is stored in an object called `anova_result` and run a `summary()` on it.
+
+```{webr}
+#| exercise: anova-store
+tox_anova <- aov(
+  viability_percent ~ compound,
+  data = tox_data
+)
+```
+
+::: {.hint exercise="anova-store"}
+::: {.callout-note collapse="false"}
+## Hint 1
+
+Use the structure: variable <- ... 
+Also, remember to include the `summary()` call below.
+:::
+:::
+
+::: {.solution exercise="anova-store"}
+## Fully worked solution
+
+```{webr}
+#| exercise: anova-store
+#| solution: true
+anova_result <- aov(
+  viability_percent ~ compound,
+  data = tox_data
+)
+summary(anova_result)
+```
+:::
+
+```{webr}
+#| exercise: anova-store
+#| check: true
+gradethis::grade_this_code()
+```
+
+### [RStudio]{.tag-rstudio} Finalising your analysis script
+
+Modify your `toxicity_analysis.R` script to contain:
+
+ - data creation (tox_data)
+ - summary statistics and plots
+ - at least one t-test
+ - an ANOVA model
+ - a Tukey post-hoc comparison
+ - comments interpreting the results
+
+and save your script.
+
+This script represents a complete, reproducible analysis workflow for comparing toxicity across treatments.
+
+### Summary
+
+Putting it all together
+
+In this workshop, you have:
+
+ - explored experimental data visually and numerically
+ - compared two groups using a t-test
+ - compared multiple groups using ANOVA
+ - interpreted statistical output in an experimental context
+
+Most importantly, you have built an analysis step by step, rather than relying on a single command. Well done!

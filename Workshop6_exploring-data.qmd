@@ -1,0 +1,149 @@
+---
+title: "Exploring and visualising toxicity data"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}} 
+{{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
+
+```{webr}
+#| setup: true
+#| exercise:
+#|  - tox-data
+#|  - summary
+#|  - boxplot
+#|  - ggplot
+tox_data <- data.frame(
+  compound = rep(c("Control", "Compound_A", "Compound_B"), each = 6),
+  viability_percent = c(
+    98, 95, 97, 96, 94, 99,
+    82, 79, 85, 80, 78, 83,
+    60, 58, 62, 55, 59, 57
+  )
+)
+```
+
+### Exploring and visualising toxicity data
+
+Before applying any statistical test, it is essential to understand the structure and basic features of the data. You've already used functions such as `summary()` and created plots (including with `ggplot2`) in earlier sessions. Here, we will use those same tools to inform statistical decision-making, rather than just to describe the data.
+
+In this section, we will load a small toxicity-style dataset and use summaries and plots to decide what kinds of statistical comparisons are appropriate.
+
+### The experimental scenario
+
+Imagine a cell viability assay in which cells were exposed to different chemical treatments for 24 hours. Cell viability was measured as a percentage relative to untreated controls.
+
+The experiment includes:
+
+ - an untreated Control
+ - Compound A
+ - Compound B
+
+Each treatment was measured multiple times to capture experimental variability.
+
+### [WebR]{.tag-webr} Loading the data
+
+We'll start by creating a data frame containing the experimental results. 
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Run the code below:
+
+```{webr}
+#| exercise: tox-data
+tox_data <- data.frame(
+  compound = rep(c("Control", "Compound_A", "Compound_B"), each = 6),
+  viability_percent = c(
+    98, 95, 97, 96, 94, 99,
+    82, 79, 85, 80, 78, 83,
+    60, 58, 62, 55, 59, 57
+  )
+)
+
+tox_data
+```
+
+Each row represents a single measurement, with:
+
+ - `compound` indicating the treatment group
+ - `viability_percent` giving the measured response
+
+::: callout-note
+Here, the term `rep()` stands for *repeat* - it's used to repeat values a certain number of times (in this case, it repeats 'Control', 'Compound A' etc. 6 times each).
+:::
+
+### [WebR]{.tag-webr} Numerical summaries
+
+As you have seen before, `summary()` provides a quick overview of the distribution of values. Applied by group, it allows us to compare treatments more directly.
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Run the summary below:
+
+```{webr}
+#| exercise: summary
+tapply(
+  tox_data$viability_percent,
+  tox_data$compound,
+  summary
+)
+```
+
+::: callout-note
+The function `tapply()` applies a function to subsets of a vector, defined by a grouping variable.
+:::
+
+At this stage, you are not trying to reach a conclusion—only to form expectations about:
+
+ - which groups may differ
+ - the size of those differences
+ - the variability within each group
+
+### [WebR]{.tag-webr} Visualising the data
+
+Plots often make patterns and variability easier to interpret than numbers alone. Boxplots are particularly useful for comparing multiple groups in a single experiment.
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Try plotting the tox-data in a boxplot:
+
+```{webr}
+#| exercise: boxplot
+boxplot(
+  viability_percent ~ compound,
+  data = tox_data,
+  ylab = "Cell viability (%)",
+  xlab = "Treatment"
+)
+```
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} If you prefer, the same comparison could be made using `ggplot2`, which you have encountered previously:
+
+```{webr}
+#| exercise: ggplot
+library(ggplot2)
+
+ggplot(tox_data, aes(x = compound, y = viability_percent)) +
+  geom_boxplot() +
+  labs(
+    x = "Treatment",
+    y = "Cell viability (%)"
+  )
+```
+
+When examining these plots, focus on:
+
+ - differences in central tendency between groups
+ - overlap between distributions
+ - the spread of values within each treatment
+
+### [RStudio]{.tag-rstudio} Building your analysis script
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Now create or open the script you will build throughout this workshop.
+
+ 1. Open RStudio
+ 2. Create (or open) a script called `toxicity_analysis.R`
+ 3. Copy the following into your script:
+
+ - the code that creates `tox_data`
+ - the grouped `summary()` command
+ - one of the plots (base R or ggplot)
+
+Add at least one comment describing what the summaries and plot suggest about differences between treatments.
+
+You'll extend this script in the next sections to perform formal statistical tests.
+
+
