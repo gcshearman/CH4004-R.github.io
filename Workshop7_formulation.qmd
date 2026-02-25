@@ -1,0 +1,136 @@
+---
+title: "Exploring a Formulation Dataset"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}} 
+{{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
+
+```{webr}
+#| setup: true
+#| exercise:
+#|  - form-data
+#|  - form-plots
+#|  - form-plot2
+
+sedds <- read_csv("data/sedds_df.csv", show_col_types = FALSE)
+```
+
+Now that we’ve introduced machine learning and the idea of *big* datasets, it’s time to **meet your first “real-world” formulation dataset**!  
+
+We’ll be using the **Self-Emulsifying Drug Delivery Systems (SEDDS) dataset**, which contains nearly **700 formulations** with information on:
+
+- The drug used  
+- Proportions of oil, surfactant, and co-solvent  
+- Key physical properties like droplet size and polydispersity index (PDI)  
+
+For more information on this dataset, please see the article by J. Zaslavsky and C. Allen (2023) "A dataset of formulation compositions for self-emulsifying drug delivery systems" *Scientific Data*, 10: 914. https://www.nature.com/articles/s41597-023-02812-w
+
+This dataset gives us a taste of **real formulation data**, and will be perfect for exploring patterns before we start building predictive models.
+
+### [RStudio]{.tag-rstudio} Loading the Dataset
+
+Let’s start by loading the CSV file. In this WebR browser, it has already been loaded for you (together with the necessary packages), but in R Studio, you will need to download it from either the workshop repository (https://osf.io/hvefk/files/baxj3) or from the relevant CH4004 Canvas page.
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Open R Studio, and enter the following:
+
+```r
+url <- "https://canvas.kingston.ac.uk/files/7079861/download?download_frd=1&verifier=qevlVzIVmy1RcBCNzGftkefQo0CRf8lAtS75rWLW"
+sedds <- read.csv(url)
+```
+
+Now have a look at the dataset by double-checking the name `sedds` under the Data section (under the `Environment` tab).
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} In R Studio, you will also need to load both the `dplyr` and ``ggplot2` packages. 
+
+**Remember**, you will first need to check to see if the package has been installed by checking the `Packages` tab in the bottom right section of R Studio. If either package is not there, you will need to use the `install.packages` command before then loading them using the `library` command. The full instructions are given below just FYI:
+
+```r
+install.packages("dplyr")
+install.packages("ggplot2")
+library(dplyr)
+library(ggplot2)
+```
+
+### [WebR]{.tag-webr} Eyeballing the data
+
+We can have a quick look at the data here - you did this previously in Workshop 2 so hopefully each of the commands i.e. `head`, `str` and `summary` look familiar to you! If not, please review Workshop 2.
+
+```{webr}
+#| exercise: form-data
+
+head(sedds)
+str(sedds)
+summary(sedds)
+```
+
+#### Understanding the Data
+
+Even though you’ve explored datasets before, it’s worth asking:
+
+- What variables do we have? (composition fractions, droplet size, PDI, drug identity)
+- What types are they? (numeric, categorical)
+- Are there missing values or unusual entries?
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Take a look at the first few rows and answer:
+
+1. How many formulation components are there?
+2. Which property might be interesting to predict using machine learning?
+
+#### Visualising Patterns
+
+Visualisation helps us see relationships and gives clues for later Machine Learning (ML) models.
+
+```{webr}
+#| exercise: form-plots
+#| 
+# Histogram of droplet size
+ggplot(sedds, aes(x = size)) +
+  geom_histogram(bins = 20, fill = "skyblue", color = "black") +
+  labs(title = "Distribution of Droplet Sizes", x = "Droplet Size (nm)", y = "Count")
+
+# Scatter plot: Droplet Size vs Surfactant fraction
+ggplot(sedds, aes(x = size, y = surfactant_total, color = API_mol_wt)) +
+  geom_point() +
+  labs(title = "Droplet Size vs Surfactant Proportion by Molar Mass of Drug", x = "Droplet Size (nm)", y = "Surfactant Fraction")
+```
+
+[<strong>EXPERIMENT:</strong>]{.highlight-pink} Try changing the colors, points, or axes to see different aspects of the data. For example, what happens if you plot `CoSolvent fraction` vs `PDI`? Try filling in the blanks in the box below to plot this:
+
+```{webr}
+#| exercise: form-plot2
+
+# Scatter plot: *Enter some information here about your chosen plot*
+ggplot(sedds, aes(x = ____, y = ____)) +
+  geom_point() +
+  labs(title = "A scatter plot of the cosolvent fraction against the PDI of the droplets")
+```
+
+::: {.hint exercise="form-plot2"}
+::: {.callout-note collapse="false"}
+## Hint 1
+
+The x-axis should represent the PDI while the y-axis, the cosolvent fraction (here, called 'cosolvent_total').
+:::
+:::
+
+::: {.solution exercise="form-plot2"}
+## Fully worked solution
+
+```{webr}
+#| exercise: form-plot2
+#| solution: true
+
+# Scatter plot: *Enter some information here about your chosen plot*
+ggplot(sedds, aes(x = PDI, y = cosolvent_total)) +
+  geom_point() +
+  labs(title = "A scatter plot of the cosolvent fraction against the PDI of the droplets")
+```
+:::
+
+```{webr}
+#| exercise: form-plot2
+#| check: true
+gradethis::grade_this_code()
+```
+
+By this point, you should now have a hands-on feel for the data and be ready for machine learning in the next section. In Section 3, we’ll start using these composition features to predict formulation properties and uncover patterns that might guide formulation design.

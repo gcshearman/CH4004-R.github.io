@@ -1,0 +1,140 @@
+---
+title: "Interpreting Models and Understanding Limitations"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}} 
+{{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
+
+```{webr}
+#| setup: true
+#| exercise:
+#|  - resid-calc
+#|  - form-resid
+#|  - form-QQ
+#|  - form-RMSE2
+
+sedds <- read_csv("data/sedds_df.csv", show_col_types = FALSE)
+set.seed(123)
+train_index <- sample(1:nrow(sedds), 0.8 * nrow(sedds))
+train <- sedds[train_index, ]
+test  <- sedds[-train_index, ]
+model <- lm(size ~ oil_total + surfactant_total + cosolvent_total + API_prop, data = train)
+test$predicted_size <- predict(model, newdata = test)
+```
+
+We've now built a simple predictive model, made predictions, visualised them and calculated an error metric (i.e. the RMSE). But... what does this really tell us? Let's critically explore our model's strengths and weaknesses using simple R diagnostics.
+
+### [WebR]{.tag-webr} Residual Analysis
+
+Residuals show how far off our predictions are. Patterns can reveal limitations. 
+
+These can be calculated using:
+```{webr}
+#| exercise: resid-calc
+
+residuals <- resid(model)
+```
+
+For `lm()` objects (such as our model), there are 'standard' plots (differentiated using the `which` command), which are:
+
+| which | Plot Description | More information  |
+|-------|------------------|-------------------|
+| 1     | Residuals vs fitted | Checks for non-linearity |
+| 2     | Normal Q-Q | Checks if resiuals are approx. normally distributed |
+| 3     | Scale-Location | Checks homoscedasticity (i.e. constant variance) |
+| 4     | Cooks's Distance | Detects points that strongly influence the model |
+| 5     | Residuals vs leverage | Combines influence and leverage |
+| 6     | Cooks's distance vs Leverage / Studentized Residuals | Advanced!
+
+\n
+[<strong>ACTIVITY:</strong>]{.highlight-green} Let's plot the residuals for the model:
+
+```{webr}
+#| exercise: form-resid
+
+plot(model, which = 1)
+```
+
+When looking at a residual plot, look for the following:
+
+ - Random scatter, which means that the linear model is acceptable
+ - A curved or funnel shape, which indicates potential nonlinearity or heteroscedasticity
+
+### Checking Normality
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Q-Q plots enable you to visually check 'normality', try:
+
+```{webr}
+#| exercise: form-QQ
+
+# QQ plot of residuals
+plot(model, which = 2)
+```
+
+For Q-Q plots, you should eyeball to determine whether:
+
+ - The points follow the diagonal, in which case the residuals are approximately normal
+ - There are large deviations, which suggests that the model struggles to fit some observations.
+ 
+::: callout-note
+ In this case, you might spot that the data points on the right hand side are curving upwards above the diagonal. This means that our model is *under-predicting* some observations. In other words, some formulations have much larger droplet sizes than the model predicts.
+:::
+
+### Train vs Test RMSE (Overfitting / Underfitting)
+
+From the above graph, we have a hint that some of our data is underfitted. We can take this a bit further and calculate the RMSE for both training and test sets:
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Let's calculate!
+
+```{webr}
+#| exercise: form-RMSE2
+
+# Predictions
+train$predicted <- predict(model, newdata = train)
+test$predicted <- predict(model, newdata = test)
+
+# RMSE
+train_rmse <- sqrt(mean((train$size - train$predicted)^2, na.rm = TRUE))
+test_rmse  <- sqrt(mean((test$size - test$predicted)^2, na.rm = TRUE))
+
+cat("Training RMSE:", train_rmse, "nm\n")
+cat("Test RMSE:    ", test_rmse, "nm\n")
+```
+
+From this data, if:
+
+ - train_rmse << test_rmse, the data is being overfitted
+ - both values are large, then the data is underfitted.
+ 
+ The term 'overfitting' occurs when the model is too complex for the data i.e. it fits the training data well but performs poorly on new or unseen data. The model has, in essence, learnt patterns that don't generalise very well.
+ 
+'Underfitting' means that the model is too simple - in essence, it can't capture patterns in the training data so the error is high for both training and test sets.
+
+Here, both RMSE values are HIGH!!! This means that our model hasn't really picked up on any trends in the data so is underfitting, implying that it's tuned to some noise in the training data. However, to add insult to injury, it is also overfitting relative to the test set as predictions for new data are worse than for the training set.
+ 
+### [RStudio]{.tag-rstudio} Adding to the model script in R Studio
+
+The code below can be directly added to your R script to help you analyse the quality of your machine learning model!
+
+```r
+# ===========================================
+# Q-Q Plot of Residuals – check for extremes
+# ===========================================
+
+# Calculate residuals
+residuals <- resid(model)
+
+# Base R Q-Q plot
+plot(model, which = 2, main = "Q-Q Plot of Residuals")
+
+# Optional: highlight largest positive residuals
+top_resid <- order(residuals, decreasing = TRUE)[1:5]  # top 5 largest residuals
+points(qnorm(ppoints(length(residuals)))[top_resid], residuals[top_resid], 
+       col = "red", pch = 19)
+```
+
+### Final Thought
+ 
+ Machine learning models are tools, not truths. Using these diagnostics, you can judge whether your model is giving useful predictions or just reflecting noise. This is the heart of critical, data-driven pharmaceutical research.
+
+

@@ -19,6 +19,8 @@ website:
         text: Workshop 5
       - href: Workshop6_introduction.qmd
         text: Workshop 6
+      - href: Workshop7_introduction.qmd
+        text: Workshop 7
   
   sidebar:
     style: "docked"
@@ -51,6 +53,12 @@ website:
           - Workshop6_exploring-data.qmd
           - Workshop6_t-tests.qmd      
           - Workshop6_ANOVA.qmd 
+      - section: "Workshop 7"
+        contents: 
+          - Workshop7_introduction.qmd
+          - Workshop7_formulation.qmd
+          - Workshop7_ML1.qmd
+          - Workshop7_ML2.qmd          
           
 filters:
   - tools_tabset.lua

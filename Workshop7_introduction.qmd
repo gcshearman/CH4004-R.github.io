@@ -1,0 +1,57 @@
+---
+title: "Introduction to Workshop 7"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+## Welcome to Workshop 7: It’s All About the Data: Big Data in Chemistry
+
+In modern chemistry and pharmaceutical science, researchers rarely work with just a few measurements. Today, we routinely encounter datasets containing thousands or even millions of compounds, each with multiple chemical properties and experimental results.
+
+For example:
+
+-   High-throughput screening experiments testing thousands of drug candidates against a target protein
+-   Large chemical databases like PubChem or ChEMBL containing millions of compounds
+-   Computational chemistry simulations generating huge numbers of predicted properties
+
+These massive datasets are often called **big data**, and they present exciting opportunities, but also challenges. How do we **find patterns**, **make predictions**, or **prioritise compounds** when there’s so much information? That’s where **machine learning (ML)** comes in.
+
+### What is Machine Learning?
+
+Machine learning is a set of **tools and algorithms that learn patterns from data** so we can make predictions or classifications. Importantly:
+
+-   ML doesn’t require “big data” to work — we can teach it using datasets of hundreds or thousands of compounds
+-   ML works even better with larger datasets, because more examples allow models to detect more accurate patterns
+-   ML can answer questions like: “Which molecules are likely to be active?” or “Which compounds might be toxic?”
+
+### What you'll be learning
+
+In this workshop, you’ll use **R** (via WebR) to take your first steps into machine learning in chemistry by:
+
+-   Exploring **realistic chemistry datasets**
+-   Building **simple predictive models** using molecular properties
+-   Visualising model predictions and interpreting results
+-   Discussing how ML can help chemists make decisions more efficiently
+
+Rather than treating ML as a black box, our goal is to:
+
+-   Understand **what question a model is answering**
+-   Make **simple, meaningful predictions about chemical properties**
+-   See how these tools could **guide experiments and drug discovery**
+
+### Why this matters in chemistry
+
+Imagine you’re designing a new drug. You might want to know:
+
+-   Which molecules are most likely to bind a protein target?
+-   Which compounds are likely to be toxic?
+-   How chemical structure affects solubility or stability?
+
+Machine learning allows us to **learn from past data** and make better predictions about new compounds... saving time, resources and maybe even lives!
+
+As before, there will be two badges, indicating where you should do the activities in that section:
+
+- [WebR]{.tag-webr} – exercises you can run directly in your browser\
+- [RStudio]{.tag-rstudio} – exercises you could run locally in RStudio
+
+Now let’s move on to **Section 2: Exploring a Big Chemistry Dataset**, where you’ll load your first dataset, examine its properties, and visualise patterns. This will review some concepts met previously and give you the foundation needed to start building simple machine learning models in the next part of the workshop.

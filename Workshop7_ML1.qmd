@@ -1,0 +1,349 @@
+---
+title: "Building a Predictive Model"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}} 
+{{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
+
+```{webr}
+#| setup: true
+#| exercise:
+#|  - form-split
+#|  - form-model
+#|  - form-predict
+#|  - predict-plot
+#|  - predict-rmse
+#|  - predict-HLB
+
+sedds <- read_csv("data/sedds_df.csv", show_col_types = FALSE)
+set.seed(123)
+train_index <- sample(1:nrow(sedds), 0.8 * nrow(sedds))
+train <- sedds[train_index, ]
+test  <- sedds[-train_index, ]
+model <- lm(size ~ oil_total + surfactant_total + cosolvent_total + API_prop, data = train)
+test$predicted_size <- predict(model, newdata = test)
+```
+
+In the previous section, you explored a real formulation dataset and looked for patterns. Now we’re going to take the next step:
+
+We’re going to build a machine learning model.
+
+### What *is* Machine Learning?
+
+At its core, machine learning (ML) is about this question: Can we use existing data to learn patterns that allow us to make predictions about new data?
+
+In formulation science, that might mean:
+
+ - Predicting droplet size from formulation composition
+ - Predicting whether a formulation will progress
+ - Estimating stability from component properties
+
+Today, we’ll focus on something concrete and measurable:
+
+** Can we predict droplet size (size) from formulation composition? **
+
+### Step 1: Training vs Testing
+
+Before we build a model, we need to understand something important. If we train and test a model on the same data, we’re cheating.
+
+Instead:
+
+ - We train the model on part of the dataset
+ - We test it on data it hasn’t seen before
+
+This helps us evaluate whether the model can generalise.
+
+#### <span class="tag-webr">WebR</span> Creating the training dataset
+
+The first thing to do is to split the dataset into training and testing. 
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Split the data into 80% training data and 20% testing data using the commands below:
+
+```{webr}
+#| exercise: form-split
+
+set.seed(123)
+
+train_index <- sample(1:nrow(sedds), 0.8 * nrow(sedds))
+
+train <- sedds[train_index, ]
+test  <- sedds[-train_index, ]
+
+nrow(train)
+nrow(test)
+```
+
+Let's explain these commands... 
+
+#### `set.seed(123)`
+
+R uses random numbers when we randomly split data. If we didn’t set a seed, every time we ran this code we would get a *different split*.
+
+`set.seed()` makes the randomness **reproducible**, meaning:
+
+- You get the same random split every time
+- Everyone in the class gets the same result
+
+The number `123` is arbitrary... it just fixes the random sequence.
+
+#### `sample(1:nrow(sedds), 0.8 * nrow(sedds))`
+
+This line means:
+
+ - Take all row numbers (1 to 668)
+ - Randomly select 80% of them
+ - Store those selected row numbers in `train_index`
+
+So `train_index` is just a list of randomly chosen row numbers.
+
+#### `train <- sedds[train_index, ]`
+
+This means:
+
+ - From the dataset `sedds`, take the rows listed in `train_index`
+ - Keep all columns (that’s what the blank after the comma means)
+
+So `train` contains the selected 80%.
+
+#### `test <- sedds[-train_index, ]`
+
+The minus sign is important.
+
+`-train_index` means:
+
+ - Take all rows except those in `train_index`
+
+So:
+
+ - `train` = selected rows
+ - `test` = everything else
+
+Together, they make up the full dataset but just split into two groups.
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Check the following:
+
+ - How many rows are in train?
+ - How many rows are in test?
+ - Do they add up to the total number of rows in sedds?
+
+### Step 2: Building a Simple Model
+
+We’ll use a method called linear regression, which you've already met in Workshop 5 (if you can't remember this, please go back to Workshop 5 to refresh your memory). We'll use four formulation variables:
+
+1) `oil_total`
+2) `surfactant_total`
+3) `cosolvent_total`
+4) `API_prop`
+
+These are chemically meaningful and all directly related to formulation composition i.e. the amount of oil, surfactant, cosolvent and API in the formulation!
+
+#### <span class="tag-webr">WebR</span> Fitting the model
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Run the following box:
+
+```{webr}
+#| exercise: form-model
+
+model <- lm(size ~ oil_total + surfactant_total + cosolvent_total + API_prop, data = train)
+
+summary(model)
+```
+
+Now look at the model summary and answer the following questions:
+
+ - Which variable has the strongest effect on size?
+ - Are the effects positive or negative?
+ - Does this make sense chemically?
+
+For example:
+
+ - Does increasing surfactant tend to increase or decrease droplet size?
+ - Is that what you would expect?
+ 
+### A Quick Summary of What We’ve Learned So Far
+
+Looking at our linear regression model:
+
+- **API proportion (`API_prop`)** appears to have the strongest effect on droplet size (as seen by the largest magnitude for the 'estimate': increasing API loading tends to *slightly* reduce size.  
+- **Surfactant (`surfactant_total`)** has a weak negative trend, which makes chemical sense — more surfactant can stabilise smaller droplets.  
+- **Oil (`oil_total`)** and **cosolvent (`cosolvent_total`)** don’t show strong effects in this dataset.  
+
+However, the **overall model is weak**:
+
+- Multiple R² ≈ 0.05 → the model explains only ~5% of the variation in droplet size  
+- Residuals are large → predictions will be noisy  
+
+### Why Are We Still Making Predictions?
+
+Even with a weak model, building predictions is a **valuable exercise**:
+
+- It helps us understand **how machine learning works in practice**  
+- It teaches us to interpret model performance and limitations  
+- It gives a framework to think about **what variables matter and which don’t**  
+
+So, for the sake of learning, let’s now try using this model to **predict droplet size** on new formulations.
+
+::: callout-note 
+Remember: the predictions won’t be perfect... that’s exactly why evaluating and interpreting models is important in real research.
+:::
+
+### Step 3: Making Predictions with Our Model
+
+Even though this model isn’t very strong, it’s still a great opportunity to learn how predictions work in practice. So... let's proceed further...
+
+### 3.1 Predicting Droplet Size
+
+We can now use the model to make predictions on **test data** — that is, formulations the model hasn’t seen before.
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Run the code below:
+
+```{webr}
+#| exercise: form-predict
+
+# Predict droplet size for the test set
+test$predicted_size <- predict(model, newdata = test)
+
+# Look at the first few rows
+head(test[, c("size", "predicted_size")])
+```
+
+where the `predict()` function takes a fitted model (like our `lm` model) and **applies it to new data** to generate predictions.
+
+Here:
+
+ - `size` is the actual droplet size
+ - `predicted_size` is the value that the model predicts.
+ 
+ Even if the predictions are rough (and they are, sadly!), this shows how machine learning applies to new data.
+ 
+### 3.2 Visualising Predictions
+ 
+[<strong>ACTIVITY:</strong>]{.highlight-green} A simple plot helps us see how good our predictions are... try:
+ 
+```{webr}
+#| exercise: predict-plot
+
+ggplot(test, aes(x = size, y = predicted_size)) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0, colour = "red") +
+  labs(title = "Predicted vs Actual Droplet Size",
+       x = "Actual Size (nm)",
+       y = "Predicted Size (nm)")
+```
+
+There's always one outlier!! ;-)
+
+::: callout-note
+Joking aside, don't worry if the points are scattered... with R$^2$ around 0.05, we would expect some (or a lot of!) scatter.
+:::
+
+### Measuring Prediction Error
+
+We can quantify how far off our predictions are using RMSE (Root Mean Squared Error), try:
+
+```{webr}
+#| exercise: predict-rmse
+
+rmse <- sqrt(mean((test$size - test$predicted_size)^2, na.rm = TRUE))
+cat("RMSE = ", rmse, "nm\n")
+```
+
+ - The RSME gives average prediction error (in this case, in nm)
+ - The lower the value of the RMSE, the better the predictions
+ - This can help us compare models if we make improvements or changes later.
+ 
+[<strong>ACTIVITY:</strong>]{.highlight-green} Look at the plot... does the model capture any trend? 
+
+### 3.4 Experimenting with the Model
+
+Now that you've made predictions, you can try modifying the model to see if it improves performance... for example, let's try adding the surfactant HLB (hydrophilic lipophilic balance):
+
+```{webr}
+#| exercise: predict-HLB
+
+# Example: add surfactant HLB to the model
+model2 <- lm(size ~ oil_total + surfactant_total +
+                   cosolvent_total + API_prop + s_HLB,
+             data = train)
+
+test$predicted_size2 <- predict(model2, newdata = test)
+
+ggplot(test, aes(x = size, y = predicted_size2)) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0, colour = "red") +
+  labs(title = "Predicted vs Actual Droplet Size",
+       x = "Actual Size (nm)",
+       y = "Predicted Size (nm)")
+
+rmse2 <- sqrt(mean((test$size - test$predicted_size2)^2, na.rm = TRUE))
+cat("RMSE = ", rmse2, "nm\n")
+```
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} Given the results of the above, try answering the following questions:
+
+ - Does the RMSE decrease?
+ - Do the predictions look closer to the red line (the perfect prediction line) on the graph?
+
+In this case, you can see from the RMSE value that adding the HLB values into the mix hasn't improved predictive power for droplet size. In machine learning, adding more features can sometimes help, but sometimes it can hurt performance if the extra features are noisy or reductant... this is why testing on unseen data is so critical. 
+
+[<strong>EXPERIMENT:</strong>]{.highlight-pink} Try adding or removing other formulation variables and see how the model changes. Which changes make sense chemically? Which don't?
+
+### [RStudio]{.tag-rstudio} Creating a model in R Studio
+
+The following is a self-contained script that captures everything done so far in order to predict droplet size. Please feel free to copy and paste it into an R script file and save!
+
+```r
+# ===============================================
+# R Script: Simple ML Exercise — Predicting Droplet Size
+# Students can copy this into RStudio and run
+# ===============================================
+
+# 1. Load necessary libraries - REMEMBER - you need to have already installed them on R Studio.
+library(ggplot2)
+libary(dplyr)
+
+# 2. Load the dataset from Canvas
+url <- "https://canvas.kingston.ac.uk/files/7079861/download?download_frd=1&verifier=qevlVzIVmy1RcBCNzGftkefQo0CRf8lAtS75rWLW"
+sedds <- read.csv(url)
+
+# 3. Inspect dataset
+head(sedds)
+str(sedds)
+nrow(sedds)
+
+# 4. Split data into training (80%) and testing (20%)
+set.seed(123)  # Makes random selection reproducible
+train_index <- sample(1:nrow(sedds), 0.8 * nrow(sedds))
+train <- sedds[train_index, ]
+test  <- sedds[-train_index, ]
+
+# 5. Fit a linear regression model
+# Predict droplet size from main formulation variables
+model <- lm(size ~ oil_total + surfactant_total + cosolvent_total + API_prop,
+            data = train)
+
+# 6. Examine model summary
+summary(model)
+
+# 7. Make predictions on test set
+test$predicted_size <- predict(model, newdata = test)
+
+# 8. Plot predicted vs actual
+ggplot(test, aes(x = size, y = predicted_size)) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0, colour = "red") +
+  labs(title = "Predicted vs Actual Droplet Size",
+       x = "Actual Size (nm)",
+       y = "Predicted Size (nm)")
+
+# 9. Compute RMSE
+rmse <- sqrt(mean((test$size - test$predicted_size)^2))
+cat("RMSE =", rmse, "nm\n")
+
+# 10. Optional: view coefficients directly
+coef(model)
+```
+
+In the next section, we'll discuss what the model can and cannot tell us, including limitations, overfitting and how to think critically about predictions in pharmaceutical formulations.
+
+
