@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Using the Model and Knowing Its Limits – CH4004 R programming</title>
+<title>Introduction to Workshop 7 – CH4004 R programming</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Workshop6_introduction.html" rel="next">
-<link href="./Workshop5_linear-regression.html" rel="prev">
+<link href="./Workshop7_formulation.html" rel="next">
+<link href="./Workshop6_ANOVA.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -143,7 +143,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Workshop5_introduction.html">Workshop 5</a></li><li class="breadcrumb-item"><a href="./Workshop5_limits.html">Using the Model and Knowing Its Limits</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Workshop7_introduction.html">Workshop 7</a></li><li class="breadcrumb-item"><a href="./Workshop7_introduction.html">Introduction to Workshop 7</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -280,7 +280,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Workshop5_limits.html" class="sidebar-item-text sidebar-link active">
+  <a href="./Workshop5_limits.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using the Model and Knowing Its Limits</span></a>
   </div>
 </li>
@@ -332,7 +332,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Workshop7_introduction.html" class="sidebar-item-text sidebar-link">
+  <a href="./Workshop7_introduction.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Introduction to Workshop 7</span></a>
   </div>
 </li>
@@ -365,9 +365,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Workshop5_introduction.html">Workshop 5</a></li><li class="breadcrumb-item"><a href="./Workshop5_limits.html">Using the Model and Knowing Its Limits</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Workshop7_introduction.html">Workshop 7</a></li><li class="breadcrumb-item"><a href="./Workshop7_introduction.html">Introduction to Workshop 7</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Using the Model and Knowing Its Limits</h1>
+<h1 class="title">Introduction to Workshop 7</h1>
 </div>
 
 
@@ -384,65 +384,61 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="cell" data-setup="true" data-exercise="prediction">
-<script type="exercise-setup-prediction-contents">
-eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjpbInByZWRpY3Rpb24iXSwic2V0dXAiOnRydWV9LCJjb2RlIjoiY2FsaWJyYXRpb24gPC0gZGF0YS5mcmFtZShjb25jZW50cmF0aW9uX21NID0gYygwLjAwLCAwLjA1LCAwLjEwLCAwLjIwLCAwLjQwKSxhYnNvcmJhbmNlID0gYygwLjAyLCAwLjE0LCAwLjI5LCAwLjU5LCAxLjE4KSlcbm1vZGVsIDwtIGxtKGFic29yYmFuY2UgfiBjb25jZW50cmF0aW9uX21NLCBkYXRhID0gY2FsaWJyYXRpb24pIn0=
-</script>
-</div>
-<p>A linear regression model is most useful when it can be applied to real experimental problems. In this final section, we will briefly use the model for prediction and reflect on when a linear model should and should not be trusted.</p>
-<section id="webr-using-the-model-for-prediction" class="level3">
-<h3 class="anchored" data-anchor-id="webr-using-the-model-for-prediction"><span class="tag-webr">WebR</span> Using the model for prediction</h3>
-<p>Once a model has been fitted, it can be used to estimate values that were not directly measured. Let’s try getting the model to predict an absorbance value for a concentration of 0.15 mM:</p>
-<div class="cell" data-exercise="prediction">
-<div>
-<div id="webr-2" class="exercise-cell">
-
-</div>
-<script type="webr-2-contents">
-eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoicHJlZGljdGlvbiJ9LCJjb2RlIjoibmV3X3NhbXBsZSA8LSBkYXRhLmZyYW1lKGNvbmNlbnRyYXRpb25fbU0gPSAwLjE1KVxucHJlZGljdChtb2RlbCwgbmV3X3NhbXBsZSkifQ==
-</script>
-</div>
-</div>
-<p>This is how calibration curves are typically used in practice: the model allows us to estimate unknown values from measured data.</p>
-<section id="thinking-about-limitations" class="level4">
-<h4 class="anchored" data-anchor-id="thinking-about-limitations">Thinking about limitations</h4>
-<p>Even when a model fits the data well, it is important to think critically about its validity.</p>
-<p>A linear model may not be appropriate if:</p>
+<section id="welcome-to-workshop-7-its-all-about-the-data-big-data-in-chemistry" class="level2">
+<h2 class="anchored" data-anchor-id="welcome-to-workshop-7-its-all-about-the-data-big-data-in-chemistry">Welcome to Workshop 7: It’s All About the Data: Big Data in Chemistry</h2>
+<p>In modern chemistry and pharmaceutical science, researchers rarely work with just a few measurements. Today, we routinely encounter datasets containing thousands or even millions of compounds, each with multiple chemical properties and experimental results.</p>
+<p>For example:</p>
 <ul>
-<li>the relationship is not truly linear,</li>
-<li>residuals show a clear pattern,</li>
-<li>measurements approach instrumental limits, or</li>
-<li>experimental uncertainty increases at high values.</li>
+<li>High-throughput screening experiments testing thousands of drug candidates against a target protein</li>
+<li>Large chemical databases like PubChem or ChEMBL containing millions of compounds</li>
+<li>Computational chemistry simulations generating huge numbers of predicted properties</li>
+</ul>
+<p>These massive datasets are often called <strong>big data</strong>, and they present exciting opportunities, but also challenges. How do we <strong>find patterns</strong>, <strong>make predictions</strong>, or <strong>prioritise compounds</strong> when there’s so much information? That’s where <strong>machine learning (ML)</strong> comes in.</p>
+<section id="what-is-machine-learning" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-machine-learning">What is Machine Learning?</h3>
+<p>Machine learning is a set of <strong>tools and algorithms that learn patterns from data</strong> so we can make predictions or classifications. Importantly:</p>
+<ul>
+<li>ML doesn’t require “big data” to work — we can teach it using datasets of hundreds or thousands of compounds</li>
+<li>ML works even better with larger datasets, because more examples allow models to detect more accurate patterns</li>
+<li>ML can answer questions like: “Which molecules are likely to be active?” or “Which compounds might be toxic?”</li>
 </ul>
 </section>
-<section id="final-takeaway" class="level4">
-<h4 class="anchored" data-anchor-id="final-takeaway">Final takeaway</h4>
-<p>Linear regression is a powerful tool, but it should always be used alongside:</p>
+<section id="what-youll-be-learning" class="level3">
+<h3 class="anchored" data-anchor-id="what-youll-be-learning">What you’ll be learning</h3>
+<p>In this workshop, you’ll use <strong>R</strong> (via WebR) to take your first steps into machine learning in chemistry by:</p>
 <ul>
-<li>clear visualisation,</li>
-<li>chemical understanding, and</li>
-<li>scientific judgement.</li>
+<li>Exploring <strong>realistic chemistry datasets</strong></li>
+<li>Building <strong>simple predictive models</strong> using molecular properties</li>
+<li>Visualising model predictions and interpreting results</li>
+<li>Discussing how ML can help chemists make decisions more efficiently</li>
 </ul>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>A good model is not just statistically sound — it must also make sense chemically.</p>
-</div>
-</div>
+<p>Rather than treating ML as a black box, our goal is to:</p>
+<ul>
+<li>Understand <strong>what question a model is answering</strong></li>
+<li>Make <strong>simple, meaningful predictions about chemical properties</strong></li>
+<li>See how these tools could <strong>guide experiments and drug discovery</strong></li>
+</ul>
+</section>
+<section id="why-this-matters-in-chemistry" class="level3">
+<h3 class="anchored" data-anchor-id="why-this-matters-in-chemistry">Why this matters in chemistry</h3>
+<p>Imagine you’re designing a new drug. You might want to know:</p>
+<ul>
+<li>Which molecules are most likely to bind a protein target?</li>
+<li>Which compounds are likely to be toxic?</li>
+<li>How chemical structure affects solubility or stability?</li>
+</ul>
+<p>Machine learning allows us to <strong>learn from past data</strong> and make better predictions about new compounds… saving time, resources and maybe even lives!</p>
+<p>As before, there will be two badges, indicating where you should do the activities in that section:</p>
+<ul>
+<li><span class="tag-webr">WebR</span> – exercises you can run directly in your browser<br>
+</li>
+<li><span class="tag-rstudio">RStudio</span> – exercises you could run locally in RStudio</li>
+</ul>
+<p>Now let’s move on to <strong>Section 2: Exploring a Big Chemistry Dataset</strong>, where you’ll load your first dataset, examine its properties, and visualise patterns. This will review some concepts met previously and give you the foundation needed to start building simple machine learning models in the next part of the workshop.</p>
 
 
-<script type="webr-data">
-eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC41LjQvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyIsImJhc2UiLCJncmFkZXRoaXMiLCJ0aWR5dmVyc2UiLCJnZ3Bsb3QyIl0sInJlcG9zIjpbXX0sInJlbmRlcl9kZiI6ImRlZmF1bHQifQ==
-</script>
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8yO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzIgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici0yLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgLy8gRGVmYXVsdCBleGVyY2lzZSBjb25maWd1cmF0aW9uXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKFxuICAgIHtcbiAgICAgIGlkOiBcIndlYnItMi1jb250ZW50c1wiLFxuICAgICAgZW52aXI6IGBleGVyY2lzZS1lbnYtJHtibG9jay5hdHRyLmV4ZXJjaXNlfWAsXG4gICAgICBlcnJvcjogZmFsc2UsXG4gICAgICBjYXB0aW9uOiAnRXhlcmNpc2UnLFxuICAgIH0sXG4gICAgYmxvY2suYXR0clxuICApO1xuXG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxudmlld29mIF93ZWJyX3ZhbHVlXzIgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzIsIHt9KTtcbl93ZWJyX2ZlZWRiYWNrXzIgPSB7XG4gIGNvbnN0IHsgV2ViUkdyYWRlciB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3QgZW1wdHlGZWVkYmFjayA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpO1xuXG4gIGNvbnN0IGdyYWRlciA9IG5ldyBXZWJSR3JhZGVyKF93ZWJyX3ZhbHVlXzIuZXZhbHVhdG9yKTtcbiAgY29uc3QgZmVlZGJhY2sgPSBhd2FpdCBncmFkZXIuZ3JhZGVFeGVyY2lzZSgpO1xuICBpZiAoIWZlZWRiYWNrKSByZXR1cm4gZW1wdHlGZWVkYmFjaztcbiAgcmV0dXJuIGZlZWRiYWNrO1xufVxuIn0seyJjZWxsTmFtZSI6IndlYnItcHJlbHVkZSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IndlYlJPanMgPSB7XG4gIGNvbnN0IHsgV2ViUiwgQ2hhbm5lbFR5cGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWUuV2ViUjtcbiAgY29uc3Qge1xuICAgIFdlYlJFdmFsdWF0b3IsXG4gICAgV2ViUkVudmlyb25tZW50TWFuYWdlcixcbiAgICBzZXR1cFIsXG4gICAgYjY0RGVjb2RlLFxuICAgIGNvbGxhcHNlUGF0aFxuICB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcblxuICBjb25zdCBzdGF0dXNDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctc3RhdHVzXCIpO1xuICBjb25zdCBpbmRpY2F0b3JDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpbmRpY2F0b3JDb250YWluZXIuY2xhc3NMaXN0LnJlbW92ZShcImQtbm9uZVwiKTtcblxuICBsZXQgc3RhdHVzVGV4dCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIilcbiAgc3RhdHVzVGV4dC5jbGFzc0xpc3QgPSBcImV4ZXJjaXNlLWxvYWRpbmctZGV0YWlsc1wiO1xuICBzdGF0dXNUZXh0ID0gc3RhdHVzQ29udGFpbmVyLmFwcGVuZENoaWxkKHN0YXR1c1RleHQpO1xuICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYEluaXRpYWxpc2VgO1xuXG4gIC8vIEhvaXN0IGluZGljYXRvciBvdXQgZnJvbSBmaW5hbCBzbGlkZSB3aGVuIHJ1bm5pbmcgdW5kZXIgcmV2ZWFsXG4gIGNvbnN0IHJldmVhbFN0YXR1cyA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsIC5leGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaWYgKHJldmVhbFN0YXR1cykge1xuICAgIHJldmVhbFN0YXR1cy5yZW1vdmUoKTtcbiAgICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCA+IC5zbGlkZXNcIikuYXBwZW5kQ2hpbGQocmV2ZWFsU3RhdHVzKTtcbiAgfVxuXG4gIC8vIE1ha2UgYW55IHJldmVhbCBzbGlkZXMgd2l0aCBsaXZlIGNlbGxzIHNjcm9sbGFibGVcbiAgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbChcIi5yZXZlYWwgLmV4ZXJjaXNlLWNlbGxcIikuZm9yRWFjaCgoZWwpID0+IHtcbiAgICBlbC5jbG9zZXN0KCdzZWN0aW9uLnNsaWRlJykuY2xhc3NMaXN0LmFkZChcInNjcm9sbGFibGVcIik7XG4gIH0pXG5cbiAgLy8gd2ViUiBzdXBwbGVtZW50YWwgZGF0YSBhbmQgb3B0aW9uc1xuICBjb25zdCBkYXRhQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLWRhdGFcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBkYXRhID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZGF0YUNvbnRlbnQpKTtcblxuICAvLyBHcmFiIGxpc3Qgb2YgcmVzb3VyY2VzIHRvIGJlIGRvd25sb2FkZWRcbiAgY29uc3QgZmlsZXNDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcInZmcy1maWxlXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZmlsZXMgPSBKU09OLnBhcnNlKGI2NERlY29kZShmaWxlc0NvbnRlbnQpKTtcblxuICAvLyBVc2UgUG9zdE1lc3NhZ2UgY2hhbm5lbCBmb3IgYXN5bmMgY29tbXVuaWNhdGlvblxuICAvLyBXZSBkbyBub3QgZXhwZWN0IHRvIHRha2UgbmVzdGVkIHByb21wdCBpbnB1dCBpbiBRdWFydG8gTGl2ZSBjZWxsc1xuICBkYXRhLm9wdGlvbnMuY2hhbm5lbFR5cGUgPSBDaGFubmVsVHlwZS5Qb3N0TWVzc2FnZTtcblxuICAvLyBJbml0aWFsaXNlIHdlYlIgYW5kIHNldHVwIGZvciBSIGNvZGUgZXZhbHVhdGlvblxuICBsZXQgd2ViUlByb21pc2UgPSAoYXN5bmMgKHdlYlIpID0+IHtcbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHdlYlJgO1xuICAgIGF3YWl0IHdlYlIuaW5pdCgpO1xuXG4gICAgLy8gSW5zdGFsbCBwcm92aWRlZCBsaXN0IG9mIHBhY2thZ2VzXG4gICAgLy8gRW5zdXJlIHdlYlIgZGVmYXVsdCByZXBvIGlzIGluY2x1ZGVkXG4gICAgZGF0YS5wYWNrYWdlcy5yZXBvcy5wdXNoKFwiaHR0cHM6Ly9yZXBvLnItd2FzbS5vcmdcIilcbiAgICBhd2FpdCBkYXRhLnBhY2thZ2VzLnBrZ3MubWFwKChwa2cpID0+ICgpID0+IHtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcGFja2FnZTogJHtwa2d9YDtcbiAgICAgIHJldHVybiB3ZWJSLmV2YWxSVm9pZChgXG4gICAgICAgIHdlYnI6Omluc3RhbGwocGtnLCByZXBvcyA9IHJlcG9zKVxuICAgICAgICBsaWJyYXJ5KHBrZywgY2hhcmFjdGVyLm9ubHkgPSBUUlVFKVxuICAgICAgYCwgeyBlbnY6IHtcbiAgICAgICAgcGtnOiBwa2csXG4gICAgICAgIHJlcG9zOiBkYXRhLnBhY2thZ2VzLnJlcG9zLFxuICAgICAgfX0pO1xuICAgIH0pLnJlZHVjZSgoY3VyLCBuZXh0KSA9PiBjdXIudGhlbihuZXh0KSwgUHJvbWlzZS5yZXNvbHZlKCkpO1xuXG4gICAgLy8gRG93bmxvYWQgYW5kIGluc3RhbGwgcmVzb3VyY2VzXG4gICAgYXdhaXQgZmlsZXMubWFwKChmaWxlKSA9PiBhc3luYyAoKSA9PiB7XG4gICAgICBjb25zdCBuYW1lID0gZmlsZS5zdWJzdHJpbmcoZmlsZS5sYXN0SW5kZXhPZignLycpICsgMSk7XG4gICAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHJlc291cmNlOiAke25hbWV9YDtcbiAgICAgIGNvbnN0IHJlc3BvbnNlID0gYXdhaXQgZmV0Y2goZmlsZSk7XG4gICAgICBpZiAoIXJlc3BvbnNlLm9rKSB7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcihgQ2FuJ3QgZG93bmxvYWQgXFxgJHtmaWxlfVxcYC4gRXJyb3IgJHtyZXNwb25zZS5zdGF0dXN9OiBcIiR7cmVzcG9uc2Uuc3RhdHVzVGV4dH1cIi5gKTtcbiAgICAgIH1cbiAgICAgIGNvbnN0IGRhdGEgPSBhd2FpdCByZXNwb25zZS5hcnJheUJ1ZmZlcigpO1xuXG4gICAgICAvLyBTdG9yZSBVUkxzIGluIHRoZSBjd2Qgd2l0aG91dCBhbnkgc3ViZGlyZWN0b3J5IHN0cnVjdHVyZVxuICAgICAgaWYgKGZpbGUuaW5jbHVkZXMoXCI6Ly9cIikpIHtcbiAgICAgICAgZmlsZSA9IG5hbWU7XG4gICAgICB9XG5cbiAgICAgIC8vIENvbGxhcHNlIGhpZ2hlciBkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBmaWxlID0gY29sbGFwc2VQYXRoKGZpbGUpO1xuXG4gICAgICAvLyBDcmVhdGUgZGlyZWN0b3J5IHRyZWUsIGlnbm9yaW5nIFwiZGlyZWN0b3J5IGV4aXN0c1wiIFZGUyBlcnJvcnNcbiAgICAgIGNvbnN0IHBhcnRzID0gZmlsZS5zcGxpdCgnLycpLnNsaWNlKDAsIC0xKTtcbiAgICAgIGxldCBwYXRoID0gJyc7XG4gICAgICB3aGlsZSAocGFydHMubGVuZ3RoID4gMCkge1xuICAgICAgICBwYXRoICs9IHBhcnRzLnNoaWZ0KCkgKyAnLyc7XG4gICAgICAgIGNvbnN0IGFuYWx5c2lzID0gYXdhaXQgd2ViUi5GUy5hbmFseXplUGF0aChwYXRoKTtcbiAgICAgICAgaWYgKCFhbmFseXNpcy5leGlzdHMpIHtcbiAgICAgICAgICB0cnkge1xuICAgICAgICAgICAgYXdhaXQgd2ViUi5GUy5ta2RpcihwYXRoKTtcbiAgICAgICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYEZpbGVzeXN0ZW0gRXJyb3I6IFwiJHtlLm1lc3NhZ2V9XCIuYCk7XG4gICAgICAgICAgfVxuICAgICAgICB9XG4gICAgICB9XG5cbiAgICAgIC8vIFdyaXRlIHRoaXMgZmlsZSB0byB0aGUgVkZTXG4gICAgICByZXR1cm4gYXdhaXQgd2ViUi5GUy53cml0ZUZpbGUoZmlsZSwgbmV3IFVpbnQ4QXJyYXkoZGF0YSkpO1xuICAgIH0pLnJlZHVjZSgoY3VyLCBuZXh0KSA9PiBjdXIudGhlbihuZXh0KSwgUHJvbWlzZS5yZXNvbHZlKCkpO1xuXG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBJbnN0YWxsaW5nIHdlYlIgc2hpbXNgO1xuICAgIGF3YWl0IHdlYlIuZXZhbFJWb2lkKGB3ZWJyOjpzaGltX2luc3RhbGwoKWApO1xuXG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBXZWJSIGVudmlyb25tZW50IHNldHVwYDtcbiAgICBhd2FpdCBzZXR1cFIod2ViUiwgZGF0YSk7XG5cbiAgICBzdGF0dXNUZXh0LnJlbW92ZSgpO1xuICAgIGlmIChzdGF0dXNDb250YWluZXIuY2hpbGRyZW4ubGVuZ3RoID09IDApIHtcbiAgICAgIHN0YXR1c0NvbnRhaW5lci5wYXJlbnROb2RlLnJlbW92ZSgpO1xuICAgIH1cbiAgICByZXR1cm4gd2ViUjtcbiAgfSkobmV3IFdlYlIoZGF0YS5vcHRpb25zKSk7XG5cbiAgLy8gS2VlcCB0cmFjayBvZiBpbml0aWFsIE9KUyBibG9jayByZW5kZXJcbiAgY29uc3QgcmVuZGVyZWRPanMgPSB7fTtcblxuICBjb25zdCBwcm9jZXNzID0gYXN5bmMgKGNvbnRleHQsIGlucHV0cykgPT4ge1xuICAgIGNvbnN0IHdlYlIgPSBhd2FpdCB3ZWJSUHJvbWlzZTtcbiAgICBjb25zdCBldmFsdWF0b3IgPSBuZXcgV2ViUkV2YWx1YXRvcih3ZWJSLCBjb250ZXh0KVxuICAgIGF3YWl0IGV2YWx1YXRvci5wcm9jZXNzKGlucHV0cyk7XG4gICAgcmV0dXJuIGV2YWx1YXRvci5jb250YWluZXI7XG4gIH1cblxuICByZXR1cm4ge1xuICAgIHByb2Nlc3MsXG4gICAgd2ViUlByb21pc2UsXG4gICAgcmVuZGVyZWRPanMsXG4gIH07XG59XG4ifV19
+eyJjb250ZW50cyI6W119
 </script>
 <div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
 <div id="exercise-loading-status" class="d-flex gap-2">
@@ -872,13 +868,13 @@ window._ojs.runtime.interpretFromScriptTags();
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Workshop5_linear-regression.html" class="pagination-link" aria-label="Modelling Relationships with Linear Regression">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Modelling Relationships with Linear Regression</span>
+      <a href="./Workshop6_ANOVA.html" class="pagination-link" aria-label="Comparing multiple groups using ANOVA">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Comparing multiple groups using ANOVA</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Workshop6_introduction.html" class="pagination-link" aria-label="Introduction to Workshop 6">
-        <span class="nav-page-text">Introduction to Workshop 6</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Workshop7_formulation.html" class="pagination-link" aria-label="Exploring a Formulation Dataset">
+        <span class="nav-page-text">Exploring a Formulation Dataset</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
