@@ -1,107 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop1.html</loc>
-    <lastmod>2026-02-25T19:19:12.684Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop3_plot-types.html</loc>
-    <lastmod>2026-02-25T19:19:12.692Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop4_introduction.html</loc>
-    <lastmod>2026-02-25T19:19:12.693Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop5_exploring-data.html</loc>
-    <lastmod>2026-02-25T19:19:12.693Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop4_Rscript0.html</loc>
-    <lastmod>2026-02-25T19:19:12.693Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop5_linear-regression.html</loc>
-    <lastmod>2026-02-25T19:19:12.694Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop2.html</loc>
-    <lastmod>2026-02-25T19:19:12.687Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop5_limits.html</loc>
-    <lastmod>2026-02-25T19:19:12.694Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop6_t-tests.html</loc>
-    <lastmod>2026-02-25T19:19:12.694Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop4_Rscript1.html</loc>
-    <lastmod>2026-02-25T19:19:12.693Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/intro.html</loc>
-    <lastmod>2026-02-25T19:19:12.916Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop7_introduction.html</loc>
-    <lastmod>2026-02-25T19:19:12.695Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop5_correlating-data.html</loc>
-    <lastmod>2026-02-25T19:19:12.693Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop5_introduction.html</loc>
-    <lastmod>2026-02-25T19:19:12.694Z</lastmod>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop7_formulation.html</loc>
+    <lastmod>2026-03-07T16:40:43.078Z</lastmod>
   </url>
   <url>
     <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop4_Rscript2.html</loc>
-    <lastmod>2026-02-25T19:19:12.693Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/index.html</loc>
-    <lastmod>2026-02-25T19:19:12.916Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop7_formulation.html</loc>
-    <lastmod>2026-02-25T19:19:12.695Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop3_ggplot-themes.html</loc>
-    <lastmod>2026-02-25T19:19:12.690Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop6_ANOVA.html</loc>
-    <lastmod>2026-02-25T19:19:12.694Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop7_ML1.html</loc>
-    <lastmod>2026-02-25T19:19:12.695Z</lastmod>
+    <lastmod>2026-03-07T16:40:43.076Z</lastmod>
   </url>
   <url>
     <loc>https://gcshearman.github.io/CH4004-R.github.io/about.html</loc>
-    <lastmod>2026-02-25T19:19:12.897Z</lastmod>
+    <lastmod>2026-03-07T16:40:43.287Z</lastmod>
   </url>
   <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop3_introduction.html</loc>
-    <lastmod>2026-02-25T19:19:12.692Z</lastmod>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop5_limits.html</loc>
+    <lastmod>2026-03-07T16:40:43.077Z</lastmod>
   </url>
   <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop7_ML2.html</loc>
-    <lastmod>2026-02-25T19:19:12.695Z</lastmod>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop8_molecules_to_data.html</loc>
+    <lastmod>2026-03-07T16:40:43.079Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop2.html</loc>
+    <lastmod>2026-03-07T16:40:43.070Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop6_ANOVA.html</loc>
+    <lastmod>2026-03-07T16:40:43.077Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop4_Rscript1.html</loc>
+    <lastmod>2026-03-07T16:40:43.076Z</lastmod>
   </url>
   <url>
     <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop3_ggplot.html</loc>
-    <lastmod>2026-02-25T19:19:12.691Z</lastmod>
+    <lastmod>2026-03-07T16:40:43.073Z</lastmod>
   </url>
   <url>
-    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop6_exploring-data.html</loc>
-    <lastmod>2026-02-25T19:19:12.694Z</lastmod>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop4_introduction.html</loc>
+    <lastmod>2026-03-07T16:40:43.076Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop6_t-tests.html</loc>
+    <lastmod>2026-03-07T16:40:43.077Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop1.html</loc>
+    <lastmod>2026-03-07T16:40:43.066Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop8_comparing_models.html</loc>
+    <lastmod>2026-03-07T16:40:43.079Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop7_ML2.html</loc>
+    <lastmod>2026-03-07T16:40:43.077Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop3_plot-types.html</loc>
+    <lastmod>2026-03-07T16:40:43.075Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/index.html</loc>
+    <lastmod>2026-03-07T16:40:43.307Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/intro.html</loc>
+    <lastmod>2026-03-07T16:40:43.307Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop4_Rscript0.html</loc>
+    <lastmod>2026-03-07T16:40:43.076Z</lastmod>
   </url>
   <url>
     <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop6_introduction.html</loc>
-    <lastmod>2026-02-25T19:19:12.694Z</lastmod>
+    <lastmod>2026-03-07T16:40:43.077Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop3_ggplot-themes.html</loc>
+    <lastmod>2026-03-07T16:40:43.072Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop3_introduction.html</loc>
+    <lastmod>2026-03-07T16:40:43.074Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop7_introduction.html</loc>
+    <lastmod>2026-03-07T16:40:43.078Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop6_exploring-data.html</loc>
+    <lastmod>2026-03-07T16:40:43.077Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop5_exploring-data.html</loc>
+    <lastmod>2026-03-07T16:40:43.076Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop5_introduction.html</loc>
+    <lastmod>2026-03-07T16:40:43.076Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop5_linear-regression.html</loc>
+    <lastmod>2026-03-07T16:40:43.077Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop8_neural_networks.html</loc>
+    <lastmod>2026-03-07T16:40:43.079Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop8_introduction.html</loc>
+    <lastmod>2026-03-07T16:40:43.079Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop5_correlating-data.html</loc>
+    <lastmod>2026-03-07T16:40:43.076Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gcshearman.github.io/CH4004-R.github.io/Workshop7_ML1.html</loc>
+    <lastmod>2026-03-07T16:40:43.077Z</lastmod>
   </url>
 </urlset>

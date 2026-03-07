@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Comparing multiple groups using ANOVA – CH4004 R programming</title>
+<title>Turning Molecules into Data – CH4004 R programming</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Workshop7_introduction.html" rel="next">
-<link href="./Workshop6_t-tests.html" rel="prev">
+<link href="./Workshop8_neural_networks.html" rel="next">
+<link href="./Workshop8_introduction.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -110,6 +110,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
 <link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -182,7 +211,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Workshop6_introduction.html">Workshop 6</a></li><li class="breadcrumb-item"><a href="./Workshop6_ANOVA.html">Comparing multiple groups using ANOVA</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Workshop8_introduction.html">Workshop 8</a></li><li class="breadcrumb-item"><a href="./Workshop8_molecules_to_data.html">Turning Molecules into Data</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -354,7 +383,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Workshop6_ANOVA.html" class="sidebar-item-text sidebar-link active">
+  <a href="./Workshop6_ANOVA.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Comparing multiple groups using ANOVA</span></a>
   </div>
 </li>
@@ -412,7 +441,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Workshop8_molecules_to_data.html" class="sidebar-item-text sidebar-link">
+  <a href="./Workshop8_molecules_to_data.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Turning Molecules into Data</span></a>
   </div>
 </li>
@@ -439,9 +468,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Workshop6_introduction.html">Workshop 6</a></li><li class="breadcrumb-item"><a href="./Workshop6_ANOVA.html">Comparing multiple groups using ANOVA</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Workshop8_introduction.html">Workshop 8</a></li><li class="breadcrumb-item"><a href="./Workshop8_molecules_to_data.html">Turning Molecules into Data</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Comparing multiple groups using ANOVA</h1>
+<h1 class="title">Turning Molecules into Data</h1>
 </div>
 
 
@@ -468,144 +497,82 @@ eyJhdHRyIjp7ImVkaXQiOmZhbHNlLCJldmFsIjp0cnVlLCJvdXRwdXQiOmZhbHNlfSwiY29kZSI6Indl
 </script>
 </div>
 </div>
-<div class="cell" data-setup="true" data-exercise="[&quot;anova&quot;,&quot;tukey&quot;,&quot;anova-store&quot;]">
-<script type="exercise-setup-anova-contents">
-eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjpbImFub3ZhIiwidHVrZXkiLCJhbm92YS1zdG9yZSJdLCJzZXR1cCI6dHJ1ZX0sImNvZGUiOiJ0b3hfZGF0YSA8LSBkYXRhLmZyYW1lKFxuICBjb21wb3VuZCA9IHJlcChjKFwiQ29udHJvbFwiLCBcIkNvbXBvdW5kX0FcIiwgXCJDb21wb3VuZF9CXCIpLCBlYWNoID0gNiksXG4gIHZpYWJpbGl0eV9wZXJjZW50ID0gYyhcbiAgICA5OCwgOTUsIDk3LCA5NiwgOTQsIDk5LFxuICAgIDgyLCA3OSwgODUsIDgwLCA3OCwgODMsXG4gICAgNjAsIDU4LCA2MiwgNTUsIDU5LCA1N1xuICApXG4pXG50b3hfYW5vdmEgPC0gYW92KFxuICB2aWFiaWxpdHlfcGVyY2VudCB+IGNvbXBvdW5kLFxuICBkYXRhID0gdG94X2RhdGFcbikifQ==
+<div class="cell" data-setup="true" data-exercise="[&quot;esol-data&quot;,&quot;esol-plot&quot;,&quot;esol-load&quot;,&quot;esol-experiment&quot;]">
+<script type="exercise-setup-esol-data-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjpbImVzb2wtZGF0YSIsImVzb2wtcGxvdCIsImVzb2wtbG9hZCIsImVzb2wtZXhwZXJpbWVudCJdLCJzZXR1cCI6dHJ1ZX0sImNvZGUiOiJcbmxpYnJhcnkocmVhZHIpXG5cbmVzb2wgPC0gcmVhZF9jc3YoXCJkYXRhL2Vzb2xfY2xlYW4uY3N2XCIsIHNob3dfY29sX3R5cGVzID0gRkFMU0UpIn0=
 </script>
-<script type="exercise-setup-tukey-contents">
-eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjpbImFub3ZhIiwidHVrZXkiLCJhbm92YS1zdG9yZSJdLCJzZXR1cCI6dHJ1ZX0sImNvZGUiOiJ0b3hfZGF0YSA8LSBkYXRhLmZyYW1lKFxuICBjb21wb3VuZCA9IHJlcChjKFwiQ29udHJvbFwiLCBcIkNvbXBvdW5kX0FcIiwgXCJDb21wb3VuZF9CXCIpLCBlYWNoID0gNiksXG4gIHZpYWJpbGl0eV9wZXJjZW50ID0gYyhcbiAgICA5OCwgOTUsIDk3LCA5NiwgOTQsIDk5LFxuICAgIDgyLCA3OSwgODUsIDgwLCA3OCwgODMsXG4gICAgNjAsIDU4LCA2MiwgNTUsIDU5LCA1N1xuICApXG4pXG50b3hfYW5vdmEgPC0gYW92KFxuICB2aWFiaWxpdHlfcGVyY2VudCB+IGNvbXBvdW5kLFxuICBkYXRhID0gdG94X2RhdGFcbikifQ==
+<script type="exercise-setup-esol-plot-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjpbImVzb2wtZGF0YSIsImVzb2wtcGxvdCIsImVzb2wtbG9hZCIsImVzb2wtZXhwZXJpbWVudCJdLCJzZXR1cCI6dHJ1ZX0sImNvZGUiOiJcbmxpYnJhcnkocmVhZHIpXG5cbmVzb2wgPC0gcmVhZF9jc3YoXCJkYXRhL2Vzb2xfY2xlYW4uY3N2XCIsIHNob3dfY29sX3R5cGVzID0gRkFMU0UpIn0=
 </script>
-<script type="exercise-setup-anova-store-contents">
-eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjpbImFub3ZhIiwidHVrZXkiLCJhbm92YS1zdG9yZSJdLCJzZXR1cCI6dHJ1ZX0sImNvZGUiOiJ0b3hfZGF0YSA8LSBkYXRhLmZyYW1lKFxuICBjb21wb3VuZCA9IHJlcChjKFwiQ29udHJvbFwiLCBcIkNvbXBvdW5kX0FcIiwgXCJDb21wb3VuZF9CXCIpLCBlYWNoID0gNiksXG4gIHZpYWJpbGl0eV9wZXJjZW50ID0gYyhcbiAgICA5OCwgOTUsIDk3LCA5NiwgOTQsIDk5LFxuICAgIDgyLCA3OSwgODUsIDgwLCA3OCwgODMsXG4gICAgNjAsIDU4LCA2MiwgNTUsIDU5LCA1N1xuICApXG4pXG50b3hfYW5vdmEgPC0gYW92KFxuICB2aWFiaWxpdHlfcGVyY2VudCB+IGNvbXBvdW5kLFxuICBkYXRhID0gdG94X2RhdGFcbikifQ==
+<script type="exercise-setup-esol-load-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjpbImVzb2wtZGF0YSIsImVzb2wtcGxvdCIsImVzb2wtbG9hZCIsImVzb2wtZXhwZXJpbWVudCJdLCJzZXR1cCI6dHJ1ZX0sImNvZGUiOiJcbmxpYnJhcnkocmVhZHIpXG5cbmVzb2wgPC0gcmVhZF9jc3YoXCJkYXRhL2Vzb2xfY2xlYW4uY3N2XCIsIHNob3dfY29sX3R5cGVzID0gRkFMU0UpIn0=
+</script>
+<script type="exercise-setup-esol-experiment-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjpbImVzb2wtZGF0YSIsImVzb2wtcGxvdCIsImVzb2wtbG9hZCIsImVzb2wtZXhwZXJpbWVudCJdLCJzZXR1cCI6dHJ1ZX0sImNvZGUiOiJcbmxpYnJhcnkocmVhZHIpXG5cbmVzb2wgPC0gcmVhZF9jc3YoXCJkYXRhL2Vzb2xfY2xlYW4uY3N2XCIsIHNob3dfY29sX3R5cGVzID0gRkFMU0UpIn0=
 </script>
 </div>
-<p>In the previous section, we compared treatments two at a time using t-tests. While this works for simple experiments, it quickly becomes inefficient and statistically problematic when more than two groups are involved.</p>
-<p>When comparing three or more groups, a more appropriate approach is <em>analysis of variance (ANOVA)</em>.</p>
-<section id="why-not-multiple-t-tests" class="level3">
-<h3 class="anchored" data-anchor-id="why-not-multiple-t-tests">Why not multiple t-tests?</h3>
-<p>If we compared:</p>
+<section id="from-molecules-to-data" class="level3">
+<h3 class="anchored" data-anchor-id="from-molecules-to-data">From Molecules to Data</h3>
+<p>Chemists normally think about molecules in terms of structures: atoms connected by bonds forming functional groups and molecular frameworks.</p>
+<p>For example, a simple molecule might be represented like this:</p>
+<p>CH<span class="math inline">\({_3}\)</span>—CH<span class="math inline">\({_2}\)</span>—OH</p>
+<p>When chemists and pharmaceutical scientists look at this structure, they immediately recognise important features such as:</p>
 <ul>
-<li>Control vs Compound A</li>
-<li>Control vs Compound B</li>
-<li>Compound A vs Compound B</li>
+<li>functional groups</li>
+<li>hydrogen bonding ability</li>
+<li>polarity</li>
+<li>molecular size</li>
 </ul>
-<p>we would be performing multiple tests on the same dataset. Each test carries a chance of a false positive, and these risks accumulate.</p>
-<p>ANOVA avoids this by asking a single question: Is there evidence that at least one group mean differs from the others?</p>
+<p>However, computers cannot interpret chemical structures in the same intuitive way. Instead, we must convert molecules into numerical representations that algorithms can analyse.</p>
+<p>This is a central idea in <strong>cheminformatics</strong>, the field that combines chemistry, data science and computational modelling.</p>
+<p>In this workshop we’ll use the <strong>ESOL dataset</strong>, which we used in Workshop 2, which contains molecular descriptors together with experimentally measured <strong>aqueous solubility</strong>. We’ll start with the cleaned version (if you remember, this was what you did in Workshop 2) so will save a bit of time!</p>
 </section>
-<section id="webr-fitting-an-anova-model" class="level3">
-<h3 class="anchored" data-anchor-id="webr-fitting-an-anova-model"><span class="tag-webr">WebR</span> Fitting an ANOVA model</h3>
-<p>In R, ANOVA is fit using a model formula, which you have already encountered in other contexts (see the <code>lm</code> command from Workshop 5, which fits a linear regression model… it’s the same set-up).</p>
-<p><span class="highlight-green"><strong>ACTIVITY:</strong></span> Let’s run the code below:</p>
-<div class="cell" data-exercise="anova">
+<section id="webr-loading-the-cleaned-esol-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="webr-loading-the-cleaned-esol-dataset"><span class="tag-webr">WebR</span> Loading the cleaned ESOL Dataset</h3>
+<p><span class="highlight-green"><strong>ACTIVITY:</strong></span> Run the code below and from the information generated by the <code>head</code> command, identify:</p>
+<ul>
+<li>Which column represents the number of hydrogen (H) bond donors?</li>
+<li>Which column represents solubility?</li>
+</ul>
+<div class="cell" data-exercise="esol-load">
 <div>
 <div id="webr-3" class="exercise-cell">
 
 </div>
 <script type="webr-3-contents">
-eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiYW5vdmEifSwiY29kZSI6InRveF9hbm92YSA8LSBhb3YoXG4gIHZpYWJpbGl0eV9wZXJjZW50IH4gY29tcG91bmQsXG4gIGRhdGEgPSB0b3hfZGF0YVxuKVxuXG5zdW1tYXJ5KHRveF9hbm92YSkifQ==
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXNvbC1sb2FkIn0sImNvZGUiOiJcbmxpYnJhcnkocmVhZHIpXG5cbmVzb2wgPC0gcmVhZF9jc3YoXCJkYXRhL2Vzb2xfY2xlYW4uY3N2XCIsIHNob3dfY29sX3R5cGVzID0gRkFMU0UpXG5cbmhlYWQoZXNvbCkifQ==
 </script>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The function <code>aov</code> runs ANOVA. The first expression within the <code>aov()</code> function refers to the specific group of values that are to be compared (here <code>viability_percent</code>). The term after the ~ then refers to the predictors i.e.&nbsp;the aspect that you want to find out whether it has any effect on the data (in this case, <code>compound</code>). The second expression then identifies the name of the data in which both <code>viability_percent</code> and <code>compound</code> are.</p>
-</div>
-</div>
-<p>This model compares the mean viability across all treatment groups simultaneously.</p>
-<p>At this stage, let’s just focus on:</p>
-<ul>
-<li>the p-value associated with <code>compound</code> (this is represented by Pr(&gt;F))… in this case, this represents the probability of seeing an F of a certain size (in this case 402, which is <em>very</em> large) if all compound means were actually zero. The <code>***</code> just means: p &lt; 0.001.</li>
-<li>whether the data provide evidence of differences between groups</li>
-</ul>
-<p>You can summarise this in a single sentence: <em>A one-way ANOVA showed a significant effect of compound on the response, F(2, 15) = 402, p &lt; 0.001.</em></p>
 </section>
-<section id="check-your-expectations" class="level3">
-<h3 class="anchored" data-anchor-id="check-your-expectations">Check your expectations</h3>
-<p><span class="highlight-green"><strong>ACTIVITY:</strong></span> Before looking closely at the output, think back to:</p>
-<ul>
-<li>the summary statistics</li>
-<li>the boxplots</li>
-</ul>
-<p>that you ran earlier.</p>
-<p><strong>Question:</strong> Do the ANOVA results match what you expected based on visual inspection?</p>
-</section>
-<section id="what-anova-does-not-tell-you" class="level3">
-<h3 class="anchored" data-anchor-id="what-anova-does-not-tell-you">What ANOVA does not tell you</h3>
-<p>A significant ANOVA result indicates that not all group means are equal, but it does not tell you:</p>
-<ul>
-<li>which groups differ</li>
-<li>how large those differences are</li>
-</ul>
-<p>To answer those questions, we need a follow-up analysis.</p>
-</section>
-<section id="webr-post-hoc-comparisons" class="level3">
-<h3 class="anchored" data-anchor-id="webr-post-hoc-comparisons"><span class="tag-webr">WebR</span> Post-hoc comparisons</h3>
-<p>A common post-hoc approach is <code>Tukey’s Honest Significant Difference (HSD) test</code>, which compares all pairs of groups while accounting for multiple testing.</p>
-<div class="cell" data-exercise="tukey">
+<section id="webr-visualising-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="webr-visualising-the-data"><span class="tag-webr">WebR</span> Visualising the data</h3>
+<p>We can explore how molecular descriptors relate to solubility:</p>
+<div class="cell">
 <div>
 <div id="webr-4" class="exercise-cell">
 
 </div>
 <script type="webr-4-contents">
-eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoidHVrZXkifSwiY29kZSI6IlR1a2V5SFNEKHRveF9hbm92YSkifQ==
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXNvbC1wbG90In0sImNvZGUiOiJcblxubGlicmFyeShnZ3Bsb3QyKVxuXG5nZ3Bsb3QoZXNvbCwgYWVzKHggPSBgTnVtYmVyIG9mIEgtQm9uZCBEb25vcnNgLCB5ID0gYG1lYXN1cmVkIGxvZyBzb2x1YmlsaXR5IGluIG1vbHMgcGVyIGxpdHJlYCkpICtcbiAgZ2VvbV9wb2ludCgpICtcbiAgbGFicyhcbiAgICB0aXRsZSA9IFwiTnVtYmVyIG9mIEgtQm9uZCBEb25vcnMgdnMgU29sdWJpbGl0eVwiLFxuICAgIHggPSBcIk51bWJlciBvZiBILUJvbmQgRG9ub3JzXCIsXG4gICAgeSA9IFwiTWVhc3VyZWQgbG9nIFNvbHViaWxpdHlcIlxuICApIn0=
 </script>
 </div>
 </div>
-<p>This output shows:</p>
-<ul>
-<li>pairwise comparisons between treatments</li>
-<li>confidence intervals for differences in means</li>
-<li>adjusted p-values</li>
-</ul>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If you see <code>p adj = 0</code>, this does not mean the p-value is literally zero. Instead, it means that the adjusted p-value is smaller than R’s printing threshold. In essence: p ≪ 0.001.</p>
-</div>
-</div>
-<p><span class="highlight-green"><strong>ACTIVITY:</strong></span> Using the Tukey HSD results, identify which compound shows the largest decrease in viability relative to the control.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Pay attention to both the sign and magnitude of the differences.</p>
-</div>
-</div>
-<p><span class="highlight-green"><strong>ACTIVITY:</strong></span> Modify the code below so that the ANOVA result is stored in an object called <code>anova_result</code> and run a <code>summary()</code> on it.</p>
-<div class="cell" data-exercise="anova-store">
+<p><span class="highlight-green"><strong>ACTIVITY:</strong></span> What pattern do you observe? Do molecules with more H-bond donors tend to be more soluble or less soluble? N.B. A more negative log solubility value means that a compound is less soluble in water.</p>
+<p><span class="highlight-pink"><strong>EXPERIMENT:</strong></span> Modify the code below to plot the solubility vs polar surface area.</p>
+<div class="cell" data-exercise="esol-experiment">
 <div>
 <div id="webr-5" class="exercise-cell">
 
 </div>
 <script type="webr-5-contents">
-eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiYW5vdmEtc3RvcmUifSwiY29kZSI6InRveF9hbm92YSA8LSBhb3YoXG4gIHZpYWJpbGl0eV9wZXJjZW50IH4gY29tcG91bmQsXG4gIGRhdGEgPSB0b3hfZGF0YVxuKSJ9
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXNvbC1leHBlcmltZW50In0sImNvZGUiOiJcbmdncGxvdChlc29sLCBhZXMoeCA9IF9fX18sIHkgPSBfX19fKSkgK1xuICBnZW9tX3BvaW50KCkifQ==
 </script>
 </div>
 </div>
-<div class="hint webr-ojs-exercise exercise-hint d-none" data-exercise="anova-store">
+<div class="hint webr-ojs-exercise exercise-hint d-none" data-exercise="esol-experiment">
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -614,60 +581,52 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiYW5vdmEtc3RvcmUifSwi
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>Use the structure: variable &lt;- … Also, remember to include the <code>summary()</code> call below.</p>
+<p>The name of the relevant column is: <code>Polar Surface Area</code>.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="webr-ojs-exercise exercise-solution d-none" data-exercise="anova-store">
-<div class="cell" data-exercise="anova-store" data-solution="true">
-<div class="webr-ojs-exercise exercise-solution d-none" data-exercise="anova-store">
-<code id="interpolate-7" class="solution-code d-none">anova_result &lt;- aov(
-  viability_percent ~ compound,
-  data = tox_data
-)
-summary(anova_result)</code>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="interpolate-8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="interpolate-8-1"><a href="#interpolate-8-1" aria-hidden="true" tabindex="-1"></a>anova_result <span class="ot">&lt;-</span> <span class="fu">aov</span>(</span>
-<span id="interpolate-8-2"><a href="#interpolate-8-2" aria-hidden="true" tabindex="-1"></a>  viability_percent <span class="sc">~</span> compound,</span>
-<span id="interpolate-8-3"><a href="#interpolate-8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> tox_data</span>
-<span id="interpolate-8-4"><a href="#interpolate-8-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="interpolate-8-5"><a href="#interpolate-8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="webr-ojs-exercise exercise-solution d-none" data-exercise="esol-experiment">
+<div class="cell" data-exercise="esol-experiment" data-solution="true">
+<div class="webr-ojs-exercise exercise-solution d-none" data-exercise="esol-experiment">
+<code id="interpolate-7" class="solution-code d-none">
+ggplot(esol, aes(x = `Polar Surface Area`, y = `measured log solubility in mols per litre`)) +
+  geom_point()</code>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="interpolate-8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="interpolate-8-1"><a href="#interpolate-8-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="interpolate-8-2"><a href="#interpolate-8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(esol, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Polar Surface Area</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">measured log solubility in mols per litre</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="interpolate-8-3"><a href="#interpolate-8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
-<div class="cell" data-exercise="anova-store" data-check="true">
-<script type="exercise-check-anova-store-contents">
-eyJhdHRyIjp7ImNoZWNrIjp0cnVlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6ImFub3ZhLXN0b3JlIn0sImNvZGUiOiJncmFkZXRoaXM6OmdyYWRlX3RoaXNfY29kZSgpIn0=
+<div class="cell" data-exercise="esol-experiment" data-check="true">
+<script type="exercise-check-esol-experiment-contents">
+eyJhdHRyIjp7ImNoZWNrIjp0cnVlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6ImVzb2wtZXhwZXJpbWVudCJ9LCJjb2RlIjoiZ3JhZGV0aGlzOjpncmFkZV90aGlzX2NvZGUoKSJ9
 </script>
 </div>
+<p>Machine learning models cannot see molecular structures directly. Instead, they learn relationships between numerical molecular descriptors and experimental properties.</p>
+<p>In the next section we will see how a neural network learns patterns in these descriptors.</p>
 </section>
-<section id="rstudio-finalising-your-analysis-script" class="level3">
-<h3 class="anchored" data-anchor-id="rstudio-finalising-your-analysis-script"><span class="tag-rstudio">RStudio</span> Finalising your analysis script</h3>
-<p>Modify your <code>toxicity_analysis.R</code> script to contain:</p>
-<ul>
-<li>data creation (tox_data)</li>
-<li>summary statistics and plots</li>
-<li>at least one t-test</li>
-<li>an ANOVA model</li>
-<li>a Tukey post-hoc comparison</li>
-<li>comments interpreting the results</li>
-</ul>
-<p>and save your script.</p>
-<p>This script represents a complete, reproducible analysis workflow for comparing toxicity across treatments.</p>
-</section>
-<section id="summary" class="level3">
-<h3 class="anchored" data-anchor-id="summary">Summary</h3>
-<p>Putting it all together</p>
-<p>In this workshop, you have:</p>
-<ul>
-<li>explored experimental data visually and numerically</li>
-<li>compared two groups using a t-test</li>
-<li>compared multiple groups using ANOVA</li>
-<li>interpreted statistical output in an experimental context</li>
-</ul>
-<p>Most importantly, you have built an analysis step by step, rather than relying on a single command. Well done!</p>
+<section id="rstudio-save-the-code" class="level3">
+<h3 class="anchored" data-anchor-id="rstudio-save-the-code"><span class="tag-rstudio">RStudio</span> Save the code</h3>
+<p>Copy the code below into your own R script for future work:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>esol <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"esol_clean.csv"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(esol)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(esol, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Number of H-Bond Donors</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">measured log solubility in mols per litre</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Number of H-Bond Donors vs Solubility"</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Number of H-Bond Donors"</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Measured log Solubility"</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Remember though… you’ll need to have saved the <code>esol_clean.csv</code> file (available for you on Canvas/CH4004/Mathematics/Workshop 8). The command <code>setwd()</code> is useful if you need to change your working directory (in case you’ve saved your data in a different folder), or alternatively write the entire folder address in your <code>read_csv</code> call.</p>
+<p>The next section introduces you to neural networks themselves!</p>
 
 
 <script type="webr-data">
@@ -1103,13 +1062,13 @@ window._ojs.runtime.interpretFromScriptTags();
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Workshop6_t-tests.html" class="pagination-link" aria-label="Using t-tests">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Using t-tests</span>
+      <a href="./Workshop8_introduction.html" class="pagination-link" aria-label="Introduction to Workshop 8">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction to Workshop 8</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Workshop7_introduction.html" class="pagination-link" aria-label="Introduction to Workshop 7">
-        <span class="nav-page-text">Introduction to Workshop 7</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Workshop8_neural_networks.html" class="pagination-link" aria-label="How Neural Networks Learn Patterns">
+        <span class="nav-page-text">How Neural Networks Learn Patterns</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
