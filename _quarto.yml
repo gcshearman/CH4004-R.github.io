@@ -21,6 +21,8 @@ website:
         text: Workshop 6
       - href: Workshop7_introduction.qmd
         text: Workshop 7
+      - href: Workshop8_introduction.qmd
+        text: Workshop 8
   
   sidebar:
     style: "docked"
@@ -59,6 +61,12 @@ website:
           - Workshop7_formulation.qmd
           - Workshop7_ML1.qmd
           - Workshop7_ML2.qmd          
+      - section: "Workshop 8"
+        contents: 
+          - Workshop8_introduction.qmd
+          - Workshop8_molecules_to_data.qmd
+          - Workshop8_neural_networks.qmd
+          - Workshop8_comparing_models.qmd
           
 filters:
   - tools_tabset.lua

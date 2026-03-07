@@ -1,0 +1,93 @@
+---
+title: "Introduction to Workshop 8"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+## Welcome to Workshop 8: Neural Networks: Predicting Molecular Properties from Chemical Structure
+
+In the previous workshops, you explored how large chemical datasets can be analysed using R. You learned how to:
+
+- load and inspect datasets (see e.g. workshop 2)
+- visualise patterns in chemical data
+- build simple predictive models using machine learning (see e.g. workshop 7)
+
+These tools are extremely valuable because modern chemistry and pharmaceutical science increasingly rely on data-driven approaches.
+
+For example:
+
+- High-throughput screening experiments can test thousands of compounds against biological targets.
+- Chemical databases such as *PubChem* and *ChEMBL* contain millions of molecules and associated properties.
+- Formulation and materials experiments may involve exploring large combinations of ingredients and conditions.
+
+With so much information available, chemists and pharmaceutical scientists often rely on **machine learning (ML)** to help discover patterns and make predictions.
+
+### A quick recap: Machine Learning
+
+Machine learning refers to computational methods that learn patterns from data so that they can make predictions about new, unseen examples.
+
+In chemistry, ML models might help answer questions like:
+
+- Which molecules are likely to be soluble in water?
+- Which drug candidates may show biological activity?
+
+In our earlier workshop, you explored a simple predictive model i.e. linear regression. These models try to find relationships between variables in the dataset.
+
+However, many chemical relationships are not simple or linear.
+
+For example:
+
+- Increasing molecular size may reduce solubility, but only for certain classes of compounds.
+- Multiple molecular features can combine in complex ways to determine physical or biological properties.
+
+To model these more complicated relationships, scientists often use **neural networks**.
+
+### What is a Neural Network?
+
+A neural network is a type of **machine learning model inspired by the structure of the human brain**.
+
+Instead of using a single equation to describe a relationship, neural networks consist of many small computational units called **neurons** that are connected together.
+
+These neurons are organised into layers i.e.:
+
+Input layer → Hidden layer → Output layer
+
+- The **input layer** receives numerical variables from the dataset.
+- One or more **hidden layers** process and combine this information.
+- The **output layer** produces a prediction.
+
+During training, the network gradually adjusts the strength of the connections between neurons so that its predictions become more accurate.
+
+### Why are Neural Networks Useful in Chemistry?
+
+Neural networks are powerful because they can learn complex and nonlinear relationships between variables.
+
+This makes them particularly useful in fields such as:
+
+- **Drug discovery**, where models predict biological activity or toxicity
+- **Materials science**, where models predict properties of new compounds
+- **Formulation science**, where composition influences stability and performance
+- **Cheminformatics**, where molecular structure is used to predict chemical behaviour
+
+Some modern neural network models can learn directly from chemical structures, treating molecules as graphs of atoms and bonds.
+
+### What you'll be doing in this workshop
+
+In this workshop, you will explore how neural networks can be used to make predictions from chemical data.
+
+Using a dataset of chemical properties, you will:
+
+- explore how **molecules can be represented numerically** so that computers can analyse them
+- learn how **neural networks detect patterns in chemical data**
+- see how modern models can use **molecular structures represented as graphs of atoms and bonds**
+- build a **simple neural network model in R** to demonstrate how predictions can be made
+- visualise and interpret the model’s predictions
+
+The goal is not to become an expert in neural networks, but rather to **understand how these models work and why they are useful in chemical research**.
+
+By the end of the workshop, you should have a clearer understanding of how machine learning models can help chemists **analyse large datasets and guide experimental decisions**.
+
+As before, there will be two badges indicating where you should complete the activities:
+
+- [WebR]{.tag-webr} – exercises you can run directly in your browser  
+- [RStudio]{.tag-rstudio} – exercises you could run locally in RStudio

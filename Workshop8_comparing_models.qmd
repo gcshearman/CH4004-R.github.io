@@ -1,0 +1,182 @@
+---
+title: "Comparing Models: Linear Regression vs Neural Network"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+{{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
+
+```{webr}
+#| setup: true
+#| exercise:
+#|  - linear-model
+#|  - nnet-model
+#|  - compare-plot
+#|  - compare-plot2
+#|  - nnet-model-comp
+
+library(readr)
+library(nnet)
+library(dplyr)
+
+esol <- read_csv("data/esol_clean.csv", show_col_types = FALSE)
+
+set.seed(42)
+
+# linear model
+esol_nn <- esol %>%
+  select(`Molecular Weight`, `Number of H-Bond Donors`, `Polar Surface Area`,
+         `measured log solubility in mols per litre`)
+
+# Split train/test
+set.seed(42)
+train_index <- sample(seq_len(nrow(esol_nn)), size = 0.7 * nrow(esol_nn))
+train <- esol_nn[train_index, ]
+test <- esol_nn[-train_index, ]
+
+lm_model <- lm(
+  `measured log solubility in mols per litre` ~ `Molecular Weight` + 
+    `Number of H-Bond Donors` + `Polar Surface Area`,
+  data = train
+)
+
+test$lm_pred <- predict(lm_model, test)
+
+# neural net model
+nn_model <- nnet(
+  `measured log solubility in mols per litre` ~ `Molecular Weight` + 
+    `Number of H-Bond Donors` + `Polar Surface Area`,
+  data = train,
+  size = 10,
+  linout = TRUE,
+  trace = FALSE
+)
+
+test$nn_pred <- predict(nn_model, test)
+
+```
+
+### [WebR]{.tag-webr} Creating a Simple Linear Regression Model
+
+As per Workshop 5 (and indeed 7), let's create a linear regression model based on the same training data that we used for the neural network:
+
+```{webr}
+#| exercise: linear-model
+
+# Fit a linear regression model
+lm_model <- lm(
+  `measured log solubility in mols per litre` ~ `Molecular Weight` + 
+    `Number of H-Bond Donors` + `Polar Surface Area`,
+  data = train
+)
+
+summary(lm_model)
+
+# Predict on the test set
+test$lm_pred <- predict(lm_model, test)
+
+```
+
+Remember, the `lm()` command fits a straight-line relationship between the descriptors and solubility. Predictions are thus linear combinations of the inputs. Although the predictions are usually simple to understand, they may miss nonlinear patterns.
+
+### Neural Network Model
+
+Let's now train a neural network with 10 hidden neurons... this is a middling size so shouldn't risk overfitting.
+
+```{webr}
+#| exercise: nnet-model
+
+# Train a neural network with 10 hidden neurons (moderate size)
+nn_model <- nnet(
+  `measured log solubility in mols per litre` ~ `Molecular Weight` + `Number of H-Bond Donors` + `Polar Surface Area`,
+  data = train,
+  size = 10,
+  linout = TRUE,
+  trace = FALSE
+)
+
+summary(nn_model)
+
+# Predict on test set
+test$nn_pred <- predict(nn_model, test)
+
+```
+
+After making predictions, we can compare them with the **actual measured solubility values**.
+
+```{webr}
+#| exercise: nnet-model-comp
+
+head(test %>% 
+  transmute(
+    measured_solubility = `measured log solubility in mols per litre`,
+    predicted_solubility = lm_pred,
+    predicted_solubility_nn = nn_pred
+  ))
+```
+
+Let's now compare the two visually!
+
+### Visual Comparison of Predictions
+
+```{webr}
+#| exercise: compare-plot
+
+ggplot(test) +
+  geom_point(aes(x = `measured log solubility in mols per litre`, y = lm_pred),
+             color = "blue", alpha = 0.6) +
+  geom_point(aes(x = `measured log solubility in mols per litre`, y = nn_pred),
+             color = "green", alpha = 0.6) +
+  geom_abline(color = "red") +
+  labs(
+    title = "Linear Regression (blue) vs Neural Network (green) Predictions",
+    x = "Measured log Solubility",
+    y = "Predicted log Solubility"
+  )
+```
+
+[<strong>ACTIVITY:</strong>]{.highlight-green} From the graph generated, answer the following questions:
+
+ 1. Which model seems to predict solubility more accurately?
+ 2. Are there any molecules where both models fail? Why might this happen?
+ 
+ Given that the multiple R-squared value for the linear regression model is: 0.06013, the poor fitting for the model is unsurprising. Meanwhile, the neural network model is more complex... each hidden neuron (e.g. neuron 1) calculates something like:
+
+$ℎ{_1} =𝑓(0.47 − 0.47𝑥{_1} + 0.03𝑥{_2} − 0.09𝑥𝑥{_3})$
+
+where:
+
+ - $𝑥{_1}$ = molecular weight
+ - $𝑥{_2}$ = H-bond donors
+ - $𝑥{_3}$ = polar surface area
+ - $𝑓$ = nonlinear activation function
+
+So each hidden neuron is effectively creating a nonlinear combination of the descriptors.
+
+[<strong>EXPERIMENT:</strong>]{.highlight-pink} Now try changing the neural network size to 5 or 20 neurons. Observe how the predictions improve or become noisy. Optionally, also try removing one descriptor (e.g. polar surface area) and see how each model changes.
+
+```{webr}
+#| exercise: compare-plot2
+
+# Modify NN size here and re-run prediction
+nn_model2 <- nnet(
+  `measured log solubility in mols per litre` ~ `Molecular Weight` + `Number of H-Bond Donors` + `Polar Surface Area`,
+  data = train,
+  size = ____,   # try 5, 20, or other
+  linout = TRUE,
+  trace = FALSE
+)
+
+test$nn_pred2 <- predict(nn_model2, test)
+
+ggplot(test) +
+  geom_point(aes(x = `measured log solubility in mols per litre`, y = nn_pred2),
+             color = "purple", alpha = 0.6) +
+  geom_abline(color = "red") +
+  labs(
+    title = "Modified Neural Network Predictions"
+  )
+```
+
+### Workshop Summary
+
+In this workshop you explored how **machine learning can be applied to chemical data**. Starting with the ESOL dataset, you converted molecular structures into numerical descriptors, visualised relationships between those descriptors and solubility, and built predictive models. You compared a **simple linear regression model**, which assumes straight-line relationships, with a **neural network**, which can learn more complex nonlinear patterns. While neural networks can often produce better predictions, they also introduce new considerations such as choosing the number of neurons and avoiding overfitting. These ideas form the foundation of many modern approaches in **cheminformatics, drug discovery, and materials science**, where machine learning helps researchers explore and predict chemical behaviour from data.
