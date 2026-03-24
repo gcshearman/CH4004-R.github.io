@@ -1,0 +1,127 @@
+---
+title: "Introduction to Workshop 9"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+## Welcome to Workshop 9: From Raw Data to Insight
+
+In the previous workshops, you have developed a wide range of skills in R. You've learned how to:
+
+- import and inspect datasets  
+- visualise chemical data using plots (including using `ggplot`)  
+- apply statistical methods to analyse results  
+- build predictive models using machine learning  
+- explore more advanced approaches such as neural networks  
+
+These are powerful tools and together they form the foundation of modern data-driven chemistry and pharmaceutical science.
+
+However, there is one important difference between workshop exercises and real scientific work:
+
+> **Real data is rarely clean, tidy, or ready to analyse.**
+
+### Why this matters
+
+In real research environments, data can come from many different sources, for example:
+
+- experimental measurements recorded manually in spreadsheets
+- instrument outputs exported as text files  
+- public chemical databases such as *PubChem* or *ChEMBL*  
+- compiled datasets from multiple studies or collaborators  
+
+These datasets often contain inconsistencies, such as:
+
+- unexpected file formats or delimiters  
+- unclear or inconsistent column names  
+- missing or incorrectly formatted values  
+- duplicated or partially recorded observations  
+
+As a result, a significant part of working with data is not just analysis, but preparing the data so that analysis is possible.
+
+---
+
+### A different perspective
+
+Up to now, the focus has been on *what you can do with data*.
+
+In this final workshop, the focus shifts slightly to:
+
+> **How you approach unfamiliar and imperfect data**
+
+You'll work with datasets that are intentionally less structured than before. Your task is not simply to follow a set of instructions, but to:
+
+- explore the data  
+- identify potential issues  
+- decide how to clean and prepare it  
+- carry out appropriate analyses  
+
+This reflects how data is encountered in real scientific contexts.
+
+### A simple workflow for working with data
+
+To support this, we will use a consistent workflow throughout the session:
+
+#### 1. Import  
+Load the dataset into R
+
+#### 2. Inspect  
+Examine its structure and contents
+
+#### 3. Clean  
+Fix any issues with names, types, or missing values
+
+#### 4. Check  
+Confirm that the data is now usable
+
+#### 5. Analyse  
+Apply visualisation or modelling techniques
+
+This workflow is intentionally simple, but it is widely applicable and can be reused in many different contexts.
+
+### What you will be doing in this workshop
+
+In this workshop, you'll therefore be working through a series of short data challenges based on chemistry and pharmaceutical science scenarios.
+
+For each dataset, you will:
+
+- determine how to correctly import the data into R  
+- investigate the structure of the dataset  
+- identify and resolve common data issues  
+- prepare the data for analysis  
+- carry out a small piece of analysis or visualisation  
+
+The emphasis is on process rather than perfection.
+
+### A note on problem-solving
+
+It is completely normal for data not to load correctly on the first attempt.
+
+In fact, this is expected.
+
+When something does not work:
+
+- check the file format  
+- inspect the data structure  
+- make small adjustments and try again  
+
+This iterative approach is a key part of working with data in scientific research.
+
+## Looking ahead
+
+In the group project for CH4004, you've been asked to use R to assess some aspect of some data that you have sourced that's relevant to your project. 
+
+As you'll be doing this shortly, the aim of today’s session is to help you feel confident in getting started, even when the data is unfamiliar.
+
+By the end of the workshop, you should feel more comfortable:
+
+- approaching new datasets  
+- diagnosing common issues  
+- applying a structured workflow to prepare your data  
+- using the skills you have developed across the course in a more independent way  
+
+As before, there will be two badges indicating where you should complete the activities:
+
+- [WebR]{.tag-webr} – exercises you can run directly in your browser  
+- [RStudio]{.tag-rstudio} – exercises you could run locally in RStudio
+
+Much of this workshop will be focused on using R Studio.

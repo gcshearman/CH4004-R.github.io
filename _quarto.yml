@@ -23,6 +23,8 @@ website:
         text: Workshop 7
       - href: Workshop8_introduction.qmd
         text: Workshop 8
+      - href: Workshop9_introduction.qmd
+        text: Workshop 9
   
   sidebar:
     style: "docked"
@@ -67,6 +69,11 @@ website:
           - Workshop8_molecules_to_data.qmd
           - Workshop8_neural_networks.qmd
           - Workshop8_comparing_models.qmd
+      - section: "Workshop 9"
+        contents: 
+          - Workshop9_introduction.qmd
+          - Workshop9_importing_data_revisited.qmd
+          - Workshop9_Excel_data.qmd
           
 filters:
   - tools_tabset.lua

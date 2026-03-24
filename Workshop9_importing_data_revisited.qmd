@@ -1,0 +1,295 @@
+---
+title: "Importing data revisited"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+```{webr}
+#| setup: true
+#| exercise:
+#|  - read_data1
+#|  - glimpse_data1
+#|  - read_data-txt1
+#|  - read_data-txt2
+#|  - glimpse_data2
+
+data_csv <- read_csv("data/reaction_data.csv")
+data_txt1 <- read_csv("data/reaction_data.txt")
+data_txt2 <- read_delim("data/reaction_data.txt", delim = ";")
+```
+
+
+## Section 2: Getting Data into R
+
+In this section, we focus on one of the most important (and sometimes frustrating) steps:
+
+> **Getting your data into R correctly**
+
+Different datasets come in different formats, and each may require a slightly different approach.
+
+### Choosing the right tool
+
+Before importing any dataset, ask yourself:
+
+> **What type of file is this?**
+
+| File type | Function | Package |
+|----------|----------|--------|
+| `.csv`   | `read_csv()`   | `readr` (tidyverse) |
+| `.txt`   | `read_delim()` | `readr` |
+| `.xlsx`  | `read_excel()` | `readxl` |
+
+For other types of data, you will need other packages!
+
+### [RStudio]{.tag-rstudio} Install and load packages
+
+Run this once if needed:
+
+```r
+install.packages("tidyverse")
+install.packages("readxl")
+install.packages("janitor")
+```
+
+Please note that you don't need to run every package, just those that are relevant for your data. I've included a quick summary of each package below:
+
+#### `tidyverse` (specifically `readr`)
+
+The `tidyverse` includes the **`readr`** package, which is used for importing plain text data files.
+
+Common functions:
+
+- `read_csv()` → reads **comma-separated files (.csv)**  
+- `read_delim()` → reads **text files with custom delimiters** (e.g. `;`, `\t`)  
+- `read_tsv()` → reads **tab-separated files (.tsv)**  
+
+These are the most commonly used tools for structured data exported from instruments, databases or spreadsheets.
+
+#### `readxl`
+
+The `readxl` package is used for **Excel files**.
+
+Common function:
+
+- `read_excel()` → reads **.xlsx and .xls files**
+
+Use this when your data comes directly from Excel without being exported as CSV. Be aware that this can have more issues than importing csv files so normally I would recommend converting your Excel file into a tab-delimited csv file instead.
+
+#### `janitor`
+
+The `janitor` package doesn't import data, but helps clean it after loading.
+
+Common function:
+
+- `clean_names()` → converts column names into a consistent format  
+  - e.g. `"Temp (°C)"` → `temp_c`  
+
+This makes your data easier to work with in R.
+
+Once you've ensured that the relevant package(s) are installed, you then need to load them using:
+
+```r
+library(tidyverse)
+library(readxl)
+library(janitor)
+```
+
+### [RStudio]{.tag-rstudio} Data A: CSV
+
+So... you'll need to start by creating the csv dataset that you'll be importing in. Take careful note of the symbols separating the columns (these are known as 'delimiters'), the form of the numeric data etc.
+
+Copy the data below, paste it into e.g. Notepad and save it as: `reaction_data.csv`.
+
+Be very careful NOT to accidentally save as `reaction_data.csv.txt` - this is easy to do with Notepad as it defaults to a `.txt` datafile type. Instead, set the type as 'All files' and just write the whole name as given above. Make sure that you save it in the same folder that your project is so that you can open it!
+
+```r
+temperature_c,yield_percent
+25,45
+30,52
+35,60
+40,65
+45,70
+50,72
+```
+
+#### Step 1: Install and/or load the necessary package
+
+Since you have a .csv file, you will need the package: `readr()`. As this is part of the (bigger and better) package `tidyverse`, install this (if it's not already installed).
+
+```r
+install.packages("tidyverse")
+```
+
+Then load it:
+
+```r
+library(tidyverse)
+```
+
+#### Step 2: Import the data
+
+Import the data using `read_csv` (please note that here, I have saved the data within a folder called 'data' - but if you've saved it directly to your project folder, then do not include the 'data/' part of the name). 
+
+You've done this several times before in previous workshops so this should be second nature to you now...
+
+```{webr}
+#| exercise: read_data1
+data_csv <- read_csv("data/reaction_data.csv")
+data_csv
+```
+
+#### Step 3: Inspect the data
+
+Now run the `glimpse()` command to have a look at the data. This is an important step... don't miss it out!
+
+```{webr}
+#| exercise: glimpse_data1
+glimpse(data_csv)
+```
+
+Ask yourself the following questions:
+
+ - Did the data load without errors?
+ - Are the columns numeric?
+ 
+### [RStudio]{.tag-rstudio} Data B: TXT
+ 
+This next (very similar) dataset has a different delimiter from the set above. Can you see what the difference is?
+ 
+We're also going to save this dataset as a .txt file rather than a .csv file... so, please copy the set below and save as: `reaction_data.txt`.
+ 
+```r
+temperature_c;yield_percent
+25;45
+30;52
+35;60
+40;65
+45;70
+50;72
+```
+
+#### Step 1: Install and/or load the necessary package
+
+Since you have a .txt file this time, as for the .csv file, you will need the package: `readr()`... remember, this is part of the (bigger and better) package `tidyverse`, so install this (if it's not already installed).
+
+```r
+install.packages("tidyverse")
+```
+
+Then load it:
+
+```r
+library(tidyverse)
+```
+
+#### Step 2: Try importing
+
+Try importing it first as a .csv file - it's always good to see what happens whe you push the envelope!
+
+```{webr}
+#| exercise: read_data-txt1
+data_txt1 <- read_csv("data/reaction_data.txt")
+data_txt1
+```
+
+::: {.callout-warning}
+## What happened?
+If the data looks incorrect, consider:
+
+ - Is this really a comma-separated file?
+ - What delimiter is being used?
+:::
+
+#### Step 3: Diagnose the issue
+
+If you look carefully at the output, you should notice that something is wrong.
+
+Instead of two separate columns, you may see a single column containing values like: "temperature_c;yield_percent"
+
+
+This tells you that R hasn't split the data correctly into columns.
+
+Ask yourself:
+
+- What symbol is separating the values in the file?
+- Does this match what `read_csv()` expects?
+
+> **Key idea:** `read_csv()` assumes that columns are separated by commas (`,`)
+
+However, this dataset uses a **semicolon (`;`)** as the delimiter.
+
+---
+
+#### Step 4: Use the correct function
+
+To correctly import this dataset, we need to tell R what delimiter is being used.
+
+We can do this using `read_delim()`:
+
+```{webr}
+#| exercise: read_data-txt2
+data_txt2 <- read_delim("data/reaction_data.txt", delim = ";")
+data_txt2
+```
+ 
+#### Step 5: Inspect the corrected data
+
+Now check the structure again:
+
+```{webr}
+#| exercise: glimpse_data2
+glimpse(data_txt2)
+```
+
+You should now see:
+
+- Two separate columns
+- Numeric values correctly recognised
+
+This is a VERY real-world issue... many datasets (especially from European instruments or Excel exports) use:
+
+- ; instead of ,
+- tabs (\t)
+- or other delimiters
+
+If your data looks “wrong” after importing, one of the first things to check is:
+
+> **Is the delimiter correct?**
+
+### A useful habit
+
+When working with unfamiliar text data:
+
+1. Open the file in a text editor (e.g. Notepad)
+2. Look at how the columns are separated
+3. Choose the appropriate function:
+
+- `read_csv()` → commas
+- `read_tsv()` → tabs (also `readr` package)
+- `read_delim()` → anything else
+
+#### A shortcut!
+
+For semicolon-separated files, there is also a convenient shortcut:
+
+```r
+data_txt2 <- read_csv2("data/reaction_data.txt")
+data_txt2
+```
+
+`read_csv2()` is specifically designed for:
+
+- semicolon (;) separated data
+- European-style number formats
+
+### Linking back to the workflow
+
+Let’s connect this to our workflow:
+
+1. Import → initial attempt with read_csv()
+2. Inspect → noticed incorrect structure
+3. Clean/Fix → changed function and delimiter
+4. Check → confirmed correct structure with glimpse()
+5. Analyse → now possible
+
+This cycle: *try, inspect, adjust* is exactly how real data work happens.

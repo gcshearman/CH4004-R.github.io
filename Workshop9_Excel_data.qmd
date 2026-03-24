@@ -1,0 +1,200 @@
+---
+title: "Working with Excel data"
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+```{webr}
+#| setup: true
+#| exercise:
+#|  - read_data-excel1
+#|  - glimpse_data3
+#|  - clean_data
+#|  - glimpse_data4
+
+install.packages("readxl")
+install.packages("janitor")
+library(readxl)
+library(janitor)
+data_xlsx <- read_excel("data/reaction_data.xlsx")
+data_xlsx_clean <- clean_names(data_xlsx)
+```
+
+## Section 3: Excel Files and Cleaning Column Names
+
+So far, you've worked with plain text data files (`.csv`, `.txt`).
+
+However, in chemistry and pharmaceutical science, data is very often stored in Excel files (`.xlsx`).
+
+These can introduce additional challenges:
+
+-   multiple sheets
+-   inconsistent formatting
+-   non-standard column names
+
+### [RStudio]{.tag-rstudio} Install and load required packages
+
+For this section, you'll need to install and load the following packages: `readxl` and `janitor`:
+
+``` r
+install.packages("readxl")
+install.packages("janitor")
+```
+
+``` r
+library(readxl)
+library(janitor)
+```
+
+### [RStudio]{.tag-rstudio} Data C: Excel
+
+Create an Excel file called: `reaction_data.xlsx`.
+
+In the first sheet, enter the following data:
+
+| Temperature (°C) | Yield (%) |
+|------------------|-----------|
+| 25               | 45        |
+| 30               | 52        |
+| 35               | 60        |
+| 40               | 65        |
+| 45               | 70        |
+| 50               | 72        |
+
+Save this file in your project folder (or in a `data/` folder, as I've done here).
+
+#### Step 1: Import the Excel file
+
+As previously, we can try importing the Excel file that you've just made... remember, you'll need to make sure that your call points to the directory in which you've stored it...
+
+```{webr}
+#| exercise: read_data-excel1
+data_xlsx <- read_excel("data/reaction_data.xlsx")
+data_xlsx
+```
+
+#### Step 2: Inspect the data
+
+As ever, use the `glimpse` command to initially inspect the data:
+
+```{webr}
+#| exercise: glimpse_data3
+glimpse(data_xlsx)
+```
+
+You should notice that the data has loaded correctly. However, there is a subtle issue...
+
+#### Step 3: Identify potential problems
+
+Look carefully at the column names:
+
+- `"Temperature (°C)"`
+- `"Yield (%)"`
+
+Ask yourself:
+
+- Are these easy to type?
+- Do they follow a consistent format?
+- Will they be convenient to use in code?
+
+> **Column names with spaces and symbols can make analysis more awkward**
+
+#### Step 4: Clean the column names
+
+The function `clean_names()` comes from the **`janitor`** package.
+
+The aim of `janitor` is to make messy data easier to work with, particularly in the early stages of analysis.
+
+One of its most useful features is standardising column names...
+
+So, what does `clean_names()` do? Well, it automatically converts column names into a consistent format:
+
+- all lowercase  
+- spaces replaced with `_`  
+- symbols removed  
+- units simplified where possible  
+
+For example:
+
+- `"Temperature (°C)"` → `temperature_c`  
+- `"Yield (%)"` → `yield_percent`  
+
+This makes column names:
+
+- easier to type  
+- less error-prone  
+- compatible with R functions  
+
+So, let's use `clean_names()` for our Excel dataset:
+
+```{webr}
+#| exercise: clean_data
+data_xlsx_clean <- clean_names(data_xlsx)
+data_xlsx_clean
+```
+
+While `clean_names()` is the most commonly used function, janitor can also help with other common data issues:
+
+- `remove_empty()`
+  → removes empty rows or columns
+- `get_dupes()`
+  → identifies duplicate rows
+- `tabyl()`
+  → quickly creates simple frequency tables
+
+These tools are especially useful when working with real-world datasets that may contain inconsistencies.
+
+> **You won't need all of these today, but they are good tools to be aware of.**
+
+#### Step 5: Check the result
+
+let's use `glimpse()` again to check to ensure that the data looks reasonable now:
+
+```{webr}
+#| exercise: glimpse_data4
+glimpse(data_xlsx_clean)
+```
+
+You should now see column names like:
+
+- temperature_c
+- yield_percent
+
+These are:
+
+- consistent
+- lowercase
+- easy to type
+- compatible with R functions
+
+### Workshop summary
+
+In this workshop, you have focused on one of the most important aspects of working with data:
+
+> **Getting data into a usable form**
+
+Across a range of examples, you have learned how to:
+
+- import data from different file types (`.csv`, `.txt`, `.xlsx`)  
+- recognise when data has not been imported correctly  
+- identify common issues such as incorrect delimiters or inconsistent column names  
+- apply appropriate fixes using tools such as `read_delim()` and `clean_names()`  
+- follow a structured workflow when working with unfamiliar datasets  
+
+You have also practised a key skill in data science:
+
+> **Diagnosing and fixing problems when things don’t work as expected**
+
+The techniques you’ve used here reflect how data is handled in real scientific work.
+
+Data is rarely perfect and being able to:
+
+- explore it  
+- question it  
+- and improve it  
+
+is just as important as analysing it.
+
+> **Confident data analysis starts with well-prepared data**
+
+Good luck!!!
