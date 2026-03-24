@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Workshop 6 – CH4004 R programming</title>
+<title>Introduction to Workshop 9 – CH4004 R programming</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -33,8 +33,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Workshop6_exploring-data.html" rel="next">
-<link href="./Workshop5_limits.html" rel="prev">
+<link href="./Workshop9_importing_data_revisited.html" rel="next">
+<link href="./Workshop8_comparing_models.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -153,7 +153,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Workshop6_introduction.html">Workshop 6</a></li><li class="breadcrumb-item"><a href="./Workshop6_introduction.html">Introduction to Workshop 6</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Workshop9_introduction.html">Workshop 9</a></li><li class="breadcrumb-item"><a href="./Workshop9_introduction.html">Introduction to Workshop 9</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -307,7 +307,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Workshop6_introduction.html" class="sidebar-item-text sidebar-link active">
+  <a href="./Workshop6_introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction to Workshop 6</span></a>
   </div>
 </li>
@@ -412,7 +412,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Workshop9_introduction.html" class="sidebar-item-text sidebar-link">
+  <a href="./Workshop9_introduction.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Introduction to Workshop 9</span></a>
   </div>
 </li>
@@ -439,9 +439,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Workshop6_introduction.html">Workshop 6</a></li><li class="breadcrumb-item"><a href="./Workshop6_introduction.html">Introduction to Workshop 6</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Workshop9_introduction.html">Workshop 9</a></li><li class="breadcrumb-item"><a href="./Workshop9_introduction.html">Introduction to Workshop 9</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Introduction to Workshop 6</h1>
+<h1 class="title">Introduction to Workshop 9</h1>
 </div>
 
 
@@ -458,30 +458,146 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome-to-workshop-6-tox-talk-exploring-toxicity-data-with-statistics" class="level2">
-<h2 class="anchored" data-anchor-id="welcome-to-workshop-6-tox-talk-exploring-toxicity-data-with-statistics">Welcome to Workshop 6: Tox Talk: Exploring Toxicity Data with Statistics</h2>
-<p>In chemistry, pharmaceutical science and, of course (!), toxicology, we rarely care about a single measurement. Instead, we compare groups:</p>
+<section id="welcome-to-workshop-9-from-raw-data-to-insight" class="level2">
+<h2 class="anchored" data-anchor-id="welcome-to-workshop-9-from-raw-data-to-insight">Welcome to Workshop 9: From Raw Data to Insight</h2>
+<p>In the previous workshops, you have developed a wide range of skills in R. You’ve learned how to:</p>
 <ul>
-<li>treated vs untreated cells</li>
-<li>different compounds</li>
-<li>multiple doses of the same compound</li>
+<li>import and inspect datasets<br>
+</li>
+<li>visualise chemical data using plots (including using <code>ggplot</code>)<br>
+</li>
+<li>apply statistical methods to analyse results<br>
+</li>
+<li>build predictive models using machine learning<br>
+</li>
+<li>explore more advanced approaches such as neural networks</li>
 </ul>
-<p>Since experimental data always contain variability, we need statistical tools to help us decide whether observed differences are likely due to real effects or random variation.</p>
-<section id="what-youll-be-learning" class="level3">
-<h3 class="anchored" data-anchor-id="what-youll-be-learning">What you’ll be learning</h3>
-<p>In this workshop, you’ll use R to perform and interpret common statistical tests used to compare groups, focusing on examples drawn from toxicity-style experiments such as cell viability assays.</p>
-<p>Rather than treating statistics as a black box, the goal is to:</p>
+<p>These are powerful tools and together they form the foundation of modern data-driven chemistry and pharmaceutical science.</p>
+<p>However, there is one important difference between workshop exercises and real scientific work:</p>
+<blockquote class="blockquote">
+<p><strong>Real data is rarely clean, tidy, or ready to analyse.</strong></p>
+</blockquote>
+<section id="why-this-matters" class="level3">
+<h3 class="anchored" data-anchor-id="why-this-matters">Why this matters</h3>
+<p>In real research environments, data can come from many different sources, for example:</p>
 <ul>
-<li>understand what question a statistical test is answering</li>
-<li>choose an appropriate test for a given experimental design</li>
-<li>interpret results in a scientifically meaningful way</li>
+<li>experimental measurements recorded manually in spreadsheets</li>
+<li>instrument outputs exported as text files<br>
+</li>
+<li>public chemical databases such as <em>PubChem</em> or <em>ChEMBL</em><br>
+</li>
+<li>compiled datasets from multiple studies or collaborators</li>
 </ul>
-<p>We will focus on two widely used approaches:</p>
+<p>These datasets often contain inconsistencies, such as:</p>
 <ul>
-<li>t-tests, for comparing two groups</li>
-<li>analysis of variance (ANOVA), for comparing more than two groups</li>
+<li>unexpected file formats or delimiters<br>
+</li>
+<li>unclear or inconsistent column names<br>
+</li>
+<li>missing or incorrectly formatted values<br>
+</li>
+<li>duplicated or partially recorded observations</li>
 </ul>
-<p>As per Workshops 4 &amp; 5, I’ll be using two badges: <span class="tag-webr">WebR</span> and <span class="tag-rstudio">RStudio</span> to denote whether the text (and tasks for you to work through) relates to the browser (this is WebR) or RStudio.</p>
+<p>As a result, a significant part of working with data is not just analysis, but preparing the data so that analysis is possible.</p>
+<hr>
+</section>
+<section id="a-different-perspective" class="level3">
+<h3 class="anchored" data-anchor-id="a-different-perspective">A different perspective</h3>
+<p>Up to now, the focus has been on <em>what you can do with data</em>.</p>
+<p>In this final workshop, the focus shifts slightly to:</p>
+<blockquote class="blockquote">
+<p><strong>How you approach unfamiliar and imperfect data</strong></p>
+</blockquote>
+<p>You’ll work with datasets that are intentionally less structured than before. Your task is not simply to follow a set of instructions, but to:</p>
+<ul>
+<li>explore the data<br>
+</li>
+<li>identify potential issues<br>
+</li>
+<li>decide how to clean and prepare it<br>
+</li>
+<li>carry out appropriate analyses</li>
+</ul>
+<p>This reflects how data is encountered in real scientific contexts.</p>
+</section>
+<section id="a-simple-workflow-for-working-with-data" class="level3">
+<h3 class="anchored" data-anchor-id="a-simple-workflow-for-working-with-data">A simple workflow for working with data</h3>
+<p>To support this, we will use a consistent workflow throughout the session:</p>
+<section id="import" class="level4">
+<h4 class="anchored" data-anchor-id="import">1. Import</h4>
+<p>Load the dataset into R</p>
+</section>
+<section id="inspect" class="level4">
+<h4 class="anchored" data-anchor-id="inspect">2. Inspect</h4>
+<p>Examine its structure and contents</p>
+</section>
+<section id="clean" class="level4">
+<h4 class="anchored" data-anchor-id="clean">3. Clean</h4>
+<p>Fix any issues with names, types, or missing values</p>
+</section>
+<section id="check" class="level4">
+<h4 class="anchored" data-anchor-id="check">4. Check</h4>
+<p>Confirm that the data is now usable</p>
+</section>
+<section id="analyse" class="level4">
+<h4 class="anchored" data-anchor-id="analyse">5. Analyse</h4>
+<p>Apply visualisation or modelling techniques</p>
+<p>This workflow is intentionally simple, but it is widely applicable and can be reused in many different contexts.</p>
+</section>
+</section>
+<section id="what-you-will-be-doing-in-this-workshop" class="level3">
+<h3 class="anchored" data-anchor-id="what-you-will-be-doing-in-this-workshop">What you will be doing in this workshop</h3>
+<p>In this workshop, you’ll therefore be working through a series of short data challenges based on chemistry and pharmaceutical science scenarios.</p>
+<p>For each dataset, you will:</p>
+<ul>
+<li>determine how to correctly import the data into R<br>
+</li>
+<li>investigate the structure of the dataset<br>
+</li>
+<li>identify and resolve common data issues<br>
+</li>
+<li>prepare the data for analysis<br>
+</li>
+<li>carry out a small piece of analysis or visualisation</li>
+</ul>
+<p>The emphasis is on process rather than perfection.</p>
+</section>
+<section id="a-note-on-problem-solving" class="level3">
+<h3 class="anchored" data-anchor-id="a-note-on-problem-solving">A note on problem-solving</h3>
+<p>It is completely normal for data not to load correctly on the first attempt.</p>
+<p>In fact, this is expected.</p>
+<p>When something does not work:</p>
+<ul>
+<li>check the file format<br>
+</li>
+<li>inspect the data structure<br>
+</li>
+<li>make small adjustments and try again</li>
+</ul>
+<p>This iterative approach is a key part of working with data in scientific research.</p>
+</section>
+</section>
+<section id="looking-ahead" class="level2">
+<h2 class="anchored" data-anchor-id="looking-ahead">Looking ahead</h2>
+<p>In the group project for CH4004, you’ve been asked to use R to assess some aspect of some data that you have sourced that’s relevant to your project.</p>
+<p>As you’ll be doing this shortly, the aim of today’s session is to help you feel confident in getting started, even when the data is unfamiliar.</p>
+<p>By the end of the workshop, you should feel more comfortable:</p>
+<ul>
+<li>approaching new datasets<br>
+</li>
+<li>diagnosing common issues<br>
+</li>
+<li>applying a structured workflow to prepare your data<br>
+</li>
+<li>using the skills you have developed across the course in a more independent way</li>
+</ul>
+<p>As before, there will be two badges indicating where you should complete the activities:</p>
+<ul>
+<li><span class="tag-webr">WebR</span> – exercises you can run directly in your browser<br>
+</li>
+<li><span class="tag-rstudio">RStudio</span> – exercises you could run locally in RStudio</li>
+</ul>
+<p>Much of this workshop will be focused on using R Studio.</p>
 
 
 <script type="ojs-module-contents">
@@ -498,7 +614,6 @@ eyJjb250ZW50cyI6W119
 <script type="vfs-file">
 WyJkYXRhL2Vzb2xfY2xlYW4uY3N2IiwiZGF0YS9zZWRkc19kZi5jc3YiLCJkYXRhL0xpcG9waGlsaWNpdHkuY3N2IiwiZGF0YS9yZWFjdGlvbl9kYXRhLmNzdiIsImRhdGEvcmVhY3Rpb25fZGF0YS54bHN4IiwiZGF0YS9kZWxhbmV5LXByb2Nlc3NlZC5jc3YiLCJkYXRhL3JlYWN0aW9uX2RhdGEudHh0IiwiZGF0YS9lc29sX21lc3N5LmNzdiJd
 </script>
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -915,13 +1030,13 @@ window._ojs.runtime.interpretFromScriptTags();
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Workshop5_limits.html" class="pagination-link" aria-label="Using the Model and Knowing Its Limits">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Using the Model and Knowing Its Limits</span>
+      <a href="./Workshop8_comparing_models.html" class="pagination-link" aria-label="Comparing Models: Linear Regression vs Neural Network">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Comparing Models: Linear Regression vs Neural Network</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Workshop6_exploring-data.html" class="pagination-link" aria-label="Exploring and visualising toxicity data">
-        <span class="nav-page-text">Exploring and visualising toxicity data</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Workshop9_importing_data_revisited.html" class="pagination-link" aria-label="Importing data revisited">
+        <span class="nav-page-text">Importing data revisited</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
