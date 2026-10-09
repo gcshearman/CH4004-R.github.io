@@ -1,0 +1,93 @@
+---
+title: "Basic Calculations in R"
+---
+ 
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}} 
+{{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
+
+In this section, we'll look at how to perform some basic but essential calculations in R. These are the kinds of operations you'll use frequently when analysing pharmaceutical or chemical data --- such as calculating averages, variability, and comparing conditions.
+
+<br>
+
+### Average Drug Concentration
+
+Let's start with a simple scenario: you've measured the concentration of a drug in the bloodstream at five different time points.
+
+We want to calculate the **average concentration**.
+
+```{r}
+# Concentration measurements over time (in mg/L)
+concentration <- c(50, 40, 30, 20, 10)
+```
+
+Now calculate the mean using the `mean()` function:
+
+```{r}
+avg_conc <- mean(concentration) 
+cat("Average concentration:", avg_conc, "mg/L")
+```
+
+The `mean()` function calculates the arithmetic average of the values in the vector. In case you're wondering about the `cat()` function, in R it's used to print text and values together in a readable format, all on one line, without the extra formatting that other functions (like `print()` or just typing a variable name) might include. In essence, `cat()` stands for concatenate and print!
+
+<br>
+
+### Discussion
+
+Why might it be useful to calculate the average concentration of a drug over time?
+
+Think about how this information might be used in:
+
+-   Determining dosing intervals
+
+-   Assessing therapeutic effectiveness
+
+-   Comparing different formulations or delivery methods
+
+Discuss these points with another student.
+
+<br>
+
+### Variability: Standard Deviation
+
+We can also assess how much the concentration varies across these measurements. This is where standard deviation is useful since it gives us a measure of spread or variability.
+
+```{r}
+sd_conc <- sd(concentration) 
+cat("Standard deviation of concentration:", sd_conc)
+```
+
+A higher standard deviation = more variability in measurements. A lower standard deviation = more consistency.
+
+<br>
+
+### Try It Yourself
+
+Now try entering your own concentration data and calculate the average and standard deviation.
+
+Change a value or two and observe how the results change.
+
+```{r}
+# Enter your own values here:
+your_conc <- c(52, 49, 48, 51, 50)
+
+# Calculate mean and standard deviation
+mean(your_conc) 
+sd(your_conc)
+```
+
+<br>
+
+### Summary
+
+In this section, you have:
+
+-   Created a numeric vector
+
+-   Calculated the mean and standard deviation
+
+-   Started thinking about how to interpret these in the context of pharmaceutical data
+
+These are fundamental tools for any kind of data analysis and you're now equipped to start using them in R. 
+
+Finally, in the last section for this workshop, you'll do some basic data visualisation.
+

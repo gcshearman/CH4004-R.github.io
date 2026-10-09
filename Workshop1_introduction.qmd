@@ -1,0 +1,73 @@
+---
+title: "Introduction to Workshop 1"
+---
+ 
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}} 
+{{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
+
+## Welcome to Workshop 1: R You Ready? Getting Started with Chemistry Data!
+
+## Objectives
+
+By the end of this workshop, you be able to:
+
+1.  Use basic R commands to handle data
+2.  Perform simple calculations
+3.  Create basic plots (using ggplot2)
+
+<br>
+
+## Why is R important for you??
+
+**Chemical Data Analysis & Predictive Modeling:** Chemists often work with large datasets from spectroscopy, chromatography, and molecular simulations. R helps analyze trends, optimize reactions, and predict properties with machine learning.
+
+**Advanced statistical analysis:** R is one of the most important software packages available for statistical analyses, including hypothesis testing, regression, multivariate analysis and thus is ideal for pharmaceutical science and chemical data processing (e.g. stability testing, reaction rate analysis etc.).
+
+**Molecular & Drug Design Applications:** R aids in computational chemistry by supporting quantum chemistry calculations, molecular docking, and cheminformatics.
+
+**Pharmaceutical Formulation & Development:** Pharmaceutical scientists use R to model drug solubility, stability, and formulation optimization.
+
+**Data visualisation and graphing:** R is the gold standard for drawing customisable and eye-catching graphs.. This is likely to be useful for you throughout your career, irrelevant of the field you move into!
+
+<br>
+
+## Format of workshops
+
+You will need to type any text in the grey boxes into the 'Console' region of R Studio.
+
+Try executing the text below by typing it in the Console area where you see a \> and then pressing *Enter*.
+
+```{webr}
+boxplot(len ~ dose, data = ToothGrowth, main = "Effect of Vitamin C Dose on Tooth Growth", col = "lightblue")
+
+```
+
+The plot that you've generated (well done) shows the effect of vitamin C on the tooth growth in guinea pigs. You can read more (if you're interested!) at: <https://doi.org/10.1093/jn/33.5.491>.
+
+As we go through each week, you will learn how to use a wide range of valuable tools including tools that support: (i) Data cleaning and manipulation (ii) Data plotting incl. complex visualisations for scientific data (iii) Statistical tests & correlation and regression analysis (iv) Big data analysis. These will all be put into relevant (if occasionally slightly implausible!) pharmaceutical and chemical scenarios.
+
+<br>
+
+## Your first R command
+
+In the Console region, enter the following: `2 + 2` and then run it (remember, you may / will need either to click the *Run* button or press *Ctrl+Shift+Enter...* but sometimes just pressing *Enter* works just as well!).
+
+The output should be produced directly below your entry!
+
+<br>
+
+## Key Concepts in R
+
+Welcome to your first real steps in R. In this section, you'll learn some of the most important ideas for working with data in R. We'll use examples relevant to pharmaceutical science and chemistry --- so everything here connects to the kind of work you'll be doing in labs, coursework, or research later in your degree.
+
+If you're following along in RStudio (which you should be), try typing each code example into the Console (or a script file) and observe the output. You're encouraged to experiment... try changing values or adding new examples.
+
+We'll cover:
+
+-   Variables
+
+-   Data types
+
+-   Vectors
+
+In the next section, you'll learn about the types of data in R.

@@ -1,0 +1,202 @@
+---
+title: "Data Types in R"
+---
+ 
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}} 
+{{< include ./_extensions/r-wasm/live/_gradethis.qmd >}}
+
+## Data Types
+
+### 1. Variables
+
+A variable is like a labelled container that stores a piece of information --- a number, a name, a result --- so that you can use it later.
+
+In R, we assign values to variables using the assignment arrow `<-`. You read this as "gets" or "is assigned".
+
+Try this:
+
+```{r}
+dose <- 50
+```
+
+This creates a variable called dose and gives it the value 50 (maybe it's 50 mg of a drug).
+
+Now type:
+
+```{r}
+dose
+```
+
+R will show you what's stored in that variable.
+
+Try it yourself: Create a variable called temperature and assign it a value of 37. Then print it.
+
+```{r}
+temperature <- 37
+temperature
+```
+
+You can name variables almost anything you like, but it's good practice to use names that make sense for your data.
+
+<br>
+
+### 2. Data Types
+
+Not all variables are the same. Some store numbers, some store words, and some just keep track of whether something is true or false.
+
+Here are the most common types of data in R:
+
+-   **Numeric:** numbers (e.g., concentrations, pH, temperature)
+
+-   **Character**: text or words (e.g., compound names, sample labels)
+
+-   **Logical:** TRUE or FALSE values (e.g., was the drug effective?)
+
+Try these examples:
+
+```{r}
+# Numeric
+concentration <- 25.5
+
+# Character (text)
+compound <- "Aspirin"
+
+# Logical (TRUE/FALSE)
+effective <- TRUE
+```
+
+You can check the type of data using the `class()` function:
+
+```{r}
+class(concentration)
+class(compound)
+class(effective)
+```
+
+Try changing the values and rerun `class()` to see how R handles different inputs.
+
+<br>
+
+### 3. Vectors
+
+A vector is a list of values, all of the same type, stored together in one object. If a variable is a single value, a vector is a series of them. This is really useful when you're collecting data from repeated measurements.
+
+Let's say you measure drug concentration over time. You could store those concentrations in a vector like this:
+
+```{r}
+concentrations <- c(10, 20, 30, 40, 50)
+```
+
+The `c()` function means "combine" --- it tells R to combine these values into a single vector.
+
+Now print it:
+
+```{r}
+concentrations
+```
+
+You can get individual values from a vector using square brackets:
+
+```{r}
+concentrations[1]   # first value
+concentrations[3]   # third value
+```
+
+Try it yourself: Create a vector of pH measurements: 6.5, 6.7, 6.8, 6.9, 7.0
+
+```{r}
+pH_values <- c(6.5, 6.7, 6.8, 6.9, 7.0)
+pH_values
+```
+
+<br>
+
+### 4. Data Frames
+
+A data frame is like a spreadsheet in R --- it's a table where each column is a variable (stored as a vector), and each row is an observation. This is the format you'll often use to store real experimental data.
+
+Let's say you're studying how the concentration of a drug changes over time. You collect measurements at five time points. Here's how you could store that data:
+
+```{r}
+data <- data.frame(
+  Time = c(0, 1, 2, 3, 4),
+  Concentration = c(50, 40, 30, 20, 10)
+)
+```
+
+To see the full table, type:
+
+```{r}
+print(data)
+```
+
+You should see a tidy table with two columns: `Time` and `Concentration`.
+
+To access a single column of the data frame, use the `$` operator:
+
+```{r}
+data$Concentration
+```
+
+To get a specific value (e.g., row 2, column 2):
+
+```{r}
+data[2, 2]
+```
+
+Try it yourself: What is the concentration at time = 3 hours? (Hint: Look at row 4.)
+
+<br>
+
+### Practice Task
+
+Let's try making a new data frame. Here's a small dataset from a made-up drug trial:
+
+| Compound  | Dose (mg) | Effective? |
+|:---------:|:---------:|:----------:|
+|  Aspirin  |    100    |    TRUE    |
+| Ibuprofen |    200    |   FALSE    |
+
+Create this in R:
+
+```{r}
+compounds <- data.frame(
+  Compound = c("Aspirin", "Ibuprofen"),
+  Dose = c(100, 200),
+  Effective = c(TRUE, FALSE)
+)
+```
+
+```{r}
+print(compounds)
+```
+
+Now try:
+
+-   Printing just the Dose column
+
+-   Checking the class of the Effective column
+
+-   Changing one of the doses to a different value and printing the result again
+
+<br>
+
+### Summary
+
+In this section, you've learned the basics of:
+
+-   Variables -- how to assign and use them
+
+-   Data types -- numeric, character, and logical values
+
+-   Vectors -- how to store multiple values in a single object
+
+-   Data frames -- how to organise structured data in a table
+
+These concepts will be used throughout the rest of this workshop, including in plotting and data analysis. Getting comfortable with them now will make everything else much easier later.
+
+If you've followed along and typed the code yourself, well done... that's the best way to learn!
+
+<br>
+
+In the next section, we'll do some simple calculations!

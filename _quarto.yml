@@ -30,7 +30,12 @@ website:
     style: "docked"
     search: true
     contents: 
-      - Workshop1.qmd
+      - section: "Workshop 1"
+        contents: 
+          - Workshop1_introduction.qmd
+          - Workshop1_data_types.qmd
+          - Workshop1_simple_calcs.qmd
+          - Workshop1_basic_graphing.qmd 
       - Workshop2.qmd
       - section: "Workshop 3"
         contents: 
